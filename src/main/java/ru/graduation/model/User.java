@@ -15,21 +15,13 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"password"})
-public class User extends AbstractBaseEntity {
+public class User extends AbstractNamedEntity {
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotEmpty
     @Size(max = 128)
     private String email;
-
-    @Column(name = "first_name")
-    @Size(max = 128)
-    private String firstName;
-
-    @Column(name = "last_name")
-    @Size(max = 128)
-    private String lastName;
 
     @Column(name = "password")
     @Size(max = 256)
@@ -40,4 +32,7 @@ public class User extends AbstractBaseEntity {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Vote vote;
 }
