@@ -2,9 +2,7 @@ package ru.graduation.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -13,9 +11,13 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@ToString
 public class Dish extends AbstractNamedEntity {
 
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@ToString.Exclude
+    //private Menu menu;
+
     @Column(name = "price")
-    @NotNull
     private Double price;
 }

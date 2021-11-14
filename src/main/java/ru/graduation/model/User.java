@@ -32,7 +32,4 @@ public class User extends AbstractNamedEntity {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    private Vote vote;
 }

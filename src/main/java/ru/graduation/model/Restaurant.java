@@ -13,15 +13,18 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@ToString
 public class Restaurant extends AbstractNamedEntity{
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "meanu_id", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    //@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     @NotNull
+    @ToString.Exclude
     private Set<Menu> menu;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vote_id", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    //@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     @NotNull
+    @ToString.Exclude
     private Set<Vote> votes;
 }

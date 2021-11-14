@@ -13,18 +13,21 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@ToString
 public class Vote extends AbstractBaseEntity {
 
     @Column(name = "vote_date", nullable = false)
-    private LocalDate voteLocalDateTime;
+    private LocalDate voteDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull
+    @ToString.Exclude
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
+    @ToString.Exclude
     private User user;
 }

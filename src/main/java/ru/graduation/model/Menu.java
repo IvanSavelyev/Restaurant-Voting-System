@@ -13,19 +13,26 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@ToString
 public class Menu extends AbstractNamedEntity {
 
     @Column(name = "menu_date", nullable = false)
     @NotNull
     private LocalDate date = LocalDate.now();
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dish_id", nullable = false)
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @NotNull
+//    @ToString.Exclude
+//    private Set<Dish> dishes;
+    @OneToMany(fetch = FetchType.LAZY)
     @NotNull
+    @ToString.Exclude
     private Set<Dish> dishes;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull
+    @ToString.Exclude
     private Restaurant restaurant;
 }
