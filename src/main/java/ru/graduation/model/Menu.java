@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "menus")
@@ -13,26 +13,19 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@ToString
+@ToString(callSuper = true)
 public class Menu extends AbstractNamedEntity {
 
     @Column(name = "menu_date", nullable = false)
     @NotNull
     private LocalDate date = LocalDate.now();
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @NotNull
-//    @ToString.Exclude
-//    private Set<Dish> dishes;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
     @NotNull
-    @ToString.Exclude
-    private Set<Dish> dishes;
+    private List<Dish> dishes;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull
-    @ToString.Exclude
     private Restaurant restaurant;
 }

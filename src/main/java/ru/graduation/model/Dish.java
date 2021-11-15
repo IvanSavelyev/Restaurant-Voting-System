@@ -11,13 +11,16 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@ToString
+@ToString(callSuper = true)
 public class Dish extends AbstractNamedEntity {
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@ToString.Exclude
-    //private Menu menu;
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "menu_id", nullable = false)
+    @NotNull
+    @ToString.Exclude
+    private Menu menu;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
+    @NotNull
     private Double price;
 }

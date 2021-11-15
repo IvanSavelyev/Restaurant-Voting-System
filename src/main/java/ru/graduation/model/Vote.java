@@ -5,7 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "votes")
@@ -16,8 +16,9 @@ import java.time.LocalDate;
 @ToString
 public class Vote extends AbstractBaseEntity {
 
-    @Column(name = "vote_date", nullable = false)
-    private LocalDate voteDate;
+    @Column(name = "vote_date_time", nullable = false)
+    @NotNull
+    private LocalDateTime voteDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
