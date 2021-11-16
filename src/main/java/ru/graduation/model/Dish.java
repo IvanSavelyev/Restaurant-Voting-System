@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 public class Dish extends AbstractNamedEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "menu_id", nullable = false)
     @NotNull
     @ToString.Exclude
     private Menu menu;

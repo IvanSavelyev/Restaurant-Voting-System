@@ -1,7 +1,7 @@
 INSERT INTO USERS (EMAIL, NAME , PASSWORD)
 VALUES ('user@gmail.com', 'User_First', '{noop}password'),
        ('admin@javaops.ru', 'Admin_First', '{noop}admin');
-
+--
 INSERT INTO USER_ROLE (ROLE, USER_ID)
 VALUES ('USER',  1),
        ('ADMIN', 2),
@@ -25,7 +25,6 @@ VALUES  ('BAR MENU' ,       '2021-11-15', 1),
         ('MAIN MENU',       '2021-11-15', 3),
         ('SNACK MENU',      '2021-11-15', 3),
         ('DESSERTS MENU',   '2021-11-15', 3);
--- --
 -- --
 INSERT INTO DISHES (NAME, PRICE, MENU_ID)
 VALUES  ( 'COBBER',                  1000.50,  1),
@@ -106,3 +105,8 @@ VALUES  ( 'COBBER',                  1000.50,  1),
         ( 'flan',                    144.8,    4 ),
         ( 'flan',                    422.5,    8 ),
         ( 'flan',                    155.52,   12);
+--
+INSERT INTO VOTES (VOTE_DATE_TIME, RESTAURANT_ID, USER_ID)
+VALUES ('2021-11-15 12:34:00', 1 , 1),
+       ('2021-11-16 18:50:00', 2 , 2);
+

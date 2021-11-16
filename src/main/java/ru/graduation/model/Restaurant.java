@@ -11,17 +11,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@AllArgsConstructor
 @ToString(callSuper = true)
 public class Restaurant extends AbstractNamedEntity {
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-//    @NotNull
-//    @ToString.Exclude
-//    private Set<Menu> menu;
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-//    @NotNull
-//    @ToString.Exclude
-//    private Set<Vote> votes;
 }

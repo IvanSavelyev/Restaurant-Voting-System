@@ -20,12 +20,23 @@ public class Menu extends AbstractNamedEntity {
     @NotNull
     private LocalDate date = LocalDate.now();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @NotNull
+    @ToString.Exclude
     private List<Dish> dishes;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull
+    @ToString.Exclude
     private Restaurant restaurant;
+
+//    @Override
+//    public String toString() {
+//        return "Menu{" + super.toString() +
+//                "date=" + date +
+//                //", dishes=" + dishes +
+//               // ", restaurant=" + restaurant +
+//                '}' + "\n";
+//    }
 }
