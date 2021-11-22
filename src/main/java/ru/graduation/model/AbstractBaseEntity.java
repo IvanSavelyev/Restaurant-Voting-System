@@ -3,6 +3,7 @@ package ru.graduation.model;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,6 +25,11 @@ public class AbstractBaseEntity implements Persistable<Integer> {
 //  See https://hibernate.atlassian.net/browse/HHH-3718 and https://hibernate.atlassian.net/browse/HHH-12034
 //  Proxy initialization when accessing its identifier managed now by JPA_PROXY_COMPLIANCE setting
     protected Integer id;
+
+    public int id() {
+        Assert.notNull(id, "Entity must have id");
+        return id;
+    }
 
     @Override
     public boolean isNew() {
