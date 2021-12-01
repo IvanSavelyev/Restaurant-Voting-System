@@ -29,14 +29,8 @@ public class RestaurantVotingSystemApplication implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		//System.out.println(userRepository.findAll());
 //		System.out.println(menuRepository.findById(1));
-		//System.out.println(restaurantRepository.findById(1));
-		//restaurantRepository.
-		//System.out.println(dishRepository.findDishByIdAndMenuId(1, 1));
-		//System.out.println(menuRepository.findAllByRestaurantId(1));
-		//System.out.println(menuRepository.findMenuByIdAndRestaurantId(1, 1));
-
-		System.out.println(voteRepository.findByUserIdAndVoteDateTimeBefore(1, LocalDateTime.now()));
-
+//		System.out.println(restaurantRepository.findById(1));
+		System.out.println(dishRepository.findById(1).get());
 
 	}
 }

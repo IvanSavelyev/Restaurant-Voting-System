@@ -1,5 +1,6 @@
 package ru.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Dish extends AbstractNamedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     @ToString.Exclude
+    @JsonIgnore
     private Menu menu;
 
     @Column(name = "price", nullable = false)
