@@ -2,6 +2,8 @@ package ru.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,6 +21,7 @@ public class Dish extends AbstractNamedEntity {
     @NotNull
     @ToString.Exclude
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Menu menu;
 
     @Column(name = "price", nullable = false)

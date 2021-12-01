@@ -6,18 +6,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.graduation.model.Dish;
-import ru.graduation.model.Restaurant;
 import ru.graduation.service.DishService;
 
+import java.net.URI;
+
 import static ru.graduation.web.controllers.AdminDishController.ADMIN_DISH_REST_URL;
-import static ru.graduation.web.controllers.RestaurantController.RESTAURANT_REST_URL;
 
 @RestController
 @RequestMapping(value = ADMIN_DISH_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Slf4j
-public class AdminDishController extends AbstractRestController{
+public class AdminDishController {
 
     public final static String ADMIN_DISH_REST_URL = "api/rest/admin/dish";
 
@@ -26,7 +27,7 @@ public class AdminDishController extends AbstractRestController{
     @GetMapping("/{id}")
     public ResponseEntity<Dish> getById(@PathVariable Integer id) {
         log.debug("Get dish with id : {}", id);
-        return new ResponseEntity<>(dishService.getById(id), HttpStatus.OK);
+        return new ResponseEntity<>(dishService.get(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/{menuId}")
@@ -36,9 +37,25 @@ public class AdminDishController extends AbstractRestController{
         dishService.delete(id, menuId);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> save(Dish dish ) {
-        log.debug("Saving new dish");
-        return new ResponseEntity<>(dishService.save(dish), HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void  delete(@PathVariable Integer id) {
+        log.debug("Delete dish with id: {}", id);
+        dishService.delete(id);
+    }
+
+    @PostMapping(value = "/{menuId}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Dish> createWithLocation(@RequestBody Dish dish, @PathVariable int menuId) {
+        Dish created = dishService.create(dish, menuId);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(ADMIN_DISH_REST_URL + "/{menuId}")
+                .buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @PostMapping(value = "/{restaurantId}/{menuId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Dish> create(@RequestBody Dish dish, @PathVariable int menuId, @PathVariable int restaurantId){
+        log.info("create {} for menu {} and restaurant {}", dish, menuId, restaurantId);
+        return new ResponseEntity<>(dishService.create(dish, menuId, restaurantId), HttpStatus.CREATED);
     }
 }

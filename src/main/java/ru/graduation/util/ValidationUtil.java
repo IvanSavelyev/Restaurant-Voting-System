@@ -1,14 +1,16 @@
 package ru.graduation.util;
 
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.lang.NonNull;
 import ru.graduation.model.AbstractBaseEntity;
 import ru.graduation.util.exception.NotFoundException;
 
+@UtilityClass
 public class ValidationUtil {
-    private ValidationUtil() {
-    }
 
     public static <T> T checkNotFoundWithId(T object, int id) {
         checkNotFoundWithId(object != null, id);

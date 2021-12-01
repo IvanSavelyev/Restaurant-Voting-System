@@ -1,6 +1,8 @@
 package ru.graduation.model;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +13,7 @@ import java.util.List;
 @Table(name = "menus")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
 public class Menu extends AbstractNamedEntity {
@@ -29,6 +31,7 @@ public class Menu extends AbstractNamedEntity {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull
     @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
 //    @Override

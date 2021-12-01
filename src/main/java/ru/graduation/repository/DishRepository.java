@@ -13,18 +13,25 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface DishRepository extends JpaRepository<Dish, Integer> {
 
-    @Query("SELECT d FROM Dish d WHERE d.menu.id=:menuId ORDER BY d.name ASC")
+    @Query("SELECT d FROM Dish d WHERE d.menu.id=?1 ORDER BY d.name ASC")
     List<Dish> findAllByMenuId(int menuId);
+
+//    Dish findDishById(int id);
 
     Dish findDishByIdAndMenuId(int id, int menuId);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Dish d WHERE d.id=?1 AND d.menu.id=?2")
-    void deleteByIdAndMenuId(int id, int menuId);
+    int deleteByIdAndMenuId(int id, int menuId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Dish d WHERE d.id=?1 AND d.menu.id=?2")
+    int deleteById(int id);
+
+//    @Transactional
+//    Dish save(Dish dish, int menuId);
 
 //    void deleteByIdAndMenuId(Integer id, Integer menuId);
-
-
-
 }
