@@ -25,21 +25,21 @@ public class AdminDishController {
     private final DishService dishService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dish> getById(@PathVariable Integer id) {
+    public ResponseEntity<Dish> getById(@PathVariable int id) {
         log.debug("Get dish with id : {}", id);
         return new ResponseEntity<>(dishService.get(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/{menuId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void  delete(@PathVariable Integer id, @PathVariable Integer menuId ) {
+    public void  delete(@PathVariable int id, @PathVariable int menuId ) {
         log.debug("Delete dish with id: {} and menu id: {}", id, menuId);
         dishService.delete(id, menuId);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void  delete(@PathVariable Integer id) {
+    public void  delete(@PathVariable int id) {
         log.debug("Delete dish with id: {}", id);
         dishService.delete(id);
     }

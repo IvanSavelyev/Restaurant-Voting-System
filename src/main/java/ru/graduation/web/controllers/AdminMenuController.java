@@ -27,14 +27,14 @@ public class AdminMenuController {
     private final MenuService menuService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Menu> get(@PathVariable Integer id) {
+    public ResponseEntity<Menu> get(@PathVariable int id) {
         log.debug("Get dish with id : {}", id);
         return new ResponseEntity<>(menuService.get(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/{menuId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer id, @PathVariable Integer restaurantId) {
+    public void delete(@PathVariable int id, @PathVariable int restaurantId) {
         log.debug("Delete dish with id: {} and menu id: {}", id, restaurantId);
         menuService.delete(id, restaurantId);
     }

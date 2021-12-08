@@ -1,6 +1,7 @@
 package ru.graduation.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "votes")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Vote extends AbstractBaseEntity {
@@ -27,11 +28,13 @@ public class Vote extends AbstractBaseEntity {
     @NotNull
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     @ToString.Exclude
+    @JsonIgnore
     private User user;
 }

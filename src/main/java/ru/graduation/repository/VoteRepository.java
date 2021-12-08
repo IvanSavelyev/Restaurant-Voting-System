@@ -19,6 +19,8 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
     Vote findByUserIdAndVoteDateTimeAfter(Integer user_id, @NotNull LocalDateTime voteDateTime);
 
+    Vote findByUserId(int userId);
+
     List<Vote> findAllByVoteDateTime(LocalDateTime dateTime);
 
     List<Vote> findAllByRestaurantId(Integer restId);
