@@ -2,13 +2,14 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.graduation.model.Dish;
 import ru.graduation.model.Menu;
 import ru.graduation.repository.DishRepository;
 import ru.graduation.repository.MenuRepository;
 import ru.graduation.repository.RestaurantRepository;
 import ru.graduation.util.ValidationUtil;
 import ru.graduation.util.exception.NotFoundException;
+
+import java.util.List;
 
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
@@ -22,17 +23,19 @@ public class MenuService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public Menu get(int id){
-        return checkNotFoundWithId(menuRepository.findById(id).get(), id);
+    public List<Menu> getAll(int restaurantId) {
+        return menuRepository.findAllByRestaurantId(restaurantId);
     }
 
-    public Menu get(int id, int restaurantId){
+    public Menu get(int id, int restaurantId) {
         return checkNotFoundWithId(menuRepository.findMenuByIdAndRestaurantId(id, restaurantId), id);
     }
 
     public void delete(int id, int restaurantId) throws NotFoundException {
-        checkNotFoundWithId(dishRepository.deleteByIdAndMenuId(id, restaurantId) != 0 , id);
+        checkNotFoundWithId(dishRepository.deleteByIdAndMenuId(id, restaurantId) != 0, id);
     }
+
+
 
 //    public void delete(int id) throws NotFoundException {
 //        checkNotFoundWithId(dishRepository.deleteById(id) != 0 , id);

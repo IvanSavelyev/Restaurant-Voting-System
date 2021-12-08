@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ru.graduation.repository.*;
 
-import java.time.LocalDateTime;
-
 @SpringBootApplication
 @EnableJpaRepositories
 @AllArgsConstructor
@@ -28,9 +26,10 @@ public class RestaurantVotingSystemApplication implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		//System.out.println(userRepository.findAll());
-//		System.out.println(menuRepository.findById(1));
+		System.out.println(menuRepository.findMenuByIdAndRestaurantId(1, 1));
 //		System.out.println(restaurantRepository.findById(1));
-		System.out.println(dishRepository.findById(1).get());
+//		System.out.println(dishRepository.findById(1).get());
+
 
 	}
 }

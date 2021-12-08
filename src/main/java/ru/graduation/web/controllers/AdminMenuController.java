@@ -7,12 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.graduation.model.Dish;
 import ru.graduation.model.Menu;
-import ru.graduation.service.DishService;
 import ru.graduation.service.MenuService;
 
 import java.net.URI;
+import java.util.List;
 
 import static ru.graduation.web.controllers.AdminMenuController.ADMIN_MENU_REST_URL;
 
@@ -22,42 +21,35 @@ import static ru.graduation.web.controllers.AdminMenuController.ADMIN_MENU_REST_
 @Slf4j
 public class AdminMenuController {
 
-    public final static String ADMIN_MENU_REST_URL = "api/rest/admin/menu";
+    public final static String ADMIN_MENU_REST_URL = "api/rest/admin/menus";
 
     private final MenuService menuService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Menu> get(@PathVariable int id) {
-        log.debug("Get dish with id : {}", id);
-        return new ResponseEntity<>(menuService.get(id), HttpStatus.OK);
+    @GetMapping
+    public List<Menu> getAll(@RequestParam int restaurantId) {
+        log.debug("Get all menus for restaurant id : {}", restaurantId);
+        return menuService.getAll(restaurantId);
     }
 
-    @DeleteMapping("/{id}/{menuId}")
+    @GetMapping(value = "/{id}")
+    public Menu get(@PathVariable int id, @RequestParam int restaurantId) {
+        log.debug("Get dish with id : {}", id);
+        return menuService.get(id, restaurantId);
+    }
+
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id, @PathVariable int restaurantId) {
+    public void delete(@PathVariable int id, @RequestParam int restaurantId) {
         log.debug("Delete dish with id: {} and menu id: {}", id, restaurantId);
         menuService.delete(id, restaurantId);
     }
 
-//    @DeleteMapping("/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(@PathVariable Integer id) {
-//        log.debug("Delete dish with id: {}", id);
-//        menuService.delete(id);
-//    }
-
-    @PostMapping(value = "/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu, @PathVariable int restaurantId) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu, @RequestParam int restaurantId) {
         Menu created = menuService.create(menu, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(ADMIN_MENU_REST_URL + "/{menuId}")
+                .path(ADMIN_MENU_REST_URL)
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
-
-//    @PostMapping(value = "/{restaurantId}/{menuId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Dish> create(@RequestBody Dish dish, @PathVariable int menuId, @PathVariable int restaurantId) {
-//        log.info("create {} for menu {} and restaurant {}", dish, menuId, restaurantId);
-//        return new ResponseEntity<>(menuService.create(dish, menuId, restaurantId), HttpStatus.CREATED);
-//    }
 }

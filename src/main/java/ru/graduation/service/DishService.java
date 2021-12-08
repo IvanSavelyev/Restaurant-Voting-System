@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.graduation.model.Dish;
 import ru.graduation.model.Menu;
-import ru.graduation.model.Restaurant;
 import ru.graduation.repository.DishRepository;
 import ru.graduation.repository.MenuRepository;
 import ru.graduation.repository.RestaurantRepository;
@@ -25,11 +24,15 @@ public class DishService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public Dish get(int id){
+    public List<Dish> getAllByMenuId(int menuId) {
+        return dishRepository.findAllByMenuId(menuId);
+    }
+
+    public Dish get(int id) {
         return checkNotFoundWithId(dishRepository.findById(id).get(), id);
     }
 
-    public Dish get(int id, int menuId){
+    public Dish get(int id, int menuId) {
         return checkNotFoundWithId(dishRepository.findDishByIdAndMenuId(id, menuId), id);
     }
 

@@ -11,6 +11,7 @@ import ru.graduation.model.Dish;
 import ru.graduation.service.DishService;
 
 import java.net.URI;
+import java.util.List;
 
 import static ru.graduation.web.controllers.AdminDishController.ADMIN_DISH_REST_URL;
 
@@ -20,7 +21,7 @@ import static ru.graduation.web.controllers.AdminDishController.ADMIN_DISH_REST_
 @Slf4j
 public class AdminDishController {
 
-    public final static String ADMIN_DISH_REST_URL = "api/rest/admin/dish";
+    public final static String ADMIN_DISH_REST_URL = "api/rest/admin/dishes";
 
     private final DishService dishService;
 
@@ -30,9 +31,15 @@ public class AdminDishController {
         return new ResponseEntity<>(dishService.get(id), HttpStatus.OK);
     }
 
+    @GetMapping
+    public List<Dish> getByMenuId(@RequestParam int menuId) {
+        log.debug("Get dish with menuId : {}", menuId);
+        return dishService.getAllByMenuId(menuId);
+    }
+
     @DeleteMapping("/{id}/{menuId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void  delete(@PathVariable int id, @PathVariable int menuId ) {
+    public void delete(@PathVariable int id, @PathVariable int menuId) {
         log.debug("Delete dish with id: {} and menu id: {}", id, menuId);
         dishService.delete(id, menuId);
     }

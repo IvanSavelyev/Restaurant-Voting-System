@@ -1,11 +1,10 @@
 package ru.graduation.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.graduation.model.Dish;
 import ru.graduation.model.Menu;
 
 import java.util.List;
@@ -23,5 +22,15 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     Menu findMenuByIdAndRestaurantId(int id, int restaurantId);
 
-    Menu findMenuByNameAndRestaurantId(int id, int restaurantId);
+    List<Menu> findByRestaurantId(int restaurantId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Menu m WHERE m.id=?1 AND m.restaurant.id=?2")
+    int deleteByIdAndRestaurantId(int id, int restaurantId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Menu m WHERE m.id=?1")
+    int deleteById(int id);
 }
