@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+//@AllArgsConstructor
 @ToString(callSuper = true)
 public class Dish extends AbstractNamedEntity {
 
@@ -27,4 +27,9 @@ public class Dish extends AbstractNamedEntity {
     @Column(name = "price", nullable = false)
     @NotNull
     private Double price;
+
+    public Dish(Integer id, String name, Double price) {
+        super(id, name);
+        this.price = price;
+    }
 }

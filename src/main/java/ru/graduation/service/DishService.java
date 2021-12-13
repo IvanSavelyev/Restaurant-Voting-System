@@ -29,7 +29,7 @@ public class DishService {
     }
 
     public Dish get(int id) {
-        return checkNotFoundWithId(dishRepository.findById(id).get(), id);
+        return checkNotFoundWithId(dishRepository.getById(id), id);
     }
 
     public Dish get(int id, int menuId) {
