@@ -31,6 +31,10 @@ public class MenuService {
         return checkNotFoundWithId(menuRepository.findMenuByIdAndRestaurantId(id, restaurantId), id);
     }
 
+    public Menu get(int id) {
+        return checkNotFoundWithId(menuRepository.findById(id).get(), id);
+    }
+
     public void delete(int id, int restaurantId) throws NotFoundException {
         checkNotFoundWithId(dishRepository.deleteByIdAndMenuId(id, restaurantId) != 0, id);
     }
