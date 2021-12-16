@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.graduation.AuthUser;
 import ru.graduation.model.Role;
 import ru.graduation.model.User;
 import ru.graduation.repository.UserRepository;
@@ -39,16 +40,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JsonUtil.setObjectMapper(objectMapper);
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-////        return email -> {
-////            log.debug("Authenticating '{}'", email);
-////            Optional<User> optionalUser = userRepository.findByEmailIgnoreCase(email.toLowerCase());
-////            return new AuthUser(optionalUser.orElseThrow(
-////                    () -> new UsernameNotFoundException("User '" + email + "' was not found")));
-////        };
-//        return null;
-//    }
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return email -> {
+            log.debug("Authenticating '{}'", email);
+            Optional<User> optionalUser = userRepository.findByEmailIgnoreCase(email.toLowerCase());
+            return new AuthUser(optionalUser.orElseThrow(
+                    () -> new UsernameNotFoundException("User '" + email + "' was not found")));
+        };
+        return null;
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

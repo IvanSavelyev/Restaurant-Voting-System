@@ -47,6 +47,4 @@ public class VoteService {
         vote.setUser(userRepository.getById(userId));
         return voteRepository.save(vote);
     }
-
-
 }
