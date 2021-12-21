@@ -3,27 +3,20 @@ package ru.graduation.web.controllers;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.graduation.model.Vote;
 import ru.graduation.service.VoteService;
 
-import java.net.URI;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import static ru.graduation.web.controllers.ProfileVoteController.PROFILE_VOTE_REST_URL;
+import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
 
 @RestController
-@RequestMapping(value = PROFILE_VOTE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = VOTE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Slf4j
-public class ProfileVoteController {
+public class VoteController {
 
-    public final static String PROFILE_VOTE_REST_URL = "api/rest/profile/votes/";
+    public final static String VOTE_REST_URL = "api/rest/votes/";
 
-//    private VoteService voteService;
+    private VoteService voteService;
 
 //    @PostMapping(value = "vote", produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<Vote> doVote(@RequestParam int restaurantId) {

@@ -2,19 +2,31 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.graduation.model.User;
 import ru.graduation.model.Vote;
-import ru.graduation.repository.MenuRepository;
 import ru.graduation.repository.RestaurantRepository;
 import ru.graduation.repository.UserRepository;
 import ru.graduation.repository.VoteRepository;
-import ru.graduation.util.exception.NotChangeYourMindException;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Service
 @AllArgsConstructor
 public class VoteService {
+
+//    LocalTime DEAD_LINE_TIME = LocalTime.of(23,00);
+
+    private final UserRepository userRepository;
+
+    private final VoteRepository voteRepository;
+
+    public final RestaurantRepository restaurantRepository;
+
+
+
+
+
+
 
 //    private final LocalTime deadLineTimeToChangeYourMind = LocalTime.of(23, 0);
 //

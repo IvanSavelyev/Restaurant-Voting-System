@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
 
     @Cacheable("users")
     public List<User> getAll() {
-        return repository.getAll();
+        return null;
     }
 
     @CacheEvict(value = "users", allEntries = true)

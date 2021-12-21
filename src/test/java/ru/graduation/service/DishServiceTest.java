@@ -16,23 +16,23 @@ import static ru.graduation.testdata.DishTestData.*;
 public class DishServiceTest {
 
     @Autowired
-    protected DishService service;
+    protected DishService dishService;
 
     @Test
     void delete() {
-        service.delete(DISH1_ID);
-        Dish dish = service.get(DISH1_ID);
-        assertThrows(NotFoundException.class, () -> service.get(DISH1_ID));
+        dishService.delete(DISH1_ID, 1);
+//        Dish dish = dishService.get(DISH1_ID);
+        assertThrows(NotFoundException.class, () -> dishService.getByMenuId(DISH1_ID, 1));
     }
 
     @Test
     void deleteNotFound() {
-        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
+        assertThrows(NotFoundException.class, () -> dishService.delete(NOT_FOUND));
     }
 
     @Test
     void get() {
-        Dish actual = service.get(DISH1_ID);
+        Dish actual = dishService.get(DISH1_ID);
         DISH_MATCHER.assertMatch(actual, dish1);
     }
 }

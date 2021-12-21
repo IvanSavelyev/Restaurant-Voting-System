@@ -15,8 +15,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
-    List<Menu> getByRestaurantId(int restaurantId);
-
     @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.dishes WHERE m.restaurant.id=?2")
     List<Menu> getAllByRestaurant(int restaurantId);
 
@@ -27,10 +25,10 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
     @Transactional
     @Query("DELETE FROM Menu m WHERE m.id=?1")
     @Secured(("ROLE_ADMIN"))
-    int deleteById(int id);
+    int delete(int id);
 
     @Modifying
     @Transactional
     @Secured(("ROLE_ADMIN"))
-    int save(int id);
+    Menu save(Menu menu);
 }

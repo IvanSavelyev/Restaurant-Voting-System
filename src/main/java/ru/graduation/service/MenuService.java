@@ -2,6 +2,7 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import ru.graduation.model.Menu;
 import ru.graduation.repository.DishRepository;
 import ru.graduation.repository.MenuRepository;
@@ -17,41 +18,34 @@ import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 @AllArgsConstructor
 public class MenuService {
 
-    private final DishRepository dishRepository;
-
     private final MenuRepository menuRepository;
 
     private final RestaurantRepository restaurantRepository;
-
-//    public List<Menu> getAll(int restaurantId) {
-//        return menuRepository.findAllByRestaurantId(restaurantId);
-//    }
 
     public Menu get(int id, int restaurantId) {
         return checkNotFoundWithId(menuRepository.getByIdRestaurantAndRestaurantId(id, restaurantId), id);
     }
 
-//    public Menu get(int id) {
-//        return checkNotFoundWithId(menuRepository.findById(id).get(), id);
-//    }
-
-//    public void delete(int id, int restaurantId) throws NotFoundException {
-//        checkNotFoundWithId(dishRepository.deleteByIdAndMenuId(id, restaurantId) != 0, id);
-//    }
-
-
-
-//    public void delete(int id) throws NotFoundException {
-//        checkNotFoundWithId(dishRepository.deleteById(id) != 0 , id);
-//    }
+    public Menu get(int id) {
+        return checkNotFoundWithId(menuRepository.getById(id), id);
+    }
 
     public Menu create(Menu menu, int restaurantId) {
-        ValidationUtil.checkNew(menu);
-        if (!menu.isNew() && get(menu.id(), restaurantId) == null) {
+        Assert.notNull(menu, "menu must not be null");
+        if(menu.isNew())
             return null;
-        }
         menu.setRestaurant(restaurantRepository.getById(restaurantId));
         return menuRepository.save(menu);
+    }
+
+    public void update(Menu menu, int restaurant_id) {
+        Assert.notNull(menu, "menu must not be null");
+        menu.setRestaurant(restaurantRepository.getById(restaurant_id));
+        checkNotFoundWithId(menuRepository.save(menu), menu.id());
+    }
+
+    public void delete(int id) throws NotFoundException {
+        checkNotFoundWithId(menuRepository.delete(id) != 0 , id);
     }
 
 
