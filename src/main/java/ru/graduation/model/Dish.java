@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "dishes")
+@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_id", "name"}, name = "unique_dish")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,9 +26,9 @@ public class Dish extends AbstractNamedEntity {
 
     @Column(name = "price", nullable = false)
     @NotNull
-    private Double price;
+    private Float price;
 
-    public Dish(Integer id, String name, Double price) {
+    public Dish(Integer id, String name, Float price) {
         super(id, name);
         this.price = price;
     }

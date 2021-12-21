@@ -48,7 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             return new AuthUser(optionalUser.orElseThrow(
                     () -> new UsernameNotFoundException("User '" + email + "' was not found")));
         };
-        return null;
     }
 
     @Autowired
@@ -59,13 +58,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/api/account/register").anonymous()
-//                .antMatchers("/api/account").hasRole(Role.USER.name())
-//                .antMatchers("/api/**").hasRole(Role.ADMIN.name())
-//                .and().httpBasic()
-//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and().csrf().disable();
-        http.csrf().disable();
+        http.authorizeRequests()
+                .antMatchers("/api/account/register").anonymous()
+                .antMatchers("/api/account").hasRole(Role.USER.name())
+                .antMatchers("/api/**").hasRole(Role.ADMIN.name())
+                .and().httpBasic()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().csrf().disable();
     }
 }

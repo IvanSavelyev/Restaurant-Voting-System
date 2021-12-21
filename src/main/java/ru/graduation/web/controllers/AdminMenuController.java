@@ -36,7 +36,7 @@ public class AdminMenuController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id, @PathVariable Integer restaurantId) {
         log.debug("Delete dish with id: {} and menu id: {}", id, restaurantId);
-        menuService.delete(id, restaurantId);
+//        menuService.delete(id, restaurantId);
     }
 
 //    @DeleteMapping("/{id}")

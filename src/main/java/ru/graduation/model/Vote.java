@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "votes")
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "vote_date_time"}, name = "unique_vote")})
 @Getter
 @Setter
 @NoArgsConstructor

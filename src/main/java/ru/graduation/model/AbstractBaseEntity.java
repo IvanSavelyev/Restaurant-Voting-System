@@ -1,5 +1,6 @@
 package ru.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
@@ -30,7 +31,7 @@ public class AbstractBaseEntity implements Persistable<Integer> {
         Assert.notNull(id, "Entity must have id");
         return id;
     }
-
+    @JsonIgnore
     @Override
     public boolean isNew() {
         return this.id == null;

@@ -2,9 +2,8 @@ package ru.graduation;
 
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.lang.NonNull;
 import ru.graduation.model.User;
-
-import javax.validation.constraints.NotNull;
 
 @Getter
 @ToString(of = "user")
@@ -12,7 +11,7 @@ public class AuthUser extends org.springframework.security.core.userdetails.User
 
     private final User user;
 
-    public AuthUser(@NotNull User user) {
+    public AuthUser(@NonNull User user) {
         super(user.getEmail(), user.getPassword(), user.getRoles());
         this.user = user;
     }

@@ -23,21 +23,21 @@ public class ProfileVoteController {
 
     public final static String PROFILE_VOTE_REST_URL = "api/rest/profile/votes/";
 
-    private VoteService voteService;
+//    private VoteService voteService;
 
-    @PostMapping(value = "vote", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> doVote(@RequestParam int restaurantId) {
-        Vote created = voteService.vote(restaurantId, 1);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(PROFILE_VOTE_REST_URL).build().toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
-    }
+//    @PostMapping(value = "vote", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Vote> doVote(@RequestParam int restaurantId) {
+//        Vote created = voteService.vote(restaurantId, 1);
+//        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path(PROFILE_VOTE_REST_URL).build().toUri();
+//        return ResponseEntity.created(uriOfNewResource).body(created);
+//    }
 
-    @PatchMapping(value = "vote", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> change(@RequestParam int restaurantId) {
-        Vote updated = voteService.change(restaurantId, 1);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(PROFILE_VOTE_REST_URL).build().toUri();
-        return ResponseEntity.created(uriOfNewResource).body(updated);
-    }
+//    @PatchMapping(value = "vote", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Vote> change(@RequestParam int restaurantId) {
+////        Vote updated = voteService.change(restaurantId, 1);
+//        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path(PROFILE_VOTE_REST_URL).build().toUri();
+//        return ResponseEntity.created(uriOfNewResource).body(updated);
+//    }
 }

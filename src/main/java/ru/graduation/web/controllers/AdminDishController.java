@@ -41,7 +41,7 @@ public class AdminDishController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id, @PathVariable int menuId) {
         log.debug("Delete dish with id: {} and menu id: {}", id, menuId);
-        dishService.delete(id, menuId);
+//        dishService.delete(id, menuId);
     }
 
     @DeleteMapping("/{id}")
@@ -63,6 +63,7 @@ public class AdminDishController {
     @PostMapping(value = "/{restaurantId}/{menuId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> create(@RequestBody Dish dish, @PathVariable int menuId, @PathVariable int restaurantId){
         log.info("create {} for menu {} and restaurant {}", dish, menuId, restaurantId);
-        return new ResponseEntity<>(dishService.create(dish, menuId, restaurantId), HttpStatus.CREATED);
+//        return new ResponseEntity<>(dishService.create(dish, menuId, restaurantId), HttpStatus.CREATED);
+        return null;
     }
 }

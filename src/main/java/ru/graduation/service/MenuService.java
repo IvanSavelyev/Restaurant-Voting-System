@@ -23,17 +23,17 @@ public class MenuService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public List<Menu> getAll(int restaurantId) {
-        return menuRepository.findAllByRestaurantId(restaurantId);
-    }
+//    public List<Menu> getAll(int restaurantId) {
+//        return menuRepository.findAllByRestaurantId(restaurantId);
+//    }
 
     public Menu get(int id, int restaurantId) {
-        return checkNotFoundWithId(menuRepository.findMenuByIdAndRestaurantId(id, restaurantId), id);
+        return checkNotFoundWithId(menuRepository.getByIdRestaurantAndRestaurantId(id, restaurantId), id);
     }
 
-    public Menu get(int id) {
-        return checkNotFoundWithId(menuRepository.findById(id).get(), id);
-    }
+//    public Menu get(int id) {
+//        return checkNotFoundWithId(menuRepository.findById(id).get(), id);
+//    }
 
 //    public void delete(int id, int restaurantId) throws NotFoundException {
 //        checkNotFoundWithId(dishRepository.deleteByIdAndMenuId(id, restaurantId) != 0, id);

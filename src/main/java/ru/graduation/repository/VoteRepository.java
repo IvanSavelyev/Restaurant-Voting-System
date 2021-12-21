@@ -13,5 +13,5 @@ import java.util.List;
 @Repository
 @Transactional(readOnly = true)
 public interface VoteRepository extends JpaRepository<Vote, Integer> {
-    Vote findByUserId(int userId);
+//    Vote findByUserIdAAndVoteDateTime(int userId);
 }

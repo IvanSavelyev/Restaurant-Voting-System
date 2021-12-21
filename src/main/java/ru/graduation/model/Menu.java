@@ -25,25 +25,14 @@ public class Menu extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @NotNull
-    @ToString.Exclude
     @JsonIgnore
     private List<Dish> dishes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull
-    @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
 //    @JsonBackReference
     @JsonIgnore
     private Restaurant restaurant;
-
-//    @Override
-//    public String toString() {
-//        return "Menu{" + super.toString() +
-//                "date=" + date +
-//                //", dishes=" + dishes +
-//               // ", restaurant=" + restaurant +
-//                '}' + "\n";
-//    }
 }
