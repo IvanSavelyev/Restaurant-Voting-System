@@ -24,6 +24,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     User getByEmail(String email);
 
+    User findById(int id);
+
 //    List<User> getAll();
 
     @RestResource(rel = "by-email", path = "by-email")

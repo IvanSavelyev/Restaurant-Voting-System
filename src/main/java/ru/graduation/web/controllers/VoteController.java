@@ -4,9 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import ru.graduation.model.Restaurant;
+import ru.graduation.model.User;
+import ru.graduation.model.Vote;
+import ru.graduation.service.RestaurantService;
+import ru.graduation.service.UserService;
 import ru.graduation.service.VoteService;
+import ru.graduation.util.SecurityUtil;
 
 import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
+
 
 @RestController
 @RequestMapping(value = VOTE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -14,23 +21,22 @@ import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
 @Slf4j
 public class VoteController {
 
-    public final static String VOTE_REST_URL = "api/rest/votes/";
+    public final static String VOTE_REST_URL = "api/vote";
 
-    private VoteService voteService;
+    private final RestaurantService restaurantService;
+    private final UserService userService;
+    private final VoteService voteService;
 
-//    @PostMapping(value = "vote", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Vote> doVote(@RequestParam int restaurantId) {
-//        Vote created = voteService.vote(restaurantId, 1);
-//        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-//                .path(PROFILE_VOTE_REST_URL).build().toUri();
-//        return ResponseEntity.created(uriOfNewResource).body(created);
-//    }
+    public Vote vote(int restaurantId) {
+        //Находим юзера
+        User user = userService.get(SecurityUtil.authUserId());
+        //находим ресторан
+        Restaurant restaurant = restaurantService.get(restaurantId);
+        //Проверяем раннее существующие голоса юзера
+        Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
+        if(vote != null){
 
-//    @PatchMapping(value = "vote", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Vote> change(@RequestParam int restaurantId) {
-////        Vote updated = voteService.change(restaurantId, 1);
-//        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-//                .path(PROFILE_VOTE_REST_URL).build().toUri();
-//        return ResponseEntity.created(uriOfNewResource).body(updated);
-//    }
+        }
+        return null;
+    }
 }

@@ -1,6 +1,7 @@
 package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.graduation.model.Restaurant;
@@ -12,13 +13,14 @@ import java.util.List;
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public Restaurant get(Integer id) {
-        return restaurantRepository.findById(id).get();
+    public Restaurant get(int id) {
+        return checkNotFoundWithId(restaurantRepository.findById(id), id);
     }
 
     public void delete(int id) throws NotFoundException {

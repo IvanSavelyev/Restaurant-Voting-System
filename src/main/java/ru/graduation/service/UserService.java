@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User get(int id) {
-        return checkNotFoundWithId(repository.getById(id), id);
+        return checkNotFoundWithId(repository.findById(id), id);
     }
 
     public User getByEmail(String email) {
@@ -86,8 +86,4 @@ public class UserService implements UserDetailsService {
     private User prepareAndSave(User user) {
         return repository.save(prepareToSave(user, passwordEncoder));
     }
-
-//    public User getWithVotes(int id) {
-//        return checkNotFoundWithId(repository.getWithMeals(id), id);
-//    }
 }

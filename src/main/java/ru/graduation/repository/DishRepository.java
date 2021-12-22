@@ -16,6 +16,12 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
     @Query("SELECT d FROM Dish d WHERE d.menu.id=?1 ORDER BY d.name ASC")
     List<Dish> findAllByMenuId(int menuId);
 
+    @Query("SELECT d FROM Dish d WHERE d.id=?1")
+    Dish findDishById(int id);
+
+    @Query("SELECT d FROM Dish d WHERE d.id=?1 AND d.menu.id=?2")
+    Dish findDishByIdaAndMenuId(int id, int menuId);
+
     @Modifying
     @Transactional
     @Query("DELETE FROM Dish d WHERE d.id=?1")
@@ -28,6 +34,4 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
 
     @Transactional
     Dish save(Dish dish);
-
-    Dish getByIdAndMenuId(int id, int menuId);
 }

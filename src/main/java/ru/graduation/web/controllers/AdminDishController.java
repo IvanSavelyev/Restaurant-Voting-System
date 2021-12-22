@@ -26,7 +26,7 @@ public class AdminDishController {
     private final DishService dishService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dish> getById(@PathVariable int id) {
+    public ResponseEntity<Dish> get(@PathVariable int id) {
         log.debug("Get dish with id : {}", id);
         return new ResponseEntity<>(dishService.get(id), HttpStatus.OK);
     }

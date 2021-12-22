@@ -3,6 +3,7 @@ package ru.graduation.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.util.StringUtils;
 import ru.graduation.util.JsonDeserializers;
 
@@ -11,8 +12,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.EnumSet;
 import java.util.Set;
 
 @Entity
@@ -30,8 +29,7 @@ public class User extends AbstractNamedEntity implements Serializable {
     @Size(max = 128)
     private String email;
 
-
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     @Size(max = 256)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonDeserialize(using = JsonDeserializers.PasswordDeserializer.class)
@@ -41,6 +39,7 @@ public class User extends AbstractNamedEntity implements Serializable {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique")})
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
     public void setEmail(String email) {

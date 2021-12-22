@@ -6,21 +6,24 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import ru.graduation.repository.MenuRepository;
-import ru.graduation.repository.UserRepository;
+import ru.graduation.model.Restaurant;
+import ru.graduation.model.User;
+import ru.graduation.model.Vote;
+import ru.graduation.service.RestaurantService;
+import ru.graduation.service.UserService;
+import ru.graduation.service.VoteService;
+import ru.graduation.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 @EnableJpaRepositories
 @AllArgsConstructor
 public class RestaurantVotingSystemApplication implements ApplicationRunner {
-
-//    private final UserRepository userRepository;
-//    private final MenuRepository menuRepository;/
-//	private final RestaurantRepository restaurantRepository;
-//	private final DishRepository dishRepository;
-//	private final VoteRepository voteRepository;
+    private final RestaurantService restaurantService;
+    private final UserService userService;
+    private final VoteService voteService;
 
     public static void main(String[] args) {
         SpringApplication.run(RestaurantVotingSystemApplication.class, args);
@@ -28,12 +31,32 @@ public class RestaurantVotingSystemApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//		System.out.println(userRepository.findAll());
-//		System.out.println(menuRepository.getWithoutDishes(LocalDate.of(2021, 11, 15), 1));
-//        System.out.println(menuRepository.get(LocalDate.of(2021, 5, 15),1));
-//		System.out.println(restaurantRepository.findById(1));
-//		System.out.println(dishRepository.findById(1).get());
+        final LocalDate currentDate = LocalDate.now();
+        Vote vote = new Vote();
+        //Находим юзера
+        int userId = 1;
+        int restaurantId = 1;
 
-
+        User user = userService.get(userId);
+        //находим ресторан
+        Restaurant restaurant = restaurantService.get(1);
+        //Проверяем раннее существующие голоса юзера
+        try {
+            vote = voteService.getByUserId(1);
+        } catch (NotFoundException e) {
+            voteService.create(new Vote(LocalDateTime.now(), restaurant, user));
+        }
+        if (vote.getVoteDateTime().toLocalDate().isAfter(currentDate)) {
+            System.out.println("throw NotChangeYourMindException;");
+        } else {
+            vote.setVoteDateTime(LocalDateTime.now());
+            vote.setRestaurant(restaurant);
+            voteService.create(vote);
+        }
     }
 }
+
+//ADMIN -- GET  RESTAURANTS -> MENU -> DISH
+//ADMIN -- PUT/POST -> MENU OF REST
+//USER  -- CAN VOTE FOR REST (WITH LIMITS)
+//

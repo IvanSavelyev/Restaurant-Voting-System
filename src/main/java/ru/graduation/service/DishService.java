@@ -43,13 +43,12 @@ public class DishService {
         checkNotFoundWithId(dishRepository.deleteByIdAndMenuId(id, menuId) != 0 , id);
     }
 
-
     public Dish get(int id) {
         return checkNotFoundWithId(dishRepository.getById(id), id);
     }
 
     public Dish getByMenuId(int id, int menuId) {
-        return checkNotFoundWithId(dishRepository.getByIdAndMenuId(id, menuId), id);
+        return checkNotFoundWithId(dishRepository.findDishByIdaAndMenuId(id, menuId), id);
     }
 
     public List<Dish> getAllByMenuId(int menuId) {

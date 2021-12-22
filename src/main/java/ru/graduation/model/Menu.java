@@ -1,7 +1,10 @@
 package ru.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -26,6 +29,7 @@ public class Menu extends AbstractNamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @NotNull
     @JsonIgnore
+    @ToString.Exclude
     private List<Dish> dishes;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,6 +38,7 @@ public class Menu extends AbstractNamedEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
 //    @JsonBackReference
     @JsonIgnore
+    @ToString.Exclude
     private Restaurant restaurant;
 
     public Menu(Integer id, String name, LocalDate date) {

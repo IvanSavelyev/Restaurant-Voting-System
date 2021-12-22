@@ -16,10 +16,13 @@ import java.util.List;
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.dishes WHERE m.restaurant.id=?2")
-    List<Menu> getAllByRestaurant(int restaurantId);
+    List<Menu> getAllWithDishByRestaurantId(int restaurantId);
 
     @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.dishes WHERE m.id=?1 AND m.restaurant.id=?2")
-    Menu getByIdRestaurantAndRestaurantId(int id, int restaurantId);
+    Menu getWithDishByRestaurantId(int id, int restaurantId);
+
+    @Query("SELECT m FROM Menu m WHERE m.id=?1")
+    Menu get(int id);
 
     @Modifying
     @Transactional

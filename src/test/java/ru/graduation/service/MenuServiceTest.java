@@ -29,7 +29,7 @@ public class MenuServiceTest {
 
     @Test
     void get() {
-        Menu actual = menuService.get(MENU1_ID, 1);
+        Menu actual = menuService.get(MENU1_ID);
         MENU_MATCHER.assertMatch(actual, menu1);
     }
 }

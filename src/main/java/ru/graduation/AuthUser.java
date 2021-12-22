@@ -2,21 +2,41 @@ package ru.graduation;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.lang.NonNull;
 import ru.graduation.model.User;
+import ru.graduation.to.UserTo;
+import ru.graduation.util.UserUtil;
+
+import java.io.Serial;
 
 @Getter
 @ToString(of = "user")
 public class AuthUser extends org.springframework.security.core.userdetails.User {
 
-    private final User user;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    public AuthUser(@NonNull User user) {
-        super(user.getEmail(), user.getPassword(), user.getRoles());
-        this.user = user;
+    private UserTo userTo;
+
+    public AuthUser(User user) {
+        super(user.getEmail(), user.getPassword(), true, true, true, true, user.getRoles());
+        setTo(UserUtil.asTo(user));
     }
 
-    public int id() {
-        return user.id();
+//    public int getId() {
+//        return userTo.id();
+//    }
+
+    public void setTo(UserTo newTo) {
+        newTo.setPassword(null);
+        userTo = newTo;
+    }
+
+//    public UserTo getUserTo() {
+//        return userTo;
+//    }
+
+    @Override
+    public String toString() {
+        return userTo.toString();
     }
 }

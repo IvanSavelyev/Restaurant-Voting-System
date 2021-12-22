@@ -23,11 +23,11 @@ public class MenuService {
     private final RestaurantRepository restaurantRepository;
 
     public Menu get(int id, int restaurantId) {
-        return checkNotFoundWithId(menuRepository.getByIdRestaurantAndRestaurantId(id, restaurantId), id);
+        return checkNotFoundWithId(menuRepository.getWithDishByRestaurantId(id, restaurantId), id);
     }
 
     public Menu get(int id) {
-        return checkNotFoundWithId(menuRepository.getById(id), id);
+        return checkNotFoundWithId(menuRepository.get(id), id);
     }
 
     public Menu create(Menu menu, int restaurantId) {
