@@ -4,13 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import ru.graduation.model.Restaurant;
-import ru.graduation.model.User;
 import ru.graduation.model.Vote;
 import ru.graduation.repository.VoteRepository;
-import ru.graduation.util.SecurityUtil;
-
-import java.time.LocalDateTime;
 
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
@@ -20,13 +15,17 @@ public class VoteService {
 
     private final VoteRepository voteRepository;
 
-    public Vote getByUserId(int userId){
+    public Vote getByUserId(int userId) {
         return checkNotFoundWithId(voteRepository.findByUserId(userId), userId);
     }
 
-    @CacheEvict(value = "vote", allEntries = true)
+    //    @CacheEvict(value = "vote", allEntries = true)
     public Vote create(Vote vote) {
         Assert.notNull(vote, "vote must not be null");
         return voteRepository.save(vote);
+    }
+
+    public boolean checkIfExistByUserId(int userId){
+        return voteRepository.existsByUserId(userId);
     }
 }

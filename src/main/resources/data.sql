@@ -1,11 +1,17 @@
 INSERT INTO USERS (EMAIL, NAME, PASSWORD)
 VALUES ('user@gmail.com', 'User', '{noop}password'),
-       ('admin@javaops.ru', 'Admin', '{noop}admin');
+       ('admin@javaops.ru', 'Admin', '{noop}Admin'),
+       ('user1@javaops.ru', 'User1', '{noop}user1'),
+       ('user2@javaops.ru', 'User2', '{noop}user1'),
+       ('user3@javaops.ru', 'User3', '{noop}user1');
 --
 INSERT INTO USER_ROLE (ROLE, USER_ID)
 VALUES ('USER', 1),
-       ('ADMIN', 2),
-       ('USER', 2);
+    ('ADMIN', 2),
+    ('USER', 2),
+    ('USER', 3),
+    ('USER', 4),
+    ('USER', 5);
 
 INSERT INTO RESTAURANTS (NAME)
 VALUES ('ASHOT DINNER'),

@@ -31,28 +31,33 @@ public class RestaurantVotingSystemApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        final LocalDate currentDate = LocalDate.now();
-        Vote vote = new Vote();
-        //Находим юзера
-        int userId = 1;
-        int restaurantId = 1;
-
-        User user = userService.get(userId);
-        //находим ресторан
-        Restaurant restaurant = restaurantService.get(1);
-        //Проверяем раннее существующие голоса юзера
-        try {
-            vote = voteService.getByUserId(1);
-        } catch (NotFoundException e) {
-            voteService.create(new Vote(LocalDateTime.now(), restaurant, user));
-        }
-        if (vote.getVoteDateTime().toLocalDate().isAfter(currentDate)) {
-            System.out.println("throw NotChangeYourMindException;");
-        } else {
-            vote.setVoteDateTime(LocalDateTime.now());
-            vote.setRestaurant(restaurant);
-            voteService.create(vote);
-        }
+//        final LocalDate currentDate = LocalDate.now();
+//        Vote vote = new Vote();
+//        //Находим юзера
+//        int userId = 1;
+//        int restaurantId = 1;
+//
+//        User user = userService.get(userId);
+//        //находим ресторан
+//        Restaurant restaurant = restaurantService.get(1);
+//        //Проверяем раннее существующие голоса юзера
+//        if(voteService.checkIfExistByUserId(userId+100)){
+//            System.out.println("user exist");
+//        } else {
+//            System.out.println("No user are present");
+//        }
+//        try {
+//            vote = voteService.getByUserId(1);
+//        } catch (NotFoundException e) {
+//            voteService.create(new Vote(LocalDateTime.now(), restaurant, user));
+//        }
+//        if (vote.getVoteDateTime().toLocalDate().isAfter(currentDate)) {
+//            System.out.println("throw NotChangeYourMindException;");
+//        } else {
+//            vote.setVoteDateTime(LocalDateTime.now());
+//            vote.setRestaurant(restaurant);
+//            voteService.create(vote);
+//        }
     }
 }
 

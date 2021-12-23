@@ -19,6 +19,11 @@ import java.time.LocalDateTime;
 @ToString
 public class Vote extends AbstractBaseEntity {
 
+    public Vote(Restaurant restaurant, User user) {
+        this.restaurant = restaurant;
+        this.user = user;
+    }
+
     @Column(name = "vote_date_time", nullable = false)
     @NotNull
     private LocalDateTime voteDateTime = LocalDateTime.now();

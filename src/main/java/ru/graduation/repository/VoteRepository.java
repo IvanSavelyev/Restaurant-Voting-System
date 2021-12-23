@@ -17,6 +17,8 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
     //    Vote findByUserIdAndVoteDateTime(int userId, LocalDateTime localDateTime);
     Vote findByUserId(int userId);
 
+    boolean existsByUserId(int userId);
+
 
     @Modifying
     @Transactional
