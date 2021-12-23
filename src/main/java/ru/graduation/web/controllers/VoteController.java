@@ -38,11 +38,10 @@ public class VoteController {
     @PostMapping("restaurants/{restaurantId}")
     @ResponseStatus(HttpStatus.OK)
     public void vote(@PathVariable int restaurantId) {
-        LocalTime currentTime = LocalTime.now();
         Restaurant restaurant = restaurantService.get(restaurantId);
         if (voteService.checkIfExistByUserId(SecurityUtil.authUserId())) {
             Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
-            if (currentTime.isBefore(DEAD_LINE_TIME)) {
+            if (LocalTime.now().isBefore(DEAD_LINE_TIME)) {
                 vote.setVoteDateTime(LocalDateTime.now());
                 vote.setRestaurant(restaurant);
                 vote.setUser(userService.get(SecurityUtil.authUserId()));
