@@ -19,7 +19,6 @@ public class VoteService {
         return checkNotFoundWithId(voteRepository.findByUserId(userId), userId);
     }
 
-    //    @CacheEvict(value = "vote", allEntries = true)
     public Vote create(Vote vote) {
         Assert.notNull(vote, "vote must not be null");
         return voteRepository.save(vote);

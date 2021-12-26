@@ -11,6 +11,7 @@ import ru.graduation.service.RestaurantService;
 import ru.graduation.service.UserService;
 import ru.graduation.service.VoteService;
 import ru.graduation.util.SecurityUtil;
+import ru.graduation.util.TimeUtil;
 import ru.graduation.util.exception.NotChangeYourMindException;
 
 import java.time.LocalDateTime;
@@ -41,7 +42,7 @@ public class VoteController {
         Restaurant restaurant = restaurantService.get(restaurantId);
         if (voteService.checkIfExistByUserId(SecurityUtil.authUserId())) {
             Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
-            if (LocalTime.now().isBefore(DEAD_LINE_TIME)) {
+            if (TimeUtil.isBetween(LocalTime.now())) {
                 vote.setVoteDateTime(LocalDateTime.now());
                 vote.setRestaurant(restaurant);
                 vote.setUser(userService.get(SecurityUtil.authUserId()));

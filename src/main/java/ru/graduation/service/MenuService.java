@@ -22,45 +22,33 @@ public class MenuService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public Menu get(int id, int restaurantId) {
-        return checkNotFoundWithId(menuRepository.getWithDishByRestaurantId(id, restaurantId), id);
+    public Menu getWithDishByMenuIdAndRestaurantId(int id, int restaurantId) {
+        return checkNotFoundWithId(menuRepository.getWithDishByMenuIdAndRestaurantId(id, restaurantId), id);
     }
 
     public Menu get(int id) {
-        return checkNotFoundWithId(menuRepository.get(id), id);
+        return checkNotFoundWithId(menuRepository.findById(id).get(), id);
+    }
+
+    public List<Menu> getByRestaurantId(int restaurantId) {
+        return checkNotFoundWithId(menuRepository.findByRestaurantId(restaurantId), restaurantId);
     }
 
     public Menu create(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
         if(menu.isNew())
             return null;
-        menu.setRestaurant(restaurantRepository.getById(restaurantId));
+        menu.setRestaurant(restaurantRepository.findById(restaurantId));
         return menuRepository.save(menu);
     }
 
-    public void update(Menu menu, int restaurant_id) {
+    public void update(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
-        menu.setRestaurant(restaurantRepository.getById(restaurant_id));
+        menu.setRestaurant(restaurantRepository.findById(restaurantId));
         checkNotFoundWithId(menuRepository.save(menu), menu.id());
     }
 
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(menuRepository.delete(id) != 0 , id);
     }
-
-
-//    public Dish create(Dish dish, int menuId, int restaurantId) {
-//        ValidationUtil.checkNew(dish);
-//        if (!dish.isNew() && get(dish.id(), restaurantId) == null) {
-//            return null;
-//        }
-//        Menu menu = menuRepository.findMenuByIdAndRestaurantId(menuId, restaurantId);
-//        if(menu == null){
-//            Menu createdMenu = new Menu();
-//            createdMenu.setRestaurant(restaurantRepository.getById(restaurantId));
-//        }
-//
-//        dish.setMenu(menuRepository.getById(menuId));
-//        return dishRepository.save(dish);
-//    }
 }

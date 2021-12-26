@@ -1,6 +1,7 @@
 package ru.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,17 +29,15 @@ public class Menu extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @NotNull
+    @JsonManagedReference
     @JsonIgnore
-    @ToString.Exclude
     private List<Dish> dishes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JsonBackReference
     @JsonIgnore
-    @ToString.Exclude
     private Restaurant restaurant;
 
     public Menu(Integer id, String name, LocalDate date) {

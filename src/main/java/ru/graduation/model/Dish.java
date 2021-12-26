@@ -1,6 +1,8 @@
 package ru.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -20,13 +22,13 @@ public class Dish extends AbstractNamedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     @ToString.Exclude
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Menu menu;
 
     @Column(name = "price", nullable = false)
     @NotNull
-    private Float price;
+    private float price;
 
     public Dish(Integer id, String name, Float price) {
         super(id, name);

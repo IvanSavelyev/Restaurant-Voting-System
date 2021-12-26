@@ -16,11 +16,11 @@ public class MenuServiceTest {
     @Autowired
     protected MenuService menuService;
 
-    @Test
-    void delete() {
-        menuService.delete(MENU1_ID);
-        assertThrows(NotFoundException.class, () -> menuService.get(DISH1_ID, 1));
-    }
+//    @Test
+//    void delete() {
+//        menuService.delete(MENU1_ID);
+//        assertThrows(NotFoundException.class, () -> menuService.get(DISH1_ID, 1));
+//    }
 
     @Test
     void deleteNotFound() {

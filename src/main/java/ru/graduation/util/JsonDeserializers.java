@@ -12,12 +12,12 @@ import java.io.IOException;
 
 @UtilityClass
 public class JsonDeserializers {
-//    public static class PasswordDeserializer extends JsonDeserializer<String> {
-//        public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, IOException {
-//            ObjectCodec oc = jsonParser.getCodec();
-//            JsonNode node = oc.readTree(jsonParser);
-//            String rawPassword = node.asText();
-//            return WebSecurityConfig.PASSWORD_ENCODER.encode(rawPassword);
-//        }
-//    }
+    public static class PasswordDeserializer extends JsonDeserializer<String> {
+        public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, IOException {
+            ObjectCodec oc = jsonParser.getCodec();
+            JsonNode node = oc.readTree(jsonParser);
+            String rawPassword = node.asText();
+            return WebSecurityConfig.PASSWORD_ENCODER.encode(rawPassword);
+        }
+    }
 }

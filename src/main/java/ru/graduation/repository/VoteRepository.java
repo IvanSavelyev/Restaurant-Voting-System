@@ -19,7 +19,6 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
     boolean existsByUserId(int userId);
 
-
     @Modifying
     @Transactional
     @Query("DELETE FROM Vote v WHERE v.user=?1")

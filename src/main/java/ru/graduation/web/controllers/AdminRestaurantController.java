@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.graduation.model.Restaurant;
 import ru.graduation.service.RestaurantService;
@@ -21,7 +22,7 @@ import static ru.graduation.web.controllers.AdminRestaurantController.ADMIN_REST
 @Slf4j
 public class AdminRestaurantController {
 
-    public final static String ADMIN_RESTAURANT_REST_URL = "api/rest/admin/restaurants";
+    public final static String ADMIN_RESTAURANT_REST_URL = "api/rest/restaurants";
     private RestaurantService restaurantService;
 
     @GetMapping("/{id}")
@@ -37,12 +38,14 @@ public class AdminRestaurantController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable("id") int id) {
         log.debug("Delete restaurant with id : {}", id);
         restaurantService.delete(id);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant){
         ValidationUtil.checkNew(restaurant);
         log.info("create {}", restaurant);
@@ -50,6 +53,7 @@ public class AdminRestaurantController {
     }
 
     @PutMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void update(@RequestBody Restaurant restaurant, @PathVariable("id") int id){
         ValidationUtil.assureIdConsistent(restaurant, id);
         log.info("update {} with id={}", restaurant, id);

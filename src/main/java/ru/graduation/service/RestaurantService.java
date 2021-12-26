@@ -31,6 +31,7 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
+
     public Restaurant create(Restaurant restaurant){
         Assert.notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);

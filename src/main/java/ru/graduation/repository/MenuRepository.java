@@ -1,5 +1,6 @@
 package ru.graduation.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,14 +16,10 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
-    @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.dishes WHERE m.restaurant.id=?2")
-    List<Menu> getAllWithDishByRestaurantId(int restaurantId);
+    List<Menu> findByRestaurantId(int restaurantId);
 
     @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.dishes WHERE m.id=?1 AND m.restaurant.id=?2")
-    Menu getWithDishByRestaurantId(int id, int restaurantId);
-
-    @Query("SELECT m FROM Menu m WHERE m.id=?1")
-    Menu get(int id);
+    Menu getWithDishByMenuIdAndRestaurantId(int id, int restaurantId);
 
     @Modifying
     @Transactional

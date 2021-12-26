@@ -44,7 +44,7 @@ public class DishService {
     }
 
     public Dish get(int id) {
-        return checkNotFoundWithId(dishRepository.getById(id), id);
+        return checkNotFoundWithId(dishRepository.findById(id).get(), id);
     }
 
     public Dish getByMenuId(int id, int menuId) {

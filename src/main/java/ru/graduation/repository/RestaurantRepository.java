@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.graduation.model.Menu;
 import ru.graduation.model.Restaurant;
 
 import java.util.List;
