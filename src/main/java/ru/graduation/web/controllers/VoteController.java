@@ -26,8 +26,6 @@ import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
 @Slf4j
 public class VoteController {
 
-    private final LocalTime DEAD_LINE_TIME = LocalTime.of(23, 0, 0);
-
     public final static String VOTE_REST_URL = "api/votes/";
 
     private final RestaurantService restaurantService;

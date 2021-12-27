@@ -22,7 +22,8 @@ import static ru.graduation.web.controllers.AdminRestaurantController.ADMIN_REST
 @Slf4j
 public class AdminRestaurantController {
 
-    public final static String ADMIN_RESTAURANT_REST_URL = "api/rest/restaurants";
+    public final static String ADMIN_RESTAURANT_REST_URL = "api/admin/rest/restaurants";
+
     private RestaurantService restaurantService;
 
     @GetMapping("/{id}")

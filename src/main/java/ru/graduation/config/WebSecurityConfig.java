@@ -21,8 +21,8 @@ import ru.graduation.AuthUser;
 import ru.graduation.model.Role;
 import ru.graduation.model.User;
 import ru.graduation.repository.UserRepository;
-import ru.graduation.util.JsonUtil;
-//import ru.graduation.util.JsonUtil;
+import ru.graduation.web.json.JsonUtil;
+//import ru.graduation.web.controllers.json.JsonUtil;
 
 import javax.annotation.PostConstruct;
 import java.util.Optional;
@@ -66,8 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/account").hasRole(Role.USER.name())
                 .antMatchers("/api/votes").hasRole(Role.USER.name())
                 .antMatchers("/api/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
-
-//                .antMatchers("/api/**").hasRole(Role.ADMIN.name())
+                .antMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();

@@ -20,11 +20,9 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Secured(("ROLE_ADMIN"))
     Restaurant save(Restaurant restaurant);
 
-    @Query("SELECT r FROM Restaurant r WHERE r.name=?1")
-    List<Restaurant> findByName(String name);
+    Restaurant findByName(String name);
 
-    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
-    Restaurant findById(int id);
+    Restaurant findById(int restaurantId);
 
     @Modifying
     @Transactional

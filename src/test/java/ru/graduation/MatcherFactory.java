@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
-import ru.graduation.util.JsonUtil;
+import ru.graduation.web.json.JsonUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;

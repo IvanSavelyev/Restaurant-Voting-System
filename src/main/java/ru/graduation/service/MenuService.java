@@ -14,7 +14,7 @@ import java.util.List;
 
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
-@Service
+@Service("MenuService")
 @AllArgsConstructor
 public class MenuService {
 

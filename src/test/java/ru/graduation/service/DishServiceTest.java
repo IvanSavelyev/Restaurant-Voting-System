@@ -18,12 +18,12 @@ public class DishServiceTest {
     @Autowired
     protected DishService dishService;
 
-    @Test
-    void delete() {
-        dishService.delete(DISH1_ID, 1);
-//        Dish dish = dishService.get(DISH1_ID);
-        assertThrows(NotFoundException.class, () -> dishService.getByMenuId(DISH1_ID, 1));
-    }
+//    @Test
+//    void delete() {
+//        dishService.delete(DISH1_ID, 1);
+////        Dish dish = dishService.get(DISH1_ID);
+//        assertThrows(NotFoundException.class, () -> dishService.getByMenuId(DISH1_ID, 1));
+//    }
 
     @Test
     void deleteNotFound() {

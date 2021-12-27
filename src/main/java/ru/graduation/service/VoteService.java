@@ -9,7 +9,7 @@ import ru.graduation.repository.VoteRepository;
 
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
-@Service
+@Service("VoteService")
 @AllArgsConstructor
 public class VoteService {
 

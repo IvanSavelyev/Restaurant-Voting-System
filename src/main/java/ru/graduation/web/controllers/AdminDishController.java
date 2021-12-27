@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.graduation.model.Dish;
 import ru.graduation.service.DishService;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import static ru.graduation.web.controllers.AdminDishController.ADMIN_DISH_REST_
 @Slf4j
 public class AdminDishController {
 
-    public final static String ADMIN_DISH_REST_URL = "api/rest/dishes";
+    public final static String ADMIN_DISH_REST_URL = "api/admin/rest/dishes";
 
     private final DishService dishService;
 
@@ -34,21 +35,26 @@ public class AdminDishController {
 
     @GetMapping
     public List<Dish> getByMenuId(@RequestParam int menuId) {
-        log.debug("Get dish with menuId : {}", menuId);
+        log.debug("Get dishes by menuId : {}", menuId);
         return dishService.getAllByMenuId(menuId);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
-    public void  delete(@PathVariable int id) {
-        log.debug("Delete dish with id: {}", id);
-        dishService.delete(id);
+    public void  delete(@PathVariable int id, @RequestParam int menuId) {
+        log.debug("Delete dish with id: {} in menuId: {}", id, menuId);
+        dishService.delete(id, menuId);
     }
 
-    @PostMapping(value = "/{menuId}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Dish> createWithLocation(@RequestBody Dish dish, @PathVariable int menuId) {
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void  update(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
+        log.debug("Update dish for menuId: {}", menuId);
+        dishService.update(dish, menuId);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
         Dish created = dishService.create(dish, menuId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_DISH_REST_URL + "/{menuId}")

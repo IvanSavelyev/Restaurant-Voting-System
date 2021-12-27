@@ -12,7 +12,7 @@ import java.util.List;
 
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
-@Service
+@Service("RestaurantService")
 @Slf4j
 @AllArgsConstructor
 public class RestaurantService {
@@ -30,7 +30,6 @@ public class RestaurantService {
     public List<Restaurant> getAll(){
         return restaurantRepository.findAll();
     }
-
 
     public Restaurant create(Restaurant restaurant){
         Assert.notNull(restaurant, "restaurant must not be null");

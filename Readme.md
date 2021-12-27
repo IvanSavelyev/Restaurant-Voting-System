@@ -33,3 +33,13 @@ So, all available users and credentials are present in current table.
 | user3@javaops.ru | password3 | USER       |
 | user4@javaops.ru | password4 | USER       |
 
+For Administrator defines methods presents in next URL:\
+For Dish:
+
+| REQUEST PARAMETER         | URL  | ACCESS       | DESCRIPTION|
+|------------------|-----------|------------|------------|
+| GET | api/admin/rest/dishes/{dishId}  | ADMIN       | Return dish with current id
+| GET | api/admin/rest/dishes&menuId=     | ADMIN | Return list of dishes with current menuId
+| DELETE | api/admin/rest/dishes/{dishId}?menuId= | ADMIN       | Remove dish with {dishId} in menu with menuId
+| PUT | api/admin/rest/dishes&menuId= | ADMIN       | Update dish for menuId with request body
+| POST | api/admin/rest/dishes&menuId= | ADMIN       |Create dish for menuId with request body

@@ -27,7 +27,7 @@ import static ru.graduation.web.controllers.AdminMenuController.ADMIN_MENU_REST_
 @Slf4j
 public class AdminMenuController {
 
-    public final static String ADMIN_MENU_REST_URL = "api/rest/menu";
+    public final static String ADMIN_MENU_REST_URL = "api/admin/rest/menus";
 
     private final MenuService menuService;
 
@@ -46,14 +46,12 @@ public class AdminMenuController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable int id) {
         log.debug("Delete menu with id: {}", id);
         menuService.delete(id);
     }
 
     @PostMapping(value = "/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu, @PathVariable int restaurantId) {
         Menu created = menuService.create(menu, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -64,7 +62,6 @@ public class AdminMenuController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
     public void update(@Valid @RequestBody Menu menu, @PathVariable int restaurantId) {
         log.info("update menu with id={}", menu);
         menuService.update(menu, restaurantId);
