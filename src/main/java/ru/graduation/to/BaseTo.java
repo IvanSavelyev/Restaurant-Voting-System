@@ -1,9 +1,10 @@
 package ru.graduation.to;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.graduation.HasId;
 
 public abstract class BaseTo implements HasId {
-
+    @JsonIgnore
     protected Integer id;
 
     public BaseTo() {
@@ -14,6 +15,7 @@ public abstract class BaseTo implements HasId {
     }
 
     @Override
+    @JsonIgnore
     public Integer getId() {
         return id;
     }

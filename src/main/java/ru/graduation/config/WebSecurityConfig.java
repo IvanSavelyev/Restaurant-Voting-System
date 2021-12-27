@@ -21,6 +21,7 @@ import ru.graduation.AuthUser;
 import ru.graduation.model.Role;
 import ru.graduation.model.User;
 import ru.graduation.repository.UserRepository;
+import ru.graduation.web.json.JacksonObjectMapper;
 import ru.graduation.web.json.JsonUtil;
 //import ru.graduation.web.controllers.json.JsonUtil;
 
@@ -36,11 +37,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     private final UserRepository userRepository;
-    private final ObjectMapper objectMapper;
+//    private final ObjectMapper objectMapper;
 
     @PostConstruct
     void setMapper() {
-        JsonUtil.setObjectMapper(objectMapper);
+        JsonUtil.setObjectMapper(JacksonObjectMapper.getMapper());
     }
 
     @Bean

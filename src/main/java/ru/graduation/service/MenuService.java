@@ -26,19 +26,8 @@ public class MenuService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public Menu getWithDishByMenuId(int id) {
-        return checkNotFoundWithId(menuRepository.getFullMenuById(id), id);
-    }
-
-//    public MenuTo getFullById(int id) {
-//        List<Dish> dishes = dishService.getAllByMenuId(id);
-//        Menu menu = menuRepository.findById(id).orElseThrow(RuntimeException::new);
-//        menu.setDishes(dishes);
-//        return createFrom(menu);
-//    }
-
-    public MenuTo get(int id) {
-        return createFrom(checkNotFoundWithId(menuRepository.findById(id).get(), id));
+    public Menu get(int id) {
+        return (checkNotFoundWithId(menuRepository.findById(id).get(), id));
     }
 
     public List<Menu> getByRestaurantId(int restaurantId) {
@@ -46,9 +35,7 @@ public class MenuService {
     }
 
     public Menu create(Menu menu, int restaurantId) {
-        Assert.notNull(menu, "menu must not be null");
-        if(menu.isNew())
-            return null;
+        ValidationUtil.checkNew(menu);
         menu.setRestaurant(restaurantRepository.findById(restaurantId));
         return menuRepository.save(menu);
     }

@@ -1,5 +1,6 @@
 package ru.graduation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.util.Assert;
 
 public interface HasId {
