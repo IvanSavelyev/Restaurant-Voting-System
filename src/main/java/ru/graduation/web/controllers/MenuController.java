@@ -29,8 +29,8 @@ public class MenuController {
     }
 
     @GetMapping("/{menuId}")
-    public Menu getFullMenuByMenuIdAndRestaurantId(@PathVariable int menuId, @RequestParam int restaurantId) {
-        log.debug("Get menus with from restaurantId : {}", restaurantId);
-        return menuService.getWithDishByMenuIdAndRestaurantId(menuId, restaurantId);
+    public Menu getFullMenuByMenuIdAndRestaurantId(@PathVariable int menuId) {
+        log.debug("Get full menu with  id : {}", menuId);
+        return menuService.getWithDishByMenuId(menuId);
     }
 }

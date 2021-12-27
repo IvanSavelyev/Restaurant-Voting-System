@@ -39,14 +39,12 @@ public class AdminRestaurantController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable("id") int id) {
         log.debug("Delete restaurant with id : {}", id);
         restaurantService.delete(id);
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant){
         ValidationUtil.checkNew(restaurant);
         log.info("create {}", restaurant);

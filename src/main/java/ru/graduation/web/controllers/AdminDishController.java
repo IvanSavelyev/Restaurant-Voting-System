@@ -48,13 +48,13 @@ public class AdminDishController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void  update(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
+    public void  update( @RequestBody Dish dish, @RequestParam int menuId) {
         log.debug("Update dish for menuId: {}", menuId);
         dishService.update(dish, menuId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
+    public ResponseEntity<Dish> createWithLocation( @RequestBody Dish dish, @RequestParam int menuId) {
         Dish created = dishService.create(dish, menuId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_DISH_REST_URL + "/{menuId}")

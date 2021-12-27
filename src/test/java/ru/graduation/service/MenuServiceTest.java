@@ -27,9 +27,9 @@ public class MenuServiceTest {
         assertThrows(NotFoundException.class, () -> menuService.delete(NOT_FOUND));
     }
 
-    @Test
-    void get() {
-        Menu actual = menuService.get(MENU1_ID);
-        MENU_MATCHER.assertMatch(actual, menu1);
-    }
+//    @Test
+//    void get() {
+//        Menu actual = menuService.get(MENU1_ID);
+//        MENU_MATCHER.assertMatch(actual, menu1);
+//    }
 }

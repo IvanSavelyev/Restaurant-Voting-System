@@ -21,8 +21,8 @@ public class Dish extends AbstractNamedEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
-    @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
     @JsonBackReference
     private Menu menu;
 

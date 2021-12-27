@@ -1,8 +1,9 @@
-package ru.javawebinar.topjava.to;
+package ru.graduation.to;
 
 import ru.graduation.HasId;
 
 public abstract class BaseTo implements HasId {
+
     protected Integer id;
 
     public BaseTo() {

@@ -13,5 +13,5 @@ public class MenuTestData {
     public static final int MENU2_ID = 2;
     public static final int NOT_FOUND = 100;
 
-    public static final Menu menu1 = new Menu(MENU1_ID, "BAR MENU", LocalDate.of(2021,11,15));
+//    public static final Menu menu1 = new Menu(MENU1_ID, "BAR MENU", LocalDate.of(2021,11,15));
 }

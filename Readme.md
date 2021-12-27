@@ -36,10 +36,30 @@ So, all available users and credentials are present in current table.
 For Administrator defines methods presents in next URL:\
 For Dish:
 
-| REQUEST PARAMETER         | URL  | ACCESS       | DESCRIPTION|
+| REQUEST TYPE         | URL  | ACCESS       | DESCRIPTION|
 |------------------|-----------|------------|------------|
 | GET | api/admin/rest/dishes/{dishId}  | ADMIN       | Return dish with current id
 | GET | api/admin/rest/dishes&menuId=     | ADMIN | Return list of dishes with current menuId
 | DELETE | api/admin/rest/dishes/{dishId}?menuId= | ADMIN       | Remove dish with {dishId} in menu with menuId
 | PUT | api/admin/rest/dishes&menuId= | ADMIN       | Update dish for menuId with request body
 | POST | api/admin/rest/dishes&menuId= | ADMIN       |Create dish for menuId with request body
+
+Note: request body example for update/create dish:
+Update:  {"id": 1,"name": "UP_COBBER","price": 666.5}
+Create: {"name": "NEW_COBBER","price": 555.6 }
+
+
+For Menu:
+
+| REQUEST TYPE         | URL  | ACCESS       | DESCRIPTION|
+|------------------|-----------|------------|------------|
+| GET | api/admin/rest/dishes/{dishId}  | ADMIN       | Return dish with current id
+| GET | api/admin/rest/dishes&menuId=     | ADMIN | Return list of dishes with current menuId
+| DELETE | api/admin/rest/dishes/{dishId}?menuId= | ADMIN       | Remove dish with {dishId} in menu with menuId
+| PUT | api/admin/rest/dishes&menuId= | ADMIN       | Update dish for menuId with request body
+| POST | api/admin/rest/dishes&menuId= | ADMIN       |Create dish for menuId with request body
+
+Note: request body example for update/create dish:
+Update:  {"id": 1,"name": "UP_COBBER","price": 666.5}
+Create: {"name": "NEW_COBBER","price": 555.6 }
+

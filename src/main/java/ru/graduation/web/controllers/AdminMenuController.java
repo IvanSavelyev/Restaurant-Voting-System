@@ -13,6 +13,7 @@ import ru.graduation.model.Dish;
 import ru.graduation.model.Menu;
 import ru.graduation.service.DishService;
 import ru.graduation.service.MenuService;
+import ru.graduation.to.MenuTo;
 import ru.graduation.util.exception.RequestException;
 
 import javax.validation.Valid;
@@ -38,11 +39,12 @@ public class AdminMenuController {
         return menuService.getByRestaurantId(restaurantId);
     }
 
-    @GetMapping("/{menuId}")
-    public Menu getFullMenuByMenuIdAndRestaurantId(@PathVariable int menuId, @RequestParam int restaurantId) {
-        log.debug("Get menus with from restaurantId : {}", restaurantId);
-        return menuService.getWithDishByMenuIdAndRestaurantId(menuId, restaurantId);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<MenuTo> getById(@PathVariable int id,
+//                          @RequestParam(value = "full", defaultValue = "false") boolean full) {
+//        log.debug("Get menus with from restaurantId : {}", id);
+//        return new ResponseEntity<>(!full ? menuService.get(id) : menuService.getFullById(id), HttpStatus.OK);
+//    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -51,8 +53,8 @@ public class AdminMenuController {
         menuService.delete(id);
     }
 
-    @PostMapping(value = "/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu, @PathVariable int restaurantId) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu, @RequestParam int restaurantId) {
         Menu created = menuService.create(menu, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_MENU_REST_URL + "/{menuId}")
@@ -60,9 +62,9 @@ public class AdminMenuController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Menu menu, @PathVariable int restaurantId) {
+    public void update(@RequestBody Menu menu, @RequestParam int restaurantId) {
         log.info("update menu with id={}", menu);
         menuService.update(menu, restaurantId);
     }

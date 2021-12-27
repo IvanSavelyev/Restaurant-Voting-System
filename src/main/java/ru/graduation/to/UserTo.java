@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class UserTo extends ru.javawebinar.topjava.to.BaseTo implements Serializable {
+public class UserTo extends BaseTo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

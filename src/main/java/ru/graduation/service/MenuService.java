@@ -2,16 +2,20 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import ru.graduation.model.Dish;
 import ru.graduation.model.Menu;
 import ru.graduation.repository.DishRepository;
 import ru.graduation.repository.MenuRepository;
 import ru.graduation.repository.RestaurantRepository;
+import ru.graduation.to.MenuTo;
 import ru.graduation.util.ValidationUtil;
 import ru.graduation.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static ru.graduation.util.MenuUtil.createFrom;
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("MenuService")
@@ -22,12 +26,19 @@ public class MenuService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public Menu getWithDishByMenuIdAndRestaurantId(int id, int restaurantId) {
-        return checkNotFoundWithId(menuRepository.getWithDishByMenuIdAndRestaurantId(id, restaurantId), id);
+    public Menu getWithDishByMenuId(int id) {
+        return checkNotFoundWithId(menuRepository.getFullMenuById(id), id);
     }
 
-    public Menu get(int id) {
-        return checkNotFoundWithId(menuRepository.findById(id).get(), id);
+//    public MenuTo getFullById(int id) {
+//        List<Dish> dishes = dishService.getAllByMenuId(id);
+//        Menu menu = menuRepository.findById(id).orElseThrow(RuntimeException::new);
+//        menu.setDishes(dishes);
+//        return createFrom(menu);
+//    }
+
+    public MenuTo get(int id) {
+        return createFrom(checkNotFoundWithId(menuRepository.findById(id).get(), id));
     }
 
     public List<Menu> getByRestaurantId(int restaurantId) {

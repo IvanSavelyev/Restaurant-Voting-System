@@ -27,8 +27,4 @@ public class AbstractNamedEntity extends AbstractBaseEntity {
         super(id);
         this.name = name;
     }
-
-    public String getName() {
-        return name;
-    }
 }
