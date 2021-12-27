@@ -23,7 +23,8 @@ public class VoteService {
     }
 
     public List<Vote> getAll(){
-        return voteRepository.findAll();
+        List<Vote> votes = voteRepository.getAll();
+        return votes;
     }
 
     public Vote create(Vote vote) {
