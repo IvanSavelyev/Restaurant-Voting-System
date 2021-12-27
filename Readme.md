@@ -24,6 +24,7 @@ P.P.S.: Assume that your API will be used by a frontend developer to build front
 
 So, all available users and credentials are present in current table.
 
+
 | Username         | Password  | Role       |
 |------------------|-----------|------------|
 | user@javaops.ru  | password  | USER       |
@@ -33,30 +34,29 @@ So, all available users and credentials are present in current table.
 | user3@javaops.ru | password3 | USER       |
 | user4@javaops.ru | password4 | USER       |
 
-All methods Dish entity with access type defines in table:
+All methods for Dish entity with access type defines in table:
 
-| REQUEST TYPE         | URL  | ACCESS       | DESCRIPTION|
-|------------------|-----------|------------|------------|
-| GET | api/admin/rest/dishes/{dishId}  | ADMIN       | Return dish with current id
-| GET | api/admin/rest/dishes&menuId=     | ADMIN | Return list of dishes with current menuId
-| DELETE | api/admin/rest/dishes/{dishId}?menuId= | ADMIN       | Remove dish with {dishId} in menu with menuId
-| PUT | api/admin/rest/dishes&menuId= | ADMIN       | Update dish for menuId with request body
-| POST | api/admin/rest/dishes&menuId= | ADMIN       |Create dish for menuId with request body
+| REQUEST TYPE | URL                                    | ACCESS | DESCRIPTION                                 |
+|--------------|----------------------------------------|--------|---------------------------------------------|
+| GET          | api/admin/rest/dishes/{dishId}         | ADMIN  | Return dish with current id                 |
+| GET          | api/admin/rest/dishes&menuId=          | ADMIN  | Return list of dishes with current menuId   |
+| DELETE       | api/admin/rest/dishes/{dishId}?menuId= | ADMIN  | Remove dish with dishId in menu with menuId |
+| PUT          | api/admin/rest/dishes&menuId=          | ADMIN  | Update dish for menuId with request body    |
+| POST         | api/admin/rest/dishes&menuId=          | ADMIN  | Create dish for menuId with request body    |
 
 Note: request body example for update/create dish:
 Update:  {"id": 1,"name": "UP_COBBER","price": 666.5}
 Create: {"name": "NEW_COBBER","price": 555.6 }
 
-
 For Menu:
 
-| REQUEST TYPE         | URL  | ACCESS       | DESCRIPTION|
-|------------------|-----------|------------|------------|
-| GET | api/admin/rest/menus?restaurantId=  | ADMIN/USER       | Return menu list with dish for restaurantId
-| GET | api/admin/rest/menus/{menuId}   | ADMIN/USER | Return menu with dishes for menuId
-| DELETE | api/admin/rest/menus/{menuId} | ADMIN       | Remove menu with {menuId} 
-| PUT | api/admin/rest/menus&restaurantId= | ADMIN       | Update menu for restaurantId with request body
-| POST | api/admin/rest/menus&restaurantId= | ADMIN       |Create menu for restaurantId with request body
+| REQUEST TYPE | URL                                | ACCESS     | DESCRIPTION                                    |
+|--------------|------------------------------------|------------|------------------------------------------------|
+| GET          | api/admin/rest/menus?restaurantId= | ADMIN/USER | Return menu list with dish for restaurantId    |
+| GET          | api/admin/rest/menus/{menuId}      | ADMIN/USER | Return menu with dishes for menuId             |
+| DELETE       | api/admin/rest/menus/{menuId}      | ADMIN      | Remove menu with menuId                        |
+| PUT          | api/admin/rest/menus&restaurantId= | ADMIN      | Update menu for restaurantId with request body |
+| POST         | api/admin/rest/menus&restaurantId= | ADMIN      | Create menu for restaurantId with request body |
 
 Note: request body example for update/create dish:
 Update:  {"id": 1,"name": "NEW BAR MENU","date": "YYYY-MM-DD"}

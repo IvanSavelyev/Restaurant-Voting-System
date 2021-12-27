@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,7 @@ public class Dish extends AbstractNamedEntity {
 
     @Column(name = "price", nullable = false)
     @NotNull
+    @Range(min = 10, max = 10000)
     private float price;
 
     public Dish(Integer id, String name, Float price) {

@@ -1,4 +1,4 @@
-package ru.graduation.web.controllers;
+package ru.graduation.web.controllers.restaurant;
 
 
 import lombok.AllArgsConstructor;
@@ -14,32 +14,30 @@ import ru.graduation.util.ValidationUtil;
 
 import java.util.List;
 
-import static ru.graduation.web.controllers.AdminRestaurantController.ADMIN_RESTAURANT_REST_URL;
+import static ru.graduation.web.controllers.restaurant.AdminRestaurantController.ADMIN_RESTAURANT_REST_URL;
 
 @RestController
 @RequestMapping(value = ADMIN_RESTAURANT_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Slf4j
-public class AdminRestaurantController {
+public class AdminRestaurantController extends AbstractRestaurantController {
 
     public final static String ADMIN_RESTAURANT_REST_URL = "api/admin/rest/restaurants";
 
-    private RestaurantService restaurantService;
-
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> get(@PathVariable Integer id) {
-        log.debug("Get restaurant with id : {}", id);
-        return new ResponseEntity<>(restaurantService.get(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public Restaurant get(@PathVariable int id) {
+        return super.get(id);
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Restaurant> getAll() {
-        log.debug("Get all restaurants");
-        return restaurantService.getAll();
+        return super.getAll();
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable int id) {
         log.debug("Delete restaurant with id : {}", id);
         restaurantService.delete(id);
     }
@@ -52,8 +50,7 @@ public class AdminRestaurantController {
     }
 
     @PutMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void update(@RequestBody Restaurant restaurant, @PathVariable("id") int id){
+    public void update(@RequestBody Restaurant restaurant, @PathVariable int id){
         ValidationUtil.assureIdConsistent(restaurant, id);
         log.info("update {} with id={}", restaurant, id);
         restaurantService.update(restaurant);

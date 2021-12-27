@@ -22,7 +22,7 @@ public class DishService {
     private final MenuRepository menuRepository;
 
     public Dish create(Dish dish, int menuId) {
-        ValidationUtil.checkNew(dish);
+        Assert.notNull(dish, "dish must not be null");
         dish.setMenu(menuRepository.getById(menuId));
         return checkNotFoundWithId(dishRepository.save(dish), dish.id());
     }
@@ -43,10 +43,6 @@ public class DishService {
 
     public Dish get(int id) {
         return checkNotFoundWithId(dishRepository.findById(id).get(), id);
-    }
-
-    public Dish getDishByIdaAndMenuId(int id, int menuId) {
-        return checkNotFoundWithId(dishRepository.findDishByIdaAndMenuId(id, menuId), id);
     }
 
     public List<Dish> getAllByMenuId(int menuId) {

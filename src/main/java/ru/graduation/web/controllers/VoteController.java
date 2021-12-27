@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.graduation.model.Restaurant;
 import ru.graduation.model.Vote;
@@ -16,6 +17,7 @@ import ru.graduation.util.exception.NotChangeYourMindException;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
 
@@ -26,7 +28,7 @@ import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
 @Slf4j
 public class VoteController {
 
-    public final static String VOTE_REST_URL = "api/votes/";
+    public final static String VOTE_REST_URL = "api/rest/votes";
 
     private final RestaurantService restaurantService;
 
@@ -34,23 +36,32 @@ public class VoteController {
 
     private final VoteService voteService;
 
-    @PostMapping("restaurants/{restaurantId}")
-    @ResponseStatus(HttpStatus.OK)
-    public void vote(@PathVariable int restaurantId) {
+    @GetMapping
+    public List<Vote> getAll(){
+        return voteService.getAll();
+    }
+
+    @PostMapping
+    public ResponseEntity<Vote> createVote(@RequestParam int restaurantId) {
+        LocalDateTime nowDateTime = LocalDateTime.now();
         Restaurant restaurant = restaurantService.get(restaurantId);
-        if (voteService.checkIfExistByUserId(SecurityUtil.authUserId())) {
-            Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
-            if (TimeUtil.isBetween(LocalTime.now())) {
-                vote.setVoteDateTime(LocalDateTime.now());
-                vote.setRestaurant(restaurant);
-                vote.setUser(userService.get(SecurityUtil.authUserId()));
-                voteService.create(vote);
-            } else {
-                throw new NotChangeYourMindException("You can not change your mind");
-            }
+        if (!voteService.checkIfExistByUserId(SecurityUtil.authUserId()) || !TimeUtil.isBetween(nowDateTime.toLocalTime())) {
+            return new ResponseEntity<>(voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authUserId()))), HttpStatus.CREATED);
         } else {
-            voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authUserId())));
+            return ResponseEntity.noContent().build();
         }
     }
-//    }
+
+    @PutMapping
+    public void updateVote(@RequestParam int restaurantId) {
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        if (voteService.checkIfExistByUserId(SecurityUtil.authUserId()) && !TimeUtil.isBetween(nowDateTime.toLocalTime())) {
+            Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
+            vote.setVoteDateTime(nowDateTime);
+            vote.setRestaurant(restaurantService.get(restaurantId));
+            voteService.create(vote);
+        } else {
+            throw new NotChangeYourMindException("Too late for change you mind");
+        }
+    }
 }

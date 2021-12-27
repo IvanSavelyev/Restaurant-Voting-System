@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
+import ru.graduation.HasId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 @Access(AccessType.FIELD)
 //@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE,setterVisibility = JsonAutoDetect.Visibility.NONE)
-public class AbstractBaseEntity implements Persistable<Integer> {
+public class AbstractBaseEntity implements HasId {
     //public static final int START_SEQ = 100000;
 
     @Id

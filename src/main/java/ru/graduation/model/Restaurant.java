@@ -13,9 +13,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "unique_restaurant")})
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+//@AllArgsConstructor
 @ToString(callSuper = true)
 public class Restaurant extends AbstractNamedEntity {
-
 }

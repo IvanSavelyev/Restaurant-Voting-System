@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.graduation.model.Restaurant;
 import ru.graduation.repository.RestaurantRepository;
+import ru.graduation.util.ValidationUtil;
 import ru.graduation.util.exception.NotFoundException;
 
 import java.util.List;

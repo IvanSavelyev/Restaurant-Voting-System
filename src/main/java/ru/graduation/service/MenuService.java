@@ -35,7 +35,7 @@ public class MenuService {
     }
 
     public Menu create(Menu menu, int restaurantId) {
-        ValidationUtil.checkNew(menu);
+        Assert.notNull(menu, "menu must not be null");
         menu.setRestaurant(restaurantRepository.findById(restaurantId));
         return menuRepository.save(menu);
     }

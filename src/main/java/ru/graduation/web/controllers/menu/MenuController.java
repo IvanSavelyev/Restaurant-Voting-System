@@ -2,6 +2,7 @@ package ru.graduation.web.controllers.menu;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.graduation.model.Menu;
@@ -19,13 +20,14 @@ public class MenuController extends AbstractMenuController {
     public final static String MENU_REST_URL = "api/rest/menus";
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Menu> getAllMenusByRestaurantId(@RequestParam int restaurantId) {
         return super.getAllMenusByRestaurantId(restaurantId);
     }
 
     @GetMapping("/{menuId}")
+    @ResponseStatus(HttpStatus.OK)
     public Menu get(@PathVariable int menuId) {
         return super.getById(menuId);
     }
-
 }
