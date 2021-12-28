@@ -24,18 +24,18 @@ VALUES ('ASHOT DINNER'),
        ('USER DISHES');
 -- -- --
 INSERT INTO MENUS (NAME, MENU_DATE, RESTAURANT_ID)
-VALUES ('BAR MENU', '2021-11-15', 1),
-       ('MAIN MENU', '2021-07-15', 1),
-       ('SNACK MENU', '2021-05-15', 1),
-       ('DESSERTS MENU', '2021-04-15', 1),
-       ('BAR MENU', '2021-03-11', 2),
-       ('MAIN MENU', '2021-02-13', 2),
-       ('SNACK MENU', '2021-01-14', 2),
-       ('DESSERTS MENU', '2021-03-15', 2),
-       ('BAR MENU', '2021-09-02', 3),
-       ('MAIN MENU', '2021-08-21', 3),
-       ('SNACK MENU', '2021-06-22', 3),
-       ('DESSERTS MENU', '2021-06-11', 3);
+VALUES ('BAR MENU', CURRENT_DATE , 1),
+       ('MAIN MENU', CURRENT_DATE, 1),
+       ('SNACK MENU', CURRENT_DATE, 1),
+       ('DESSERTS MENU', CURRENT_DATE, 1),
+       ('BAR MENU', CURRENT_DATE, 2),
+       ('MAIN MENU', CURRENT_DATE, 2),
+       ('SNACK MENU', CURRENT_DATE, 2),
+       ('DESSERTS MENU', CURRENT_DATE, 2),
+       ('BAR MENU', CURRENT_DATE, 3),
+       ('MAIN MENU', CURRENT_DATE, 3),
+       ('SNACK MENU', CURRENT_DATE, 3),
+       ('DESSERTS MENU', CURRENT_DATE, 3);
 -- --
 INSERT INTO DISHES (NAME, PRICE, MENU_ID)
 VALUES ('COBBER', 1000.50, 1),
@@ -118,11 +118,11 @@ VALUES ('COBBER', 1000.50, 1),
        ('flan', 155.52, 12);
 --
 INSERT INTO VOTES (VOTE_DATE_TIME, RESTAURANT_ID, USER_ID)
-VALUES ('2021-11-16', 1, 1),
-       ('2021-11-16', 1, 2),
-       ('2021-11-16', 2, 3),
-       ('2021-11-16', 2, 4),
-       ('2021-11-16', 1, 5),
-       ('2021-11-16', 1, 6);
+VALUES (CURRENT_DATE, 1, 1),
+       (CURRENT_DATE, 1, 2),
+       (CURRENT_DATE, 2, 3),
+       (CURRENT_DATE, 2, 4),
+       (CURRENT_DATE, 1, 5),
+       (CURRENT_DATE, 1, 6);
 
 

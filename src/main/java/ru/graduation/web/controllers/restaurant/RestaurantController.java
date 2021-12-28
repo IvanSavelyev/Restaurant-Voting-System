@@ -3,7 +3,6 @@ package ru.graduation.web.controllers.restaurant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.graduation.model.Restaurant;
 
@@ -18,12 +17,14 @@ public class RestaurantController extends AbstractRestaurantController {
 
     public final static String RESTAURANT_REST_URL = "api/rest/restaurants";
 
+    @Override
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
     }
 
+    @Override
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Restaurant> getAll() {

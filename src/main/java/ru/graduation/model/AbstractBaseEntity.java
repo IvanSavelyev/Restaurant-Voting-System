@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 @Access(AccessType.FIELD)
-//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE,setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class AbstractBaseEntity implements HasId {
     //public static final int START_SEQ = 100000;
 

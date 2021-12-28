@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@AllArgsConstructor
 @ToString(callSuper = true)
 public class Dish extends AbstractNamedEntity {
 
@@ -28,7 +27,6 @@ public class Dish extends AbstractNamedEntity {
 
     @Column(name = "price", nullable = false, precision = 7, scale = 2)
     @NotNull
-//    @Range(min = 1, max = 10000)
     private float price;
 
     public Dish(Integer id, String name, float price) {

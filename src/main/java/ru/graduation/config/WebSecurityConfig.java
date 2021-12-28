@@ -36,8 +36,8 @@ import java.util.Optional;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
     private final UserRepository userRepository;
-//    private final ObjectMapper objectMapper;
 
     @PostConstruct
     void setMapper() {
@@ -65,8 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/account/register").anonymous()
                 .antMatchers("/api/account").hasRole(Role.USER.name())
-                .antMatchers("/api/votes").hasRole(Role.USER.name())
-                .antMatchers("/api/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+                .antMatchers("/api/votes").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+                .antMatchers("/api/rest/**").hasRole(Role.USER.name())
                 .antMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

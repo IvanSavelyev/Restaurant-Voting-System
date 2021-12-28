@@ -40,8 +40,6 @@ public class VoteController {
 
     public final static String VOTE_REST_URL = "api/rest/votes";
 
-    public final static String NOW_DATE = LocalDate.now().toString();
-
     private final RestaurantService restaurantService;
 
     private final UserService userService;
@@ -69,9 +67,9 @@ public class VoteController {
         if (voteService.checkIfExistByUserId(SecurityUtil.authUserId()) && !TimeUtil.isBetween(nowTime)) {
             Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
             vote.setRestaurant(restaurantService.get(restaurantId));
-            voteService.create(vote);
+            voteService.update(vote);
         } else {
-            throw new NotChangeYourMindException("Too late for change you mind");
+            throw new NotChangeYourMindException("Too late for change your mind");
         }
     }
 
@@ -87,8 +85,6 @@ public class VoteController {
         log.debug("get voting results");
         List<Vote> votes = voteService.getAllByDate(localDate);
         List<VoteTo> voteTos = votes.stream().map(VoteUtil::createTo).toList();
-//        Map<Object, Long> mapResults;
-//        mapResults = voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting()));
         try {
             return JsonUtil.writeValue(voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting())));
         } catch (JsonProcessingException e) {

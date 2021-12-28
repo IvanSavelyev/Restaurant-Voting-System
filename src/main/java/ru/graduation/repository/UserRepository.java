@@ -26,13 +26,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findById(int id);
 
-//    List<User> getAll();
-
     @RestResource(rel = "by-email", path = "by-email")
     @Query("SELECT u FROM User u WHERE u.email = LOWER(:email)")
     @Cacheable("users")
     Optional<User> findByEmailIgnoreCase(String email);
-
-//    @Query("SELECT u FROM User u WHERE u.id=?1")
-//    boolean getWithVotes(int id);
 }

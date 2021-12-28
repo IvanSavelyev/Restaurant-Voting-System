@@ -23,10 +23,6 @@ public class VoteService {
         return checkNotFoundWithId(voteRepository.findByUserId(userId), userId);
     }
 
-    public List<Vote> getAll(){
-        return voteRepository.getAll();
-    }
-
     public List<Vote> getAllByDate(LocalDate localDate){
         return voteRepository.findAllByVoteDate(localDate);
     }
@@ -41,14 +37,9 @@ public class VoteService {
         voteRepository.save(vote);
     }
 
-    public void deleteByUserId(int userId) {
-        checkNotFoundWithId(voteRepository.delete(userId), userId);
-    }
-
     public void clear() {
         voteRepository.delete();
     }
-
 
     public boolean checkIfExistByUserId(int userId){
         return voteRepository.existsByUserId(userId);

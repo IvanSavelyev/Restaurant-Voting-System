@@ -18,12 +18,6 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     List<Menu> findByRestaurantId(int restaurantId);
 
-//    @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.dishes WHERE m.id=?1 AND m.restaurant.id=?2")
-//    Menu getWithDishByMenuIdAndRestaurantId(int id, int restaurantId);
-    //    @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.dishes WHERE m.id=?1 AND m.restaurant.id=?2")
-    @Query("SELECT m FROM Menu m JOIN FETCH m.dishes WHERE m.id=?1")
-    Menu getFullMenuById(int id);
-
     @Modifying
     @Transactional
     @Query("DELETE FROM Menu m WHERE m.id=?1")

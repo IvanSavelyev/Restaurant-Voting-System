@@ -25,7 +25,7 @@ public class Vote extends AbstractBaseEntity {
         this.user = user;
     }
 
-    @Column(name = "vote_date_time", nullable = false)
+    @Column(name = "vote_date", nullable = false)
     @NotNull
     private LocalDate voteDate = LocalDate.now();
 

@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
-//@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
