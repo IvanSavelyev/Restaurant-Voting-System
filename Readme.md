@@ -26,7 +26,7 @@ So, all available users and credentials are present in current table.
 
 
 | Username         | Password  | Role       |
-|------------------|-----------|------------|
+|------------------|-----------|:----------:|
 | user@javaops.ru  | password  | USER       |
 | admin@javaops.ru | Admin     | USER/ADMIN |
 | user1@javaops.ru | password1 | USER       |
@@ -34,40 +34,44 @@ So, all available users and credentials are present in current table.
 | user3@javaops.ru | password3 | USER       |
 | user4@javaops.ru | password4 | USER       |
 
-All methods for Dish entity with access type defines in table:
+All methods for entitys are present in tables with URL and access type.
 
+ **DISH:**  
 | REQUEST TYPE | URL                                    | ACCESS | DESCRIPTION                                 |
-|--------------|----------------------------------------|--------|---------------------------------------------|
+|:------------:|----------------------------------------|:------:|---------------------------------------------|
 | GET          | api/admin/rest/dishes/{dishId}         | ADMIN  | Return dish with current id                 |
 | GET          | api/admin/rest/dishes&menuId=          | ADMIN  | Return list of dishes with current menuId   |
 | DELETE       | api/admin/rest/dishes/{dishId}?menuId= | ADMIN  | Remove dish with dishId in menu with menuId |
 | PUT          | api/admin/rest/dishes&menuId=          | ADMIN  | Update dish for menuId with request body    |
 | POST         | api/admin/rest/dishes&menuId=          | ADMIN  | Create dish for menuId with request body    |
 
-Note: request body example for update/create dish:
-Update:  {"id": 1,"name": "UP_COBBER","price": 666.5}
+Note: request body example for update/create dish:\
+Update:  {"id": 1,"name": "UP_COBBER","price": 666.5}\
 Create: {"name": "NEW_COBBER","price": 555.6 }
 
-For Menu:
-
+ **MENU:**  
 | REQUEST TYPE | URL                                | ACCESS     | DESCRIPTION                                    |
-|--------------|------------------------------------|------------|------------------------------------------------|
-| GET          | api/admin/rest/menus?restaurantId= | ADMIN/USER | Return menu list with dish for restaurantId    |
-| GET          | api/admin/rest/menus/{menuId}      | ADMIN/USER | Return menu with dishes for menuId             |
+|:------------:|------------------------------------|:----------:|------------------------------------------------|
+| GET          | api/admin/rest/menus?restaurantId=<br>api/rest/menus?restaurantId= | ADMIN<br>USER | Return menu list with dish for restaurantId    |
+| GET          | api/admin/rest/menus/{menuId}<br>api/rest/menus/{menuId}      | ADMIN<br>USER | Return menu with dishes for menuId             |
 | DELETE       | api/admin/rest/menus/{menuId}      | ADMIN      | Remove menu with menuId                        |
 | PUT          | api/admin/rest/menus&restaurantId= | ADMIN      | Update menu for restaurantId with request body |
 | POST         | api/admin/rest/menus&restaurantId= | ADMIN      | Create menu for restaurantId with request body |
 
-Note: request body example for update/create dish:
-Update:  {"id": 1,"name": "NEW BAR MENU","date": "YYYY-MM-DD"}
+Note: request body example for update/create menu:\
+Update:  {"id": 1,"name": "UP_MENU","date": "YYYY-MM-DD"}\
 Create: {"name": "NEW MENU","date": "YYYY-MM-DD"}
 
-FOR RESTAURANT
-
+**RESTAURANTS:**
 | REQUEST TYPE | URL                                | ACCESS     | DESCRIPTION                                    |
-|--------------|------------------------------------|------------|------------------------------------------------|
-| GET          | api/admin/rest/menus?restaurantId= | ADMIN/USER | Return menu list with dish for restaurantId    |
-| GET          | api/admin/rest/menus/{menuId}      | ADMIN/USER | Return menu with dishes for menuId             |
-| DELETE       | api/admin/rest/menus/{menuId}      | ADMIN      | Remove menu with menuId                        |
-| PUT          | api/admin/rest/menus&restaurantId= | ADMIN      | Update menu for restaurantId with request body |
-| POST         | api/admin/rest/menus&restaurantId= | ADMIN      | Create menu for restaurantId with request body |
+|:------------:|------------------------------------|:----------:|------------------------------------------------|
+| GET          | api/admin/rest/restaurants<br>api/rest/restaurants           | ADMIN<br>USER      | Return all avaliable restaurants|
+| GET          | api/admin/rest/restaurants/{restaurantId}<br>api/rest/restaurants/{restaurantId}       | ADMIN<br>USER      | Return restaurant with for restaurantId|
+| DELETE       | api/admin/rest/restaurants/{restaurantId}      | ADMIN      | Remove restaurant with restaurantId|
+| PUT          | api/admin/rest/restaurants&restaurantId= | ADMIN      | Update restaurant by restaurantId with request body |
+| POST         | api/admin/rest/restaurants&restaurantId= | ADMIN      | Create restaurant by restaurantId with request body |
+
+Note: request body example for update/create restaurant:\
+Update:  {"id": 1,"name": "UP RESTAURANT"}\
+Create: {"name": "NEW RESTAURANT"}
+
