@@ -62,3 +62,12 @@ Note: request body example for update/create dish:
 Update:  {"id": 1,"name": "NEW BAR MENU","date": "YYYY-MM-DD"}
 Create: {"name": "NEW MENU","date": "YYYY-MM-DD"}
 
+FOR RESTAURANT
+
+| REQUEST TYPE | URL                                | ACCESS     | DESCRIPTION                                    |
+|--------------|------------------------------------|------------|------------------------------------------------|
+| GET          | api/admin/rest/menus?restaurantId= | ADMIN/USER | Return menu list with dish for restaurantId    |
+| GET          | api/admin/rest/menus/{menuId}      | ADMIN/USER | Return menu with dishes for menuId             |
+| DELETE       | api/admin/rest/menus/{menuId}      | ADMIN      | Remove menu with menuId                        |
+| PUT          | api/admin/rest/menus&restaurantId= | ADMIN      | Update menu for restaurantId with request body |
+| POST         | api/admin/rest/menus&restaurantId= | ADMIN      | Create menu for restaurantId with request body |

@@ -3,15 +3,17 @@ VALUES ('user@javaops.ru', 'User', '{noop}password'),
        ('admin@javaops.ru', 'Admin', '{noop}Admin'),
        ('user1@javaops.ru', 'User1', '{noop}password1'),
        ('user2@javaops.ru', 'User2', '{noop}password2'),
-       ('user3@javaops.ru', 'User3', '{noop}password3');
+       ('user3@javaops.ru', 'User3', '{noop}password3'),
+       ('user4@javaops.ru', 'User4', '{noop}password4');
+
 --
 INSERT INTO USER_ROLE (ROLE, USER_ID)
 VALUES ('USER', 1),
-    ('ADMIN', 2),
-    ('USER', 2),
-    ('USER', 3),
-    ('USER', 4),
-    ('USER', 5);
+       ('ADMIN', 2),
+       ('USER', 2),
+       ('USER', 3),
+       ('USER', 4),
+       ('USER', 5);
 
 INSERT INTO RESTAURANTS (NAME)
 VALUES ('ASHOT DINNER'),
@@ -114,6 +116,10 @@ VALUES ('COBBER', 1000.50, 1),
 --
 INSERT INTO VOTES (VOTE_DATE_TIME, RESTAURANT_ID, USER_ID)
 VALUES ('2021-11-15 12:34:00', 1, 1),
-       ('2021-11-16 18:50:00', 2, 2);
+       ('2021-11-16 18:50:00', 1, 2),
+       ('2021-11-16 18:50:00', 2, 3),
+       ('2021-11-16 18:50:00', 2, 4),
+       ('2021-11-16 18:50:00', 1, 5),
+       ('2021-11-16 18:50:00', 1, 6);
 --        ('2021-11-16 18:44:00', 2, 2);
 

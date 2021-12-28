@@ -12,6 +12,7 @@ import ru.graduation.model.Restaurant;
 import ru.graduation.service.RestaurantService;
 import ru.graduation.util.ValidationUtil;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static ru.graduation.web.controllers.restaurant.AdminRestaurantController.ADMIN_RESTAURANT_REST_URL;
@@ -43,14 +44,14 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant){
+    public ResponseEntity<Restaurant> create(@Valid @RequestBody Restaurant restaurant){
         ValidationUtil.checkNew(restaurant);
         log.info("create {}", restaurant);
         return new ResponseEntity<>(restaurantService.create(restaurant), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
-    public void update(@RequestBody Restaurant restaurant, @PathVariable int id){
+    public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id){
         ValidationUtil.assureIdConsistent(restaurant, id);
         log.info("update {} with id={}", restaurant, id);
         restaurantService.update(restaurant);

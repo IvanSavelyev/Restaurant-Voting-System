@@ -21,18 +21,17 @@ import javax.validation.constraints.NotNull;
 public class Dish extends AbstractNamedEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
     @JsonBackReference
     private Menu menu;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = false, precision = 7, scale = 2)
     @NotNull
-    @Range(min = 10, max = 10000)
+//    @Range(min = 1, max = 10000)
     private float price;
 
-    public Dish(Integer id, String name, Float price) {
+    public Dish(Integer id, String name, float price) {
         super(id, name);
         this.price = price;
     }

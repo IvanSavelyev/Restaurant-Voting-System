@@ -11,6 +11,7 @@ import ru.graduation.model.Menu;
 import ru.graduation.service.MenuService;
 import ru.graduation.util.ValidationUtil;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class AdminMenuController extends AbstractMenuController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu, @RequestParam int restaurantId) {
+    public ResponseEntity<Menu> createWithLocation(@Valid @RequestBody Menu menu, @RequestParam int restaurantId) {
         log.debug("(Admin):Creating new menu for restaurantId {}", restaurantId);
         ValidationUtil.checkNew(menu);
         Menu created = menuService.create(menu, restaurantId);
@@ -55,7 +56,7 @@ public class AdminMenuController extends AbstractMenuController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Menu menu, @RequestParam int restaurantId) {
+    public void update(@Valid @RequestBody Menu menu, @RequestParam int restaurantId) {
         ValidationUtil.assureIdConsistent(menu, restaurantId);
         log.info("(Admin):Update menu with id {}", restaurantId);
         menuService.update(menu, restaurantId);

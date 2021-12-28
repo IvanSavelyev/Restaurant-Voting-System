@@ -23,8 +23,7 @@ public class VoteService {
     }
 
     public List<Vote> getAll(){
-        List<Vote> votes = voteRepository.getAll();
-        return votes;
+        return voteRepository.getAll();
     }
 
     public Vote create(Vote vote) {
@@ -36,6 +35,15 @@ public class VoteService {
         Assert.notNull(vote, "vote must not be null");
         voteRepository.save(vote);
     }
+
+    public void deleteByUserId(int userId) {
+        checkNotFoundWithId(voteRepository.delete(userId), userId);
+    }
+
+    public void clear() {
+        voteRepository.delete();
+    }
+
 
     public boolean checkIfExistByUserId(int userId){
         return voteRepository.existsByUserId(userId);

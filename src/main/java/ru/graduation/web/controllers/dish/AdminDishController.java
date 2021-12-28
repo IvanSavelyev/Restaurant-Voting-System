@@ -11,6 +11,7 @@ import ru.graduation.model.Dish;
 import ru.graduation.service.DishService;
 import ru.graduation.util.ValidationUtil;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -49,16 +50,17 @@ public class AdminDishController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Dish dish, @RequestParam int menuId) {
+    public void update(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
         log.debug("(Admin):Update dish for menuId: {}", menuId);
         ValidationUtil.assureIdConsistent(dish, menuId);
         dishService.update(dish, menuId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocation(@RequestBody Dish dish, @RequestParam int menuId) {
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
         log.debug("(Admin):Creating new dish for menuId {}", menuId);
         ValidationUtil.checkNew(dish);
+        dish.setPrice((dish.getPrice()*100.00F)/100.00F);
         Dish created = dishService.create(dish, menuId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_DISH_REST_URL + "/{menuId}")

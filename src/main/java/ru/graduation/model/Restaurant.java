@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
 @ToString(callSuper = true)
 public class Restaurant extends AbstractNamedEntity {
 }
