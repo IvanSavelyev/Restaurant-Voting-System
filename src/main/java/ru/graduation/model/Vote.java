@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +27,7 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "vote_date_time", nullable = false)
     @NotNull
-    private LocalDateTime voteDateTime = LocalDateTime.now();
+    private LocalDate voteDate = LocalDate.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)

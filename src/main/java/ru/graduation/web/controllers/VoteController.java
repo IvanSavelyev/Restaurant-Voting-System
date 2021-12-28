@@ -3,6 +3,8 @@ package ru.graduation.web.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.h2.util.DateTimeUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,9 @@ import ru.graduation.util.VoteUtil;
 import ru.graduation.util.exception.NotChangeYourMindException;
 import ru.graduation.web.json.JsonUtil;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,6 +40,8 @@ public class VoteController {
 
     public final static String VOTE_REST_URL = "api/rest/votes";
 
+    public final static String NOW_DATE = LocalDate.now().toString();
+
     private final RestaurantService restaurantService;
 
     private final UserService userService;
@@ -43,8 +49,8 @@ public class VoteController {
     private final VoteService voteService;
 
     @GetMapping
-    public List<Vote> getAll(){
-        return voteService.getAll();
+    public List<Vote> getAllByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam LocalDate localDate){
+        return voteService.getAllByDate(localDate);
     }
 
     @PostMapping
@@ -59,10 +65,9 @@ public class VoteController {
 
     @PutMapping
     public void updateVote(@RequestParam int restaurantId) {
-        LocalDateTime nowDateTime = LocalDateTime.now();
-        if (voteService.checkIfExistByUserId(SecurityUtil.authUserId()) && !TimeUtil.isBetween(nowDateTime.toLocalTime())) {
+        LocalTime nowTime = LocalTime.now();
+        if (voteService.checkIfExistByUserId(SecurityUtil.authUserId()) && !TimeUtil.isBetween(nowTime)) {
             Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
-            vote.setVoteDateTime(nowDateTime);
             vote.setRestaurant(restaurantService.get(restaurantId));
             voteService.create(vote);
         } else {
@@ -78,14 +83,14 @@ public class VoteController {
     }
 
     @GetMapping("/results")
-    public String getResults() {
+    public String getResults(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
         log.debug("get voting results");
-        List<Vote> votes = voteService.getAll();
+        List<Vote> votes = voteService.getAllByDate(localDate);
         List<VoteTo> voteTos = votes.stream().map(VoteUtil::createTo).toList();
-        Map<Object, Long> mapResults;
-        mapResults = voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting()));
+//        Map<Object, Long> mapResults;
+//        mapResults = voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting()));
         try {
-            return JsonUtil.writeValue(mapResults);
+            return JsonUtil.writeValue(voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting())));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

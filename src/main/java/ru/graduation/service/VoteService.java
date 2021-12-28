@@ -8,6 +8,7 @@ import ru.graduation.model.Restaurant;
 import ru.graduation.model.Vote;
 import ru.graduation.repository.VoteRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
@@ -24,6 +25,10 @@ public class VoteService {
 
     public List<Vote> getAll(){
         return voteRepository.getAll();
+    }
+
+    public List<Vote> getAllByDate(LocalDate localDate){
+        return voteRepository.findAllByVoteDate(localDate);
     }
 
     public Vote create(Vote vote) {

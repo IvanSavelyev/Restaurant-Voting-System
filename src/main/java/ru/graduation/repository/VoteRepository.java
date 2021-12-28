@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.model.Vote;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,7 +22,8 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
     boolean existsByUserId(int userId);
 
-    List<Vote> findAllByVoteDateTime(LocalDateTime localDateTime);
+    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.voteDate=?1")
+    List<Vote> findAllByVoteDate(LocalDate localDate);
 
     @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant")
     List<Vote> getAll();

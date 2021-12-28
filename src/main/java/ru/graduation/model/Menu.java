@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.graduation.util.TimeUtil.DATE_TIME_FORMAT_PATTERN;
+import static ru.graduation.util.TimeUtil.DATE_FORMAT_PATTERN;
 
 @Entity
 @Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "restaurant_id"}, name = "unique_menu")})
@@ -26,7 +26,7 @@ public class Menu extends AbstractNamedEntity {
 
     @Column(name = "menu_date", nullable = false)
     @NotNull
-    @DateTimeFormat(pattern = DATE_TIME_FORMAT_PATTERN)
+    @DateTimeFormat(pattern = DATE_FORMAT_PATTERN)
     private LocalDate date;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
