@@ -85,11 +85,6 @@ public class VoteController {
         log.debug("get voting results");
         List<Vote> votes = voteService.getAllByDate(localDate);
         List<VoteTo> voteTos = votes.stream().map(VoteUtil::createTo).toList();
-        try {
-            return JsonUtil.writeValue(voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting())));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return JsonUtil.writeValue(voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting())));
     }
 }

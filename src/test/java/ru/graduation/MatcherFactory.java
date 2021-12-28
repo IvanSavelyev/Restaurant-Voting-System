@@ -73,7 +73,7 @@ public class MatcherFactory {
             return result -> assertMatch(JsonUtil.readValues(getContent(result), clazz), expected);
         }
 
-        public T readFromJson(ResultActions action) throws UnsupportedEncodingException, JsonProcessingException {
+        public T readFromJson(ResultActions action) throws UnsupportedEncodingException {
             return JsonUtil.readValue(getContent(action.andReturn()), clazz);
         }
 

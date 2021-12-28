@@ -20,8 +20,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Secured(("ROLE_ADMIN"))
     Restaurant save(Restaurant restaurant);
 
-    Restaurant findById(int restaurantId);
-
     @Modifying
     @Transactional
     @Query("DELETE FROM Restaurant r WHERE r.id=?1")

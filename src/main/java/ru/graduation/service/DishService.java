@@ -6,7 +6,6 @@ import org.springframework.util.Assert;
 import ru.graduation.model.Dish;
 import ru.graduation.repository.DishRepository;
 import ru.graduation.repository.MenuRepository;
-import ru.graduation.util.ValidationUtil;
 import ru.graduation.util.exception.NotFoundException;
 
 import java.util.List;
@@ -23,13 +22,13 @@ public class DishService {
 
     public Dish create(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        dish.setMenu(menuRepository.getById(menuId));
+        dish.setMenu(menuRepository.findById(menuId).orElseThrow(()-> new NotFoundException("Not found with " + menuId)));
         return checkNotFoundWithId(dishRepository.save(dish), dish.id());
     }
 
     public void update(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        dish.setMenu(menuRepository.getById(menuId));
+        dish.setMenu(menuRepository.findById(menuId).orElseThrow(()-> new NotFoundException("Not found with " + menuId)));
         checkNotFoundWithId(dishRepository.save(dish), dish.id());
     }
 
@@ -42,7 +41,7 @@ public class DishService {
     }
 
     public Dish get(int id) {
-        return checkNotFoundWithId(dishRepository.findById(id).get(), id);
+        return dishRepository.findById(id).orElseThrow(()-> new NotFoundException("Not found with" + id));
     }
 
     public List<Dish> getAllByMenuId(int menuId) {

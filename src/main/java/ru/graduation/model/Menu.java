@@ -20,7 +20,7 @@ import static ru.graduation.util.TimeUtil.DATE_FORMAT_PATTERN;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @ToString(callSuper = true)
 public class Menu extends AbstractNamedEntity {
 
@@ -39,4 +39,15 @@ public class Menu extends AbstractNamedEntity {
     @ToString.Exclude
     @JsonIgnore
     private Restaurant restaurant;
+
+
+    public Menu(Integer id, String name, LocalDate date) {
+        super(id, name);
+        this.date = date;
+    }
+
+    public Menu(Integer id, String name, LocalDate date, List<Dish> dishes) {
+        this(id, name, date);
+        this.dishes = dishes;
+    }
 }

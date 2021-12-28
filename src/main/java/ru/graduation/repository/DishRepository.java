@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface DishRepository extends JpaRepository<Dish, Integer> {
 
-    @Query("SELECT d FROM Dish d WHERE d.menu.id=?1 ORDER BY d.name ASC")
+    @Query("SELECT d FROM Dish d WHERE d.menu.id=?1")
     List<Dish> findAllByMenuId(int menuId);
 
     @Modifying
