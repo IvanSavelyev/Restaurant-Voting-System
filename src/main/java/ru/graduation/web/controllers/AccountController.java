@@ -34,6 +34,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Slf4j
 @Tag(name = "Account Controller")
 public class AccountController implements RepresentationModelProcessor<RepositoryLinksResource> {
+
     static final String URL = "/api/account";
 
     @SuppressWarnings("unchecked")

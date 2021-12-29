@@ -20,7 +20,7 @@ public class AbstractNamedEntity extends AbstractBaseEntity {
     @NotBlank
     @Column(name = "name")
     @Size(max = 128)
-    private String name;
+    protected String name;
 
     protected AbstractNamedEntity(Integer id, String name) {
         super(id);

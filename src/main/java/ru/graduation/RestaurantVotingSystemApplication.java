@@ -6,17 +6,10 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import ru.graduation.model.Restaurant;
-import ru.graduation.model.User;
-import ru.graduation.model.Vote;
 import ru.graduation.service.MenuService;
 import ru.graduation.service.RestaurantService;
 import ru.graduation.service.UserService;
 import ru.graduation.service.VoteService;
-import ru.graduation.util.exception.NotFoundException;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 @EnableJpaRepositories

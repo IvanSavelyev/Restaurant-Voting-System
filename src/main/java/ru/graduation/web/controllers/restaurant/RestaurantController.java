@@ -1,5 +1,6 @@
 package ru.graduation.web.controllers.restaurant;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,8 @@ import static ru.graduation.web.controllers.restaurant.RestaurantController.REST
 @RestController
 @RequestMapping(value = RESTAURANT_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@Tag(name = "Restaurant Controller")
+
 public class RestaurantController extends AbstractRestaurantController {
 
     public final static String RESTAURANT_REST_URL = "api/rest/restaurants";

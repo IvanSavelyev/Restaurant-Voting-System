@@ -6,7 +6,7 @@ import org.springframework.util.Assert;
 import ru.graduation.model.Dish;
 import ru.graduation.repository.DishRepository;
 import ru.graduation.repository.MenuRepository;
-import ru.graduation.util.exception.NotFoundException;
+import ru.graduation.web.exeption.NotFoundException;
 
 import java.util.List;
 
@@ -45,6 +45,6 @@ public class DishService {
     }
 
     public List<Dish> getAllByMenuId(int menuId) {
-        return dishRepository.findAllByMenuId(menuId);
+        return checkNotFoundWithId(dishRepository.findAllByMenuId(menuId), menuId);
     }
 }

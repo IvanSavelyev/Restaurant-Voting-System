@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.graduation.model.Menu;
 import ru.graduation.repository.MenuRepository;
-import ru.graduation.util.exception.NotFoundException;
+import ru.graduation.web.exeption.NotFoundException;
 
 import java.util.List;
 

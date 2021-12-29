@@ -1,5 +1,6 @@
 package ru.graduation.web.controllers.dish;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import static ru.graduation.web.controllers.dish.AdminDishController.ADMIN_DISH_
 @RequestMapping(value = ADMIN_DISH_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Slf4j
+@Tag(name = "Dish Controller")
 public class AdminDishController {
 
     public final static String ADMIN_DISH_REST_URL = "api/admin/rest/dishes";

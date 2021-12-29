@@ -1,9 +1,8 @@
 package ru.graduation.web.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.h2.util.DateTimeUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,14 +18,13 @@ import ru.graduation.to.VoteTo;
 import ru.graduation.util.SecurityUtil;
 import ru.graduation.util.TimeUtil;
 import ru.graduation.util.VoteUtil;
-import ru.graduation.util.exception.NotChangeYourMindException;
+import ru.graduation.web.exeption.MultiplyVoteException;
+import ru.graduation.web.exeption.NotChangeYouMindException;
 import ru.graduation.web.json.JsonUtil;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
@@ -36,6 +34,7 @@ import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
 @RequestMapping(value = VOTE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Slf4j
+@Tag(name = "Vote Controller")
 public class VoteController {
 
     public final static String VOTE_REST_URL = "api/rest/votes";
@@ -57,7 +56,7 @@ public class VoteController {
         if (!voteService.checkIfExistByUserId(SecurityUtil.authUserId())) {
             return new ResponseEntity<>(voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authUserId()))), HttpStatus.CREATED);
         } else {
-            return ResponseEntity.noContent().build();
+            throw new MultiplyVoteException("You can't vote more then once");
         }
     }
 
@@ -69,7 +68,7 @@ public class VoteController {
             vote.setRestaurant(restaurantService.get(restaurantId));
             voteService.update(vote);
         } else {
-            throw new NotChangeYourMindException("Too late for change your mind");
+            throw new NotChangeYouMindException("No time to change your mind");
         }
     }
 

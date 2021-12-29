@@ -14,9 +14,9 @@ import ru.graduation.model.User;
 import ru.graduation.repository.UserRepository;
 import ru.graduation.to.UserTo;
 import ru.graduation.util.UserUtil;
+import ru.graduation.web.exeption.NotFoundException;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static ru.graduation.util.UserUtil.prepareToSave;
@@ -29,6 +29,7 @@ import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
+
     private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
@@ -43,8 +44,8 @@ public class UserService implements UserDetailsService {
     }
 
     @CacheEvict(value = "users", allEntries = true)
-    public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+    public void delete(int id) throws NotFoundException {
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
     public User get(int id) {
@@ -58,7 +59,7 @@ public class UserService implements UserDetailsService {
 
     @Cacheable("users")
     public List<User> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @CacheEvict(value = "users", allEntries = true)

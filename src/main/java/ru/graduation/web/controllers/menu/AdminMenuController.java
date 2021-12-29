@@ -1,5 +1,6 @@
 package ru.graduation.web.controllers.menu;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import static ru.graduation.web.controllers.menu.AdminMenuController.ADMIN_MENU_
 @RestController
 @RequestMapping(value = ADMIN_MENU_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@Tag(name = "Admin Menu Controller")
 public class AdminMenuController extends AbstractMenuController {
 
     public final static String ADMIN_MENU_REST_URL = "api/admin/rest/menus";

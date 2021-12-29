@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.model.Dish;
-import ru.graduation.util.exception.NotFoundException;
-
-import java.util.List;
+import ru.graduation.web.exeption.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.graduation.testdata.DishTestData.*;
@@ -28,7 +26,7 @@ public class DishServiceTest {
     }
 
     @Test
-    void deleteNotFoundById() {
+    void deleteNotFound() {
         assertThrows(NotFoundException.class, () -> dishService.delete(NOT_FOUND_DISH));
     }
 
@@ -46,6 +44,11 @@ public class DishServiceTest {
     @Test
     void get() {
         DISH_MATCHER.assertMatch(dishService.get(DISH1_ID), dish1);
+    }
+
+    @Test
+    void getNotFound() {
+        assertThrows(NotFoundException.class, () -> dishService.get(NOT_FOUND_DISH));
     }
 
     @Test

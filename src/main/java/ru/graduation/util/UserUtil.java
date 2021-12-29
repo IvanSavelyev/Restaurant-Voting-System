@@ -1,10 +1,11 @@
 package ru.graduation.util;
 
+import lombok.experimental.UtilityClass;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.graduation.model.User;
 import ru.graduation.to.UserTo;
 
-
+@UtilityClass
 public class UserUtil {
 
 //    public static User createNewFromTo(UserTo userTo) {

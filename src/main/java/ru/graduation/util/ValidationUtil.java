@@ -1,18 +1,20 @@
 package ru.graduation.util;
 
 
+import lombok.experimental.UtilityClass;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.BindingResult;
 import ru.graduation.HasId;
-import ru.graduation.util.exception.IllegalRequestDataException;
-import ru.graduation.util.exception.NotFoundException;
+import ru.graduation.web.exeption.IllegalRequestDataException;
+import ru.graduation.web.exeption.NotFoundException;
 
 import javax.validation.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@UtilityClass
 public class ValidationUtil {
 
     private static final Validator validator;
@@ -22,9 +24,6 @@ public class ValidationUtil {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         //  From Javadoc: implementations of this interface must be thread-safe
         validator = factory.getValidator();
-    }
-
-    private ValidationUtil() {
     }
 
     public static <T> void validate(T bean) {

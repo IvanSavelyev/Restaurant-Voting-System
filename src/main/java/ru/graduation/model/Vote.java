@@ -20,11 +20,6 @@ import java.time.LocalDateTime;
 @ToString
 public class Vote extends AbstractBaseEntity {
 
-    public Vote(Restaurant restaurant, User user) {
-        this.restaurant = restaurant;
-        this.user = user;
-    }
-
     @Column(name = "vote_date", nullable = false)
     @NotNull
     private LocalDate voteDate = LocalDate.now();
@@ -41,5 +36,23 @@ public class Vote extends AbstractBaseEntity {
     @NotNull
     @ToString.Exclude
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    public Vote(Integer id) {
+        super(id);
+    }
+
+    public Vote(Restaurant restaurant, User user) {
+        this.restaurant = restaurant;
+        this.user = user;
+    }
+
+    public Vote(Integer id, Restaurant restaurant, User user) {
+        this(id);
+        this.restaurant = restaurant;
+        this.user = user;
+    }
+
+
 }
