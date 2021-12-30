@@ -32,17 +32,17 @@ public class AdminMenuController extends AbstractMenuController {
         return super.getAllMenusByRestaurantId(restaurantId);
     }
 
-    @GetMapping("/{menuId}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Menu get(@PathVariable int menuId) {
-        return super.getById(menuId);
+    public Menu get(@PathVariable int id) {
+        return super.getById(id);
     }
 
-    @DeleteMapping("/{menuId}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int menuId) {
-        log.debug("(Admin):Delete menu with id: {}", menuId);
-        menuService.delete(menuId);
+    public void delete(@PathVariable int id) {
+        log.debug("(Admin):Delete menu with id: {}", id);
+        menuService.delete(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
