@@ -48,7 +48,8 @@ public class AdminDishControllerTest {
     void getByMenuId() throws Exception {
         perform(MockMvcRequestBuilders.get("/"+ ADMIN_DISH_REST_URL + "/" + DISH1_ID)
 //                .param("menuId", "1")
-                .with(TestUtil.userHttpBasic(admin)))
+                .with(TestUtil.userHttpBasic(admin))
+        )
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

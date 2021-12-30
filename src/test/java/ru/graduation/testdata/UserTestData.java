@@ -20,7 +20,7 @@ public class UserTestData {
     public static final String ADMIN_MAIL = "admin@javaops.ru";
 
     public static final User user = new User(USER_ID, "User", USER_MAIL, "password", Role.USER);
-    public static final User admin = new User(ADMIN_ID, "Admin", ADMIN_MAIL, "admin", Role.ADMIN, Role.USER);
+    public static final User admin = new User(ADMIN_ID, "Admin", ADMIN_MAIL, "Admin", Role.ADMIN, Role.USER);
     public static final User user1 = new User(USER_ID+2, "User1", USER_MAIL.substring(0,4) + 1 + USER_MAIL.substring(4,USER_MAIL.length()), "password1", Role.USER);
     public static final User user2 = new User(USER_ID+3, "User2", USER_MAIL.substring(0,4) + 2 + USER_MAIL.substring(4,USER_MAIL.length()), "password2", Role.USER);
     public static final User user3 = new User(USER_ID+4, "User3", USER_MAIL.substring(0,4) + 3 + USER_MAIL.substring(4,USER_MAIL.length()), "password3", Role.USER);
