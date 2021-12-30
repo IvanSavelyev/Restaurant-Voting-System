@@ -111,7 +111,7 @@ public class AdminDishControllerTest {
     @Test
     void update() throws Exception {
         Dish updated = getUpdated();
-        perform(MockMvcRequestBuilders.put(REST_URL)
+        perform(MockMvcRequestBuilders.put(REST_URL+DISH1_ID)
                 .param("menuId", "1")
                 .with(TestUtil.userHttpBasic(admin))
                 .contentType(MediaType.APPLICATION_JSON)

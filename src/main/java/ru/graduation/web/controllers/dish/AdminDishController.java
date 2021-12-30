@@ -50,11 +50,11 @@ public class AdminDishController {
         dishService.delete(id, menuId);
     }
 
-    @PutMapping
+    @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
-        log.debug("(Admin):Update dish for menuId: {}", menuId);
-        ValidationUtil.assureIdConsistent(dish, menuId);
+    public void update(@Valid @RequestBody Dish dish, @RequestParam int menuId, @PathVariable int id) {
+        log.debug("(Admin):Update dish with id {} for menuId: {}", id, menuId);
+        ValidationUtil.assureIdConsistent(dish, id);
         dishService.update(dish, menuId);
     }
 
@@ -62,7 +62,7 @@ public class AdminDishController {
     public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
         log.debug("(Admin):Creating new dish for menuId {}", menuId);
         ValidationUtil.checkNew(dish);
-        dish.setPrice((dish.getPrice()*100.00F)/100.00F);
+        dish.setPrice((dish.getPrice() * 100.00F) / 100.00F);
         Dish created = dishService.create(dish, menuId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_DISH_REST_URL + "/{menuId}")

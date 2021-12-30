@@ -1,7 +1,6 @@
 package ru.graduation.web.controllers.menu;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.graduation.model.Menu;
-import ru.graduation.service.MenuService;
 import ru.graduation.util.ValidationUtil;
 
 import javax.validation.Valid;
@@ -56,11 +54,11 @@ public class AdminMenuController extends AbstractMenuController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Menu menu, @RequestParam int restaurantId) {
-        ValidationUtil.assureIdConsistent(menu, restaurantId);
-        log.info("(Admin):Update menu with id {}", restaurantId);
+    public void update(@Valid @RequestBody Menu menu, @PathVariable int id, @RequestParam int restaurantId) {
+        ValidationUtil.assureIdConsistent(menu, id);
+        log.info("(Admin):Update menu with id {} and for restaurant {}", id, restaurantId);
         menuService.update(menu, restaurantId);
     }
 }
