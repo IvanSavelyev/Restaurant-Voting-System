@@ -30,11 +30,8 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository repository ) {
         this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @CacheEvict(value = "users", allEntries = true)

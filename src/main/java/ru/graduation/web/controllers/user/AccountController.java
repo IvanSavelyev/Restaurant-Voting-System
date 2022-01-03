@@ -20,6 +20,7 @@ import ru.graduation.AuthUser;
 import ru.graduation.model.Role;
 import ru.graduation.model.User;
 import ru.graduation.repository.UserRepository;
+import ru.graduation.service.UserService;
 import ru.graduation.util.ValidationUtil;
 
 import javax.validation.Valid;
@@ -46,7 +47,7 @@ public class AccountController implements RepresentationModelProcessor<Repositor
                 }
             };
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public EntityModel<User> get(@AuthenticationPrincipal AuthUser authUser) {
@@ -56,10 +57,9 @@ public class AccountController implements RepresentationModelProcessor<Repositor
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CacheEvict(value = "users", key = "#authUser.username")
     public void delete(@AuthenticationPrincipal AuthUser authUser) {
         log.info("delete {}", authUser);
-        userRepository.deleteById(authUser.id());
+        userService.delete(authUser.id());
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -68,7 +68,7 @@ public class AccountController implements RepresentationModelProcessor<Repositor
         log.info("register {}", user);
         ValidationUtil.checkNew(user);
         user.setRoles(EnumSet.of(Role.USER));
-        user = userRepository.save(user);
+        user = userService.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/account")
                 .build().toUri();
@@ -77,7 +77,6 @@ public class AccountController implements RepresentationModelProcessor<Repositor
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CachePut(value = "users", key = "#authUser.username")
     public User update(@Valid @RequestBody User user, @AuthenticationPrincipal AuthUser authUser) {
         log.info("update {} to {}", authUser, user);
         User oldUser = authUser.getUser();
@@ -86,7 +85,7 @@ public class AccountController implements RepresentationModelProcessor<Repositor
         if (user.getPassword() == null) {
             user.setPassword(oldUser.getPassword());
         }
-        return userRepository.save(user);
+        return userService.create(user);
     }
 
     @Override
