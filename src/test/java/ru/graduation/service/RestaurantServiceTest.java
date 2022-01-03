@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.TimingExtension;
 import ru.graduation.model.Restaurant;
-import ru.graduation.testdata.RestaurantTestData;
 import ru.graduation.web.exeption.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,7 +16,7 @@ import static ru.graduation.testdata.RestaurantTestData.*;
 @SpringBootTest
 @Transactional
 @ExtendWith(TimingExtension.class)
-
+@ActiveProfiles("test")
 public class RestaurantServiceTest {
 
     @Autowired
@@ -50,16 +50,16 @@ public class RestaurantServiceTest {
 
     @Test
     void update() {
-        Restaurant updated = RestaurantTestData.getUpdated();
+        Restaurant updated = getUpdated();
         restaurantService.update(updated);
-        RESTAURANT_MATCHER.assertMatch(restaurantService.get(RESTAURANT_ID), RestaurantTestData.getUpdated());
+        RESTAURANT_MATCHER.assertMatch(restaurantService.get(RESTAURANT_ID), getUpdated());
     }
 
     @Test
     void create() {
-        Restaurant created = restaurantService.create(RestaurantTestData.getNew());
+        Restaurant created = restaurantService.create(getNew());
         int newId = created.id();
-        Restaurant newRestaurant = RestaurantTestData.getNew();
+        Restaurant newRestaurant = getNew();
         newRestaurant.setId(newId);
         RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
         RESTAURANT_MATCHER.assertMatch(restaurantService.get(newId), newRestaurant);

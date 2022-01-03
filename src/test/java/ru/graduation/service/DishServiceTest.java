@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.TimingExtension;
 import ru.graduation.model.Dish;
@@ -17,6 +18,7 @@ import static ru.graduation.testdata.MenuTestData.NOT_FOUND_MENU;
 @SpringBootTest
 @Transactional
 @ExtendWith(TimingExtension.class)
+@ActiveProfiles("test")
 public class DishServiceTest {
 
     @Autowired

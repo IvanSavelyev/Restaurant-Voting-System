@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(
         info = @Info(
                 title = "Restaurant voting REST API documentation",
-                description = "Some desc",
+                description = "Spring Boot приложение, для голосования за выбранные рестораны",
                 contact = @Contact(name = "Savel'ev Ivan", email = "ivsound93@gmail.com")
         ),
         security = @SecurityRequirement(name = "basicAuth")

@@ -20,8 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.graduation.testdata.UserTestData.*;
-import static ru.graduation.testdata.VoteTestData.VOTE_MATCHER;
-import static ru.graduation.testdata.VoteTestData.votes;
+import static ru.graduation.testdata.VoteTestData.*;
 import static ru.graduation.web.controllers.vote.VoteController.VOTE_REST_URL;
 
 public class VoteControllerTest extends AbstractControllerTest {

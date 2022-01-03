@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.TimingExtension;
 import ru.graduation.model.Menu;
-import ru.graduation.testdata.MenuTestData;
 import ru.graduation.web.exeption.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,6 +18,7 @@ import static ru.graduation.testdata.RestaurantTestData.RESTAURANT_ID;
 @SpringBootTest
 @Transactional
 @ExtendWith(TimingExtension.class)
+@ActiveProfiles("test")
 public class MenuServiceTest {
 
     @Autowired
@@ -51,16 +52,16 @@ public class MenuServiceTest {
 
     @Test
     void update() {
-        Menu updated = MenuTestData.getUpdated();
+        Menu updated = getUpdated();
         menuService.update(updated, RESTAURANT_ID);
-        MENU_MATCHER.assertMatch(menuService.get(MENU1_ID), MenuTestData.getUpdated());
+        MENU_MATCHER.assertMatch(menuService.get(MENU1_ID), getUpdated());
     }
 
     @Test
     void create() {
-        Menu created = menuService.create(MenuTestData.getNew(), RESTAURANT_ID);
+        Menu created = menuService.create(getNew(), RESTAURANT_ID);
         int newId = created.id();
-        Menu newMenu = MenuTestData.getNew();
+        Menu newMenu = getNew();
         newMenu.setId(newId);
         MENU_MATCHER.assertMatch(created, newMenu);
         MENU_MATCHER.assertMatch(menuService.get(newId), newMenu);
