@@ -39,5 +39,7 @@ So, all available users and credentials are present in current table.
 | user5@javaops.ru | password5 |    USER    |
 
 The full description of the application is available at the link (when the application is running)
-Start the project (mvn spring-boot:run) and go to localhost:8080/swagger-ui.html
+
+Start the project (mvn spring-boot:run) and go to 
+localhost:8080/swagger-ui.html
 
