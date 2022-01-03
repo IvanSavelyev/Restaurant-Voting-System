@@ -1,3 +1,6 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e7607f460f164f9ead83a8e2fb2772b3)](https://www.codacy.com/gh/IvanSavelyev/Restaurant-Voting-System/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=IvanSavelyev/Restaurant-Voting-System&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://app.travis-ci.com/IvanSavelyev/Restaurant-Voting-System.svg?branch=master)](https://app.travis-ci.com/IvanSavelyev/Restaurant-Voting-System)
+
 Restaurant Voting Api
 Techical requirements.
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
