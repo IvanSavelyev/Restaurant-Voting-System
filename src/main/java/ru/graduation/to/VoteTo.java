@@ -13,4 +13,6 @@ public class VoteTo {
 
     @Size(min = 2, max = 100)
     private String name;
+
+    private Integer total;
 }

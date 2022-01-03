@@ -11,6 +11,7 @@ import ru.graduation.repository.VoteRepository;
 import java.time.LocalDate;
 import java.util.List;
 
+import static ru.graduation.util.ValidationUtil.checkNotFound;
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("VoteService")

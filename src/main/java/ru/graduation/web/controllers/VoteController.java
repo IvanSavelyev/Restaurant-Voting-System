@@ -46,12 +46,13 @@ public class VoteController {
     private final VoteService voteService;
 
     @GetMapping
-    public List<Vote> getAllByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam LocalDate localDate){
+    @ResponseStatus(HttpStatus.OK)
+    public List<Vote> getAllByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate){
         return voteService.getAllByDate(localDate);
     }
 
     @PostMapping
-    public ResponseEntity<Vote> createVote(@RequestParam int restaurantId) {
+    public ResponseEntity<Vote> create(@RequestParam int restaurantId) {
         Restaurant restaurant = restaurantService.get(restaurantId);
         if (!voteService.checkIfExistByUserId(SecurityUtil.authUserId())) {
             return new ResponseEntity<>(voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authUserId()))), HttpStatus.CREATED);
@@ -61,25 +62,28 @@ public class VoteController {
     }
 
     @PutMapping
-    public void updateVote(@RequestParam int restaurantId) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestParam int restaurantId) {
         LocalTime nowTime = LocalTime.now();
-        if (voteService.checkIfExistByUserId(SecurityUtil.authUserId()) && !TimeUtil.isBetween(nowTime)) {
+        if (TimeUtil.isBetween(nowTime)) {
             Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
             vote.setRestaurant(restaurantService.get(restaurantId));
             voteService.update(vote);
         } else {
-            throw new NotChangeYouMindException("No time to change your mind");
+            throw new NotChangeYouMindException("Too late to change your mind");
         }
     }
 
     @DeleteMapping("/clear")
     @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete() {
         log.debug("Delete all votes");
         voteService.clear();
     }
 
     @GetMapping("/results")
+    @ResponseStatus(HttpStatus.OK)
     public String getResults(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
         log.debug("get voting results");
         List<Vote> votes = voteService.getAllByDate(localDate);

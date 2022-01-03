@@ -8,6 +8,6 @@ import ru.graduation.to.VoteTo;
 public class VoteUtil {
 
     public static VoteTo createTo(Vote vote){
-        return new VoteTo(vote.getRestaurant().getName());
+        return new VoteTo(vote.getRestaurant().getName(), vote.getUser().getId());
     }
 }
