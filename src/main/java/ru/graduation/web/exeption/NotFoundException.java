@@ -7,6 +7,6 @@ import static org.springframework.boot.web.error.ErrorAttributeOptions.Include.M
 
 public class NotFoundException extends AppException {
     public NotFoundException(String message) {
-        super(HttpStatus.UNPROCESSABLE_ENTITY, message, ErrorAttributeOptions.of(MESSAGE));
+        super(HttpStatus.NOT_FOUND, message, ErrorAttributeOptions.of(MESSAGE));
     }
 }

@@ -1,4 +1,4 @@
-package ru.graduation.web.controllers;
+package ru.graduation.web.controllers.user;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -88,14 +88,6 @@ public class AccountController implements RepresentationModelProcessor<Repositor
         }
         return userRepository.save(user);
     }
-
-/*
-    @GetMapping(value = "/pageDemo", produces = MediaTypes.HAL_JSON_VALUE)
-    public PagedModel<EntityModel<User>> pageDemo(Pageable page, PagedResourcesAssembler<User> pagedAssembler) {
-        Page<User> users = userRepository.findAll(page);
-        return pagedAssembler.toModel(users, ASSEMBLER);
-    }
-*/
 
     @Override
     public RepositoryLinksResource process(RepositoryLinksResource resource) {

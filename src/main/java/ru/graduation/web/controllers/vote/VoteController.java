@@ -1,4 +1,4 @@
-package ru.graduation.web.controllers;
+package ru.graduation.web.controllers.vote;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.graduation.web.controllers.VoteController.VOTE_REST_URL;
+import static ru.graduation.web.controllers.vote.VoteController.VOTE_REST_URL;
 
 
 @RestController
@@ -54,8 +54,8 @@ public class VoteController {
     @PostMapping
     public ResponseEntity<Vote> create(@RequestParam int restaurantId) {
         Restaurant restaurant = restaurantService.get(restaurantId);
-        if (!voteService.checkIfExistByUserId(SecurityUtil.authUserId())) {
-            return new ResponseEntity<>(voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authUserId()))), HttpStatus.CREATED);
+        if (!voteService.checkIfExistByUserId(SecurityUtil.authId())) {
+            return new ResponseEntity<>(voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authId()))), HttpStatus.CREATED);
         } else {
             throw new MultiplyVoteException("You can't vote more then once");
         }
@@ -66,7 +66,7 @@ public class VoteController {
     public void update(@RequestParam int restaurantId) {
         LocalTime nowTime = LocalTime.now();
         if (TimeUtil.isBetween(nowTime)) {
-            Vote vote = voteService.getByUserId(SecurityUtil.authUserId());
+            Vote vote = voteService.getByUserId(SecurityUtil.authId());
             vote.setRestaurant(restaurantService.get(restaurantId));
             voteService.update(vote);
         } else {

@@ -1,14 +1,14 @@
 package ru.graduation.to;
 
+import ru.graduation.HasIdAndEmail;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class UserTo extends BaseTo implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class UserTo extends BaseTo implements HasIdAndEmail {
 
     @NotBlank
     @Size(min = 2, max = 100)

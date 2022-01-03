@@ -1,16 +1,18 @@
 package ru.graduation.util;
 
 import lombok.experimental.UtilityClass;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.graduation.model.Role;
 import ru.graduation.model.User;
 import ru.graduation.to.UserTo;
+
+import static ru.graduation.config.WebSecurityConfig.PASSWORD_ENCODER;
 
 @UtilityClass
 public class UserUtil {
 
-//    public static User createNewFromTo(UserTo userTo) {
-//        return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), Collections.singleton(Role.USER));
-//    }
+    public static User createNewFromTo(UserTo userTo) {
+        return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), Role.USER);
+    }
 
     public static UserTo asTo(User user) {
         return new UserTo(user.getId(), user.getName(), user.getEmail(), user.getPassword());
@@ -23,8 +25,8 @@ public class UserUtil {
         return user;
     }
 
-    public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public static User prepareToSave(User user) {
+        user.setPassword(PASSWORD_ENCODER.encode(user.getPassword()));
         user.setEmail(user.getEmail().toLowerCase());
         return user;
     }

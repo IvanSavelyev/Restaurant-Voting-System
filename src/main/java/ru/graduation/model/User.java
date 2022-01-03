@@ -8,12 +8,14 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import ru.graduation.HasIdAndEmail;
 import ru.graduation.util.JsonDeserializers;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -26,7 +28,10 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"password"})
-public class User extends AbstractNamedEntity {
+public class User extends AbstractNamedEntity implements HasIdAndEmail, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -36,8 +41,6 @@ public class User extends AbstractNamedEntity {
 
     @Column(name = "password", nullable = false)
     @Size(max = 256)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    @JsonDeserialize(using = JsonDeserializers.PasswordDeserializer.class)
     private String password;
 
     @Enumerated(EnumType.STRING)
