@@ -1,14 +1,12 @@
 package ru.graduation.to;
 
-import ru.graduation.HasIdAndEmail;
+import ru.graduation.HasId;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.io.Serial;
-import java.io.Serializable;
 
-public class UserTo extends BaseTo implements HasIdAndEmail {
+public class UserTo extends BaseTo implements HasId {
 
     @NotBlank
     @Size(min = 2, max = 100)

@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.ToString;
 import org.springframework.lang.NonNull;
 import ru.graduation.model.User;
-import ru.graduation.to.UserTo;
-import ru.graduation.util.UserUtil;
 
 import java.io.Serial;
 

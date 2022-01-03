@@ -2,6 +2,8 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.graduation.model.Restaurant;
@@ -23,19 +25,23 @@ public class RestaurantService {
         return restaurantRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found with " + id));
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(restaurantRepository.delete(id) != 0, id);
     }
 
+    @Cacheable("restaurants")
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll();
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     public void update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         restaurantRepository.save(restaurant);

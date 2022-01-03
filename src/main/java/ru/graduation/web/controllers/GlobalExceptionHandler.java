@@ -20,8 +20,6 @@ import ru.graduation.web.exeption.AppException;
 import ru.graduation.web.exeption.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
-
 import java.util.Map;
 import java.util.stream.Collectors;
 

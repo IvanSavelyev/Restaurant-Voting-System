@@ -1,9 +1,11 @@
 package ru.graduation.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import ru.graduation.TimingExtension;
 import ru.graduation.model.Restaurant;
 import ru.graduation.model.Vote;
 import ru.graduation.testdata.RestaurantTestData;
@@ -20,6 +22,8 @@ import static ru.graduation.testdata.VoteTestData.*;
 
 @SpringBootTest
 @Transactional
+@ExtendWith(TimingExtension.class)
+
 public class VoteServiceTest {
 
     @Autowired

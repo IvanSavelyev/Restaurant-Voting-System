@@ -1,10 +1,12 @@
 package ru.graduation.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
+import ru.graduation.TimingExtension;
 import ru.graduation.model.Role;
 import ru.graduation.model.User;
 import ru.graduation.web.exeption.NotFoundException;
@@ -16,6 +18,8 @@ import static ru.graduation.testdata.UserTestData.*;
 
 @SpringBootTest
 @Transactional
+@ExtendWith(TimingExtension.class)
+
 public class UserServiceTest {
 
     @Autowired

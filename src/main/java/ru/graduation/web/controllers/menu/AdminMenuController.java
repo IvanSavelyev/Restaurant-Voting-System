@@ -54,7 +54,7 @@ public class AdminMenuController extends AbstractMenuController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Menu menu, @PathVariable int id, @RequestParam int restaurantId) {
         ValidationUtil.assureIdConsistent(menu, id);

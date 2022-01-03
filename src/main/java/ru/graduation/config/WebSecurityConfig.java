@@ -1,6 +1,5 @@
 package ru.graduation.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import ru.graduation.model.User;
 import ru.graduation.repository.UserRepository;
 import ru.graduation.web.json.JacksonObjectMapper;
 import ru.graduation.web.json.JsonUtil;
-//import ru.graduation.web.controllers.json.JsonUtil;
 
 import javax.annotation.PostConstruct;
 import java.util.Optional;

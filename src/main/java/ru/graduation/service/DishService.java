@@ -22,13 +22,13 @@ public class DishService {
 
     public Dish create(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        dish.setMenu(menuRepository.findById(menuId).orElseThrow(()-> new NotFoundException("Not found with " + menuId)));
+        dish.setMenu(menuRepository.findById(menuId).orElseThrow(() -> new NotFoundException("Not found with " + menuId)));
         return checkNotFoundWithId(dishRepository.save(dish), dish.id());
     }
 
     public void update(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        dish.setMenu(menuRepository.findById(menuId).orElseThrow(()-> new NotFoundException("Not found with " + menuId)));
+        dish.setMenu(menuRepository.findById(menuId).orElseThrow(() -> new NotFoundException("Not found with " + menuId)));
         checkNotFoundWithId(dishRepository.save(dish), dish.id());
     }
 
@@ -41,7 +41,7 @@ public class DishService {
     }
 
     public Dish get(int id) {
-        return dishRepository.findById(id).orElseThrow(()-> new NotFoundException("Not found with" + id));
+        return dishRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found with" + id));
     }
 
     public List<Dish> getAllByMenuId(int menuId) {

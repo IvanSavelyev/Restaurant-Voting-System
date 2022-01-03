@@ -1,5 +1,6 @@
 package ru.graduation.web.controllers.user;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import static ru.graduation.util.ValidationUtil.checkNew;
 @RestController
 @RequestMapping(value = AdminUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@Tag(name = "Admin User Controller")
 public class AdminUserController {
 
     public static final String REST_URL = "/api/admin/users";

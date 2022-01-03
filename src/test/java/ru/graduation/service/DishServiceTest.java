@@ -1,9 +1,11 @@
 package ru.graduation.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import ru.graduation.TimingExtension;
 import ru.graduation.model.Dish;
 import ru.graduation.web.exeption.NotFoundException;
 
@@ -14,6 +16,7 @@ import static ru.graduation.testdata.MenuTestData.NOT_FOUND_MENU;
 
 @SpringBootTest
 @Transactional
+@ExtendWith(TimingExtension.class)
 public class DishServiceTest {
 
     @Autowired

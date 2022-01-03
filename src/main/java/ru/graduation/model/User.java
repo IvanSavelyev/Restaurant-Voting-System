@@ -1,15 +1,10 @@
 package ru.graduation.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import ru.graduation.HasIdAndEmail;
-import ru.graduation.util.JsonDeserializers;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -28,7 +23,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"password"})
-public class User extends AbstractNamedEntity implements HasIdAndEmail, Serializable {
+public class User extends AbstractNamedEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -59,10 +54,10 @@ public class User extends AbstractNamedEntity implements HasIdAndEmail, Serializ
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password,  EnumSet.of(role, roles));
+        this(id, name, email, password, EnumSet.of(role, roles));
     }
 
-    public User(Integer id, String name, String email, String password , Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;

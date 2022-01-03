@@ -1,7 +1,5 @@
 package ru.graduation.repository;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,7 +8,6 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.model.User;
 
-import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)

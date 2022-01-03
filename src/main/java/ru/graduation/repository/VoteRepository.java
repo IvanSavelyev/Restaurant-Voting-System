@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.model.Vote;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository

@@ -28,7 +28,6 @@ public class AdminUserControllerTest extends AbstractControllerTest {
     private UserService userService;
 
     @Test
-//    @WithUserDetails(value = ADMIN_MAIL)
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
                 .with(TestUtil.userHttpBasic(admin)))

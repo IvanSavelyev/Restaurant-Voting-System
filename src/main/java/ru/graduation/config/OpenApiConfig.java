@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public GroupedOpenApi api(){
+    public GroupedOpenApi api() {
         return GroupedOpenApi.builder().group("REST API").pathsToMatch("/api/**").build();
     }
 }

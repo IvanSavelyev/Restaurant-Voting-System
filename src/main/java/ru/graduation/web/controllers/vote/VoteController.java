@@ -47,7 +47,7 @@ public class VoteController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Vote> getAllByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate){
+    public List<Vote> getAllByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
         return voteService.getAllByDate(localDate);
     }
 

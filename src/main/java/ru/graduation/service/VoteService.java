@@ -1,17 +1,14 @@
 package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import ru.graduation.model.Restaurant;
 import ru.graduation.model.Vote;
 import ru.graduation.repository.VoteRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static ru.graduation.util.ValidationUtil.checkNotFound;
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("VoteService")
@@ -24,7 +21,7 @@ public class VoteService {
         return checkNotFoundWithId(voteRepository.findByUserId(userId), userId);
     }
 
-    public List<Vote> getAllByDate(LocalDate localDate){
+    public List<Vote> getAllByDate(LocalDate localDate) {
         return voteRepository.findAllByVoteDate(localDate);
     }
 
@@ -33,7 +30,7 @@ public class VoteService {
         return voteRepository.save(vote);
     }
 
-    public void update(Vote vote){
+    public void update(Vote vote) {
         Assert.notNull(vote, "vote must not be null");
         voteRepository.save(vote);
     }
@@ -42,7 +39,7 @@ public class VoteService {
         voteRepository.delete();
     }
 
-    public boolean checkIfExistByUserId(int userId){
+    public boolean checkIfExistByUserId(int userId) {
         return voteRepository.existsByUserId(userId);
     }
 }

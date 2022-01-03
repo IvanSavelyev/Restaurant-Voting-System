@@ -1,15 +1,12 @@
 package ru.graduation.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
 import ru.graduation.HasId;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 @AllArgsConstructor

@@ -50,7 +50,7 @@ public class AdminDishController {
         dishService.delete(id, menuId);
     }
 
-    @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Dish dish, @RequestParam int menuId, @PathVariable int id) {
         log.debug("(Admin):Update dish with id {} for menuId: {}", id, menuId);

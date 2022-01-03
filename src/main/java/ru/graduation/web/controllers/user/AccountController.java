@@ -3,8 +3,6 @@ package ru.graduation.web.controllers.user;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
@@ -19,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.graduation.AuthUser;
 import ru.graduation.model.Role;
 import ru.graduation.model.User;
-import ru.graduation.repository.UserRepository;
 import ru.graduation.service.UserService;
 import ru.graduation.util.ValidationUtil;
 
