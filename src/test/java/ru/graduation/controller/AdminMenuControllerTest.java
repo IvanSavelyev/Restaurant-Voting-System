@@ -1,44 +1,26 @@
 package ru.graduation.controller;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import ru.graduation.TestUtil;
-import ru.graduation.config.AppConfig;
-import ru.graduation.model.Dish;
 import ru.graduation.model.Menu;
-import ru.graduation.service.DishService;
 import ru.graduation.service.MenuService;
 import ru.graduation.testdata.MenuTestData;
 import ru.graduation.web.exeption.NotFoundException;
 import ru.graduation.web.json.JsonUtil;
 
-import java.util.Locale;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.graduation.testdata.DishTestData.*;
-import static ru.graduation.testdata.DishTestData.DISH_MATCHER;
 import static ru.graduation.testdata.MenuTestData.*;
 import static ru.graduation.testdata.UserTestData.admin;
-import static ru.graduation.web.controllers.dish.AdminDishController.ADMIN_DISH_REST_URL;
 import static ru.graduation.web.controllers.menu.AdminMenuController.ADMIN_MENU_REST_URL;
 
-public class AdminMenuControllerTest extends AbstractControllerTest{
+public class AdminMenuControllerTest extends AbstractControllerTest {
 
     private static final String REST_URL = "/" + ADMIN_MENU_REST_URL + "/";
 
@@ -99,7 +81,7 @@ public class AdminMenuControllerTest extends AbstractControllerTest{
     @Test
     void update() throws Exception {
         Menu updated = MenuTestData.getUpdated();
-        perform(MockMvcRequestBuilders.put(REST_URL+MENU1_ID)
+        perform(MockMvcRequestBuilders.put(REST_URL + MENU1_ID)
                 .param("restaurantId", "1")
                 .with(TestUtil.userHttpBasic(admin))
                 .contentType(MediaType.APPLICATION_JSON)

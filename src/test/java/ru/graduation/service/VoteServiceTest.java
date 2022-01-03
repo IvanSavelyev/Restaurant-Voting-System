@@ -6,17 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.TimingExtension;
-import ru.graduation.model.Restaurant;
 import ru.graduation.model.Vote;
-import ru.graduation.testdata.RestaurantTestData;
 import ru.graduation.testdata.VoteTestData;
 import ru.graduation.web.exeption.NotFoundException;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.graduation.testdata.MenuTestData.*;
-import static ru.graduation.testdata.RestaurantTestData.*;
 import static ru.graduation.testdata.UserTestData.*;
 import static ru.graduation.testdata.VoteTestData.*;
 

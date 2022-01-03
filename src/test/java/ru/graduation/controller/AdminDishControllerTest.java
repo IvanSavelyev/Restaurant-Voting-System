@@ -2,16 +2,11 @@ package ru.graduation.controller;
 
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.graduation.TestUtil;
-import ru.graduation.config.AppConfig;
 import ru.graduation.model.Dish;
 import ru.graduation.service.DishService;
 import ru.graduation.web.exeption.NotFoundException;

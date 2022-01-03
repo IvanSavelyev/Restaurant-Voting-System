@@ -24,10 +24,6 @@ public class VoteTestData {
     public static final Vote vote4 = new Vote(VOTE_ID + 3);
     public static final Vote vote5 = new Vote(VOTE_ID + 4);
     public static final Vote vote6 = new Vote(VOTE_ID + 5);
-    public static final Vote vote7 = new Vote(VOTE_ID + 6);
-
-    public static final List<VoteTo> votesTos = List.of(new VoteTo("IVAN LUNCHES", 2), new VoteTo("ASHOT DINNER", 4));
-
     public static final List<Vote> votes = List.of(vote1, vote2, vote3, vote4, vote5, vote6);
 
     public static Vote getUpdated() {
