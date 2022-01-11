@@ -42,5 +42,5 @@ So, all available users and credentials are present in current table.
 The full description of the application is available at the link (when the application is running)
 
 Start the project (mvn spring-boot:run) and go to
-[SWAGGER](localhost:8080/swagger-ui.html)
+[SWAGGER](http://localhost:8080/swagger-ui.html)
 
