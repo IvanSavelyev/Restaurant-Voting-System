@@ -23,7 +23,6 @@ import static ru.graduation.util.TimeUtil.DATE_FORMAT_PATTERN;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
 @ToString(callSuper = true)
 public class Menu extends AbstractNamedEntity {
 
