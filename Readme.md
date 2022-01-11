@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6a0c3de1e75c4fa8939c1a1240891f0b)](https://app.codacy.com/gh/IvanSavelyev/Restaurant-Voting-System?utm_source=github.com&utm_medium=referral&utm_content=IvanSavelyev/Restaurant-Voting-System&utm_campaign=Badge_Grade_Settings)
 <!-- [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e7607f460f164f9ead83a8e2fb2772b3)](https://www.codacy.com/gh/IvanSavelyev/Restaurant-Voting-System/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=IvanSavelyev/Restaurant-Voting-System&amp;utm_campaign=Badge_Grade) -->
 
 [![Build Status](https://app.travis-ci.com/IvanSavelyev/Restaurant-Voting-System.svg?branch=master)](https://app.travis-ci.com/IvanSavelyev/Restaurant-Voting-System)
