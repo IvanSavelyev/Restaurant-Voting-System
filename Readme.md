@@ -43,4 +43,5 @@ The full description of the application is available at the link (when the appli
 
 Start the project (mvn spring-boot:run) and go to 
 localhost:8080/swagger-ui.html
-# <img href="localhost:8080/swagger-ui.html" src="https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SWC-logo-clr.png" height="80">
+![href="localhost:8080/swagger-ui.html"](https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SWC-logo-clr.png)
+<!-- # <img href="localhost:8080/swagger-ui.html" src="https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SWC-logo-clr.png" height="80"> -->
