@@ -30,7 +30,7 @@ So, all available users and credentials are present in current table.
 
 
 | Username         | Password  |    Role    |
-|------------------|-----------|:----------:|
+|------------------|:---------:|:----------:|
 | user@javaops.ru  | password  |    USER    |
 | admin@javaops.ru | Admin     | USER/ADMIN |
 | user1@javaops.ru | password1 |    USER    |
