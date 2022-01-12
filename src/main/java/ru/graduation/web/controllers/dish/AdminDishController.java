@@ -62,7 +62,6 @@ public class AdminDishController {
     public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
         log.debug("(Admin):Creating new dish for menuId {}", menuId);
         ValidationUtil.checkNew(dish);
-        dish.setPrice((dish.getPrice() * 100.00F) / 100.00F);
         Dish created = dishService.create(dish, menuId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_DISH_REST_URL + "/{menuId}")

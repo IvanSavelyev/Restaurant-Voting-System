@@ -22,7 +22,7 @@ public class Dish extends AbstractNamedEntity {
     @JsonBackReference
     private Menu menu;
 
-    @Column(name = "price", nullable = false, precision = 7, scale = 2)
+    @Column(name = "price", nullable = false, columnDefinition = "Decimal(10,2)")
     @NotNull
     private float price;
 
