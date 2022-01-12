@@ -1,5 +1,4 @@
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e7607f460f164f9ead83a8e2fb2772b3)](https://www.codacy.com/gh/IvanSavelyev/Restaurant-Voting-System/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=IvanSavelyev/Restaurant-Voting-System&amp;utm_campaign=Badge_Grade)
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7dfa146b79da4d78a7497545855d0ee9)](https://www.codacy.com/gh/IvanSavelyev/Restaurant-Voting-System/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=IvanSavelyev/Restaurant-Voting-System&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://app.travis-ci.com/IvanSavelyev/Restaurant-Voting-System.svg?branch=master)](https://app.travis-ci.com/IvanSavelyev/Restaurant-Voting-System)
 
 Restaurant Voting Api
