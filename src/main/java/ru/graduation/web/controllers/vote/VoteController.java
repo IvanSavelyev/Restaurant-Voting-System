@@ -77,17 +77,34 @@ public class VoteController {
     @DeleteMapping("/clear")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete() {
+    public void clear() {
         log.debug("Delete all votes");
         voteService.clear();
     }
 
+    @DeleteMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteByUserId(@RequestParam int userId) {
+        log.debug("Delete vote from userId: {} ", userId);
+        voteService.delete(userId);
+    }
+
     @GetMapping("/results")
     @ResponseStatus(HttpStatus.OK)
-    public String getResults(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
-        log.debug("get voting results");
+    public String getResultsByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
+        log.debug("get voting results by date {}", localDate);
         List<Vote> votes = voteService.getAllByDate(localDate);
         List<VoteTo> voteTos = votes.stream().map(VoteUtil::createTo).toList();
         return JsonUtil.writeValue(voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting())));
     }
+
+//    @GetMapping("/total")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String getResults() {
+//        log.debug("get voting results");
+//        List<Vote> votes = voteService.getAll();
+//        List<VoteTo> voteTos = votes.stream().map(VoteUtil::createTo).toList();
+//        return JsonUtil.writeValue(voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting())));
+//    }
 }

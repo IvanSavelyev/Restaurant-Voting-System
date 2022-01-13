@@ -3,8 +3,10 @@ package ru.graduation.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import ru.graduation.model.Restaurant;
 import ru.graduation.model.Vote;
 import ru.graduation.repository.VoteRepository;
+import ru.graduation.web.exeption.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,7 +41,15 @@ public class VoteService {
         voteRepository.delete();
     }
 
+    public void delete(int userId) throws NotFoundException {
+        checkNotFoundWithId(voteRepository.deleteByUserId(userId) != 0, userId);
+    }
+
     public boolean checkIfExistByUserId(int userId) {
         return voteRepository.existsByUserId(userId);
+    }
+
+    public List<Vote> getAll() {
+        return voteRepository.findAll();
     }
 }
