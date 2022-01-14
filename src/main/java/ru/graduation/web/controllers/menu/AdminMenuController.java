@@ -61,4 +61,10 @@ public class AdminMenuController extends AbstractMenuController {
         log.info("(Admin):Update menu with id {} and for restaurant {}", id, restaurantId);
         menuService.update(menu, restaurantId);
     }
+
+    @GetMapping("/{menuId}/with-dishes")
+    @ResponseStatus(HttpStatus.OK)
+    public Menu getWithDishes(@PathVariable int menuId) {
+        return super.getWithDishes(menuId);
+    }
 }

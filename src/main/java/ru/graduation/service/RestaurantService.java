@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.graduation.model.Restaurant;
 import ru.graduation.repository.RestaurantRepository;
@@ -21,6 +22,7 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
+    @Transactional(readOnly = true)
     public Restaurant get(int id) {
         return restaurantRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found with " + id));
     }
@@ -31,6 +33,7 @@ public class RestaurantService {
     }
 
     @Cacheable("restaurants")
+    @Transactional(readOnly = true)
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll();
     }

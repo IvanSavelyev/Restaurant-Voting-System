@@ -2,6 +2,7 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.graduation.model.Vote;
 import ru.graduation.repository.VoteRepository;
@@ -16,6 +17,11 @@ import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 public class VoteService {
 
     private final VoteRepository voteRepository;
+
+    @Transactional(readOnly = true)
+    public List<Vote> getAll(){
+        return voteRepository.findAll();
+    }
 
     public Vote getByUserId(int userId) {
         return checkNotFoundWithId(voteRepository.findByUserId(userId), userId);
@@ -41,5 +47,9 @@ public class VoteService {
 
     public boolean checkIfExistByUserId(int userId) {
         return voteRepository.existsByUserId(userId);
+    }
+
+    public void deleteByUserId(int userId){
+        checkNotFoundWithId(voteRepository.deleteByUserId(userId) != 0, userId);
     }
 }

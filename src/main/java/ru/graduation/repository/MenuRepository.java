@@ -26,4 +26,7 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
     @Transactional
     @Secured(("ROLE_ADMIN"))
     Menu save(Menu menu);
+
+    @Query("SELECT m FROM Menu m JOIN FETCH m.dishes WHERE m.id=?1")
+    Menu getWithDishes(int id);
 }

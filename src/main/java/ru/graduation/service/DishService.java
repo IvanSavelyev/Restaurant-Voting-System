@@ -2,6 +2,7 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.graduation.model.Dish;
 import ru.graduation.repository.DishRepository;
@@ -40,6 +41,7 @@ public class DishService {
         checkNotFoundWithId(dishRepository.deleteByIdAndMenuId(id, menuId) != 0, id);
     }
 
+    @Transactional(readOnly = true)
     public Dish get(int id) {
         return dishRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found with" + id));
     }

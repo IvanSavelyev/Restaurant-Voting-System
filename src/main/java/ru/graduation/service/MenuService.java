@@ -2,6 +2,7 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.graduation.model.Menu;
 import ru.graduation.repository.MenuRepository;
@@ -19,6 +20,7 @@ public class MenuService {
 
     private final RestaurantService restaurantService;
 
+    @Transactional(readOnly = true)
     public Menu get(int id) {
         return menuRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found with" + id));
     }
@@ -41,5 +43,9 @@ public class MenuService {
 
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(menuRepository.delete(id) != 0, id);
+    }
+
+    public Menu getWithDishes(int id){
+        return checkNotFoundWithId(menuRepository.getWithDishes(id), id);
     }
 }

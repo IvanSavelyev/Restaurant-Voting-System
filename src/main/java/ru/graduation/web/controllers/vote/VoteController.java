@@ -22,6 +22,7 @@ import ru.graduation.web.exeption.MultiplyVoteException;
 import ru.graduation.web.exeption.NotChangeYouMindException;
 import ru.graduation.web.json.JsonUtil;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -52,7 +53,7 @@ public class VoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Vote> create(@RequestParam int restaurantId) {
+    public ResponseEntity<Vote> create(@Valid @RequestParam int restaurantId) {
         Restaurant restaurant = restaurantService.get(restaurantId);
         if (!voteService.checkIfExistByUserId(SecurityUtil.authId())) {
             return new ResponseEntity<>(voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authId()))), HttpStatus.CREATED);
@@ -82,11 +83,19 @@ public class VoteController {
         voteService.clear();
     }
 
+    @DeleteMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteByUserId(@RequestParam int userId) {
+        log.debug("Delete vote with userId: {}", userId);
+        voteService.deleteByUserId(userId);
+    }
+
     @GetMapping("/results")
     @ResponseStatus(HttpStatus.OK)
-    public String getResults(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
+    public String getResults() {
         log.debug("get voting results");
-        List<Vote> votes = voteService.getAllByDate(localDate);
+        List<Vote> votes = voteService.getAll();
         List<VoteTo> voteTos = votes.stream().map(VoteUtil::createTo).toList();
         return JsonUtil.writeValue(voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting())));
     }

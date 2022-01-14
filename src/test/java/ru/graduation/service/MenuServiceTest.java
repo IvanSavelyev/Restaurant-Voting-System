@@ -69,7 +69,7 @@ public class MenuServiceTest {
 
     @Test
     void getWithDishes() {
-        Menu menu = menuService.get(MENU1_ID);
+        Menu menu = menuService.getWithDishes(MENU1_ID);
         MENU_WITH_DISHES_MATCHER.assertMatch(menu, menu1);
     }
 }

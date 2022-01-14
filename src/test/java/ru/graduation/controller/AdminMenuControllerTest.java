@@ -107,4 +107,14 @@ public class AdminMenuControllerTest extends AbstractControllerTest {
         newMenu.setId(newId);
         MENU_MATCHER.assertMatch(menuService.get(newId), newMenu);
     }
+
+    @Test
+    void getWithDishes() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + MENU1_ID + "/with-dishes")
+                .with(TestUtil.userHttpBasic(admin)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MENU_WITH_DISHES_MATCHER.contentJson(menu1));
+    }
 }
