@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serial;
@@ -30,12 +31,13 @@ public class User extends AbstractNamedEntity implements Serializable {
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String email;
 
     @Column(name = "password", nullable = false)
     @Size(max = 256)
+    @NotBlank
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -45,7 +47,6 @@ public class User extends AbstractNamedEntity implements Serializable {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-//    @BatchSize(size = 200)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Role> roles;
 
