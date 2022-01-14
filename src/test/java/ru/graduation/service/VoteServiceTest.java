@@ -71,4 +71,10 @@ public class VoteServiceTest {
         assertTrue(voteService.checkIfExistByUserId(user.id()));
         assertFalse(voteService.checkIfExistByUserId(USER_NOT_FOUND));
     }
+
+    @Test
+    void deleteByUserId() {
+        voteService.deleteByUserId(user.id());
+        assertThrows(NotFoundException.class, () -> voteService.getByUserId(user.id()));
+    }
 }

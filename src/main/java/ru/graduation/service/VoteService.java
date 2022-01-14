@@ -19,7 +19,7 @@ public class VoteService {
     private final VoteRepository voteRepository;
 
     @Transactional(readOnly = true)
-    public List<Vote> getAll(){
+    public List<Vote> getAll() {
         return voteRepository.findAll();
     }
 
@@ -49,7 +49,7 @@ public class VoteService {
         return voteRepository.existsByUserId(userId);
     }
 
-    public void deleteByUserId(int userId){
+    public void deleteByUserId(int userId) {
         checkNotFoundWithId(voteRepository.deleteByUserId(userId) != 0, userId);
     }
 }

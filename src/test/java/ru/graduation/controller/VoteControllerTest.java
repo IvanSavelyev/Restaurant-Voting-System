@@ -20,7 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.graduation.testdata.UserTestData.*;
-import static ru.graduation.testdata.VoteTestData.*;
+import static ru.graduation.testdata.VoteTestData.VOTE_MATCHER;
+import static ru.graduation.testdata.VoteTestData.votes;
 import static ru.graduation.web.controllers.vote.VoteController.VOTE_REST_URL;
 
 public class VoteControllerTest extends AbstractControllerTest {
@@ -71,7 +72,6 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(status().isLocked());
     }
 
-    //
     @Test
     void update() throws Exception {
         Vote updated = VoteTestData.getUpdated();
@@ -101,6 +101,14 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Test
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL + "clear")
+                .with(TestUtil.userHttpBasic(admin)))
+                .andExpect(status().isNoContent());
+        assertThrows(NotFoundException.class, () -> voteService.getByUserId(user3.id()));
+    }
+
+    @Test
+    void deleteUserId() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL).param("userId", String.valueOf(user3.id()))
                 .with(TestUtil.userHttpBasic(admin)))
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> voteService.getByUserId(user3.id()));
