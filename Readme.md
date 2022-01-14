@@ -25,6 +25,19 @@ As a result, provide a link to github repository. It should contain the code, RE
 P.S.: Make sure everything works with latest version that is on github :)
 P.P.S.: Assume that your API will be used by a frontend developer to build frontend on top of that.
 
+##Installing
+    git clone https://github.com/IvanSavelyev/Restaurant-Voting-System.git
+
+##Run
+    mvn spring-boot:run
+
+## In memory DB credentials
+    -jdbc:h2:mem:voting
+    -jdbc:h2:tcp://localhost:9092/mem:voting
+    -username=sa
+    -password=
+    
+
 So, all available users and credentials are present in current table.
 
 
