@@ -36,6 +36,12 @@ public class AdminMenuController extends AbstractMenuController {
         return super.getById(id);
     }
 
+    @GetMapping("/with-dishes/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Menu getWithDishes(@PathVariable int id) {
+        return super.getWithDishes(id);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {

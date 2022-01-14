@@ -16,6 +16,9 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     List<Menu> findByRestaurantId(int restaurantId);
 
+    @Query("SELECT m FROM Menu m JOIN FETCH m.dishes WHERE m.id=?1")
+    Menu getWithDishes(int id);
+
     @Modifying
     @Transactional
     @Query("DELETE FROM Menu m WHERE m.id=?1")

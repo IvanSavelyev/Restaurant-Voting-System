@@ -30,4 +30,10 @@ public class MenuController extends AbstractMenuController {
     public Menu get(@PathVariable int menuId) {
         return super.getById(menuId);
     }
+
+    @GetMapping("/with-dishes/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Menu getWithDishes(@PathVariable int id) {
+        return super.getWithDishes(id);
+    }
 }

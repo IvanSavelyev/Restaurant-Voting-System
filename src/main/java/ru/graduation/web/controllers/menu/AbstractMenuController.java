@@ -22,4 +22,9 @@ public abstract class AbstractMenuController {
         log.debug("Get menus with id : {}", id);
         return menuService.get(id);
     }
+
+    public Menu getWithDishes(int id) {
+        log.debug("Get menus with dishes with id : {}", id);
+        return menuService.getWithDishes(id);
+    }
 }

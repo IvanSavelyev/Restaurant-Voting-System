@@ -27,6 +27,10 @@ public class MenuService {
         return checkNotFoundWithId(menuRepository.findByRestaurantId(restaurantId), restaurantId);
     }
 
+    public Menu getWithDishes(int id) {
+        return checkNotFoundWithId(menuRepository.getWithDishes(id), id);
+    }
+
     public Menu create(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
         menu.setRestaurant(restaurantService.get(restaurantId));

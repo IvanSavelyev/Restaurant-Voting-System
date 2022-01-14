@@ -31,8 +31,9 @@ public class Menu extends AbstractNamedEntity {
     @DateTimeFormat(pattern = DATE_FORMAT_PATTERN)
     private LocalDate date;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @JsonManagedReference
+    @ToString.Exclude
     private List<Dish> dishes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
