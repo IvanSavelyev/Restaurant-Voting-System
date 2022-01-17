@@ -18,7 +18,6 @@ public class VoteService {
 
     private final VoteRepository voteRepository;
 
-    @Transactional(readOnly = true)
     public List<Vote> getAll() {
         return voteRepository.findAll();
     }

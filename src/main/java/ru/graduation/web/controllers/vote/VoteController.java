@@ -53,7 +53,7 @@ public class VoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Vote> create(@Valid @RequestParam int restaurantId) {
+    public ResponseEntity<Vote> create(@RequestParam int restaurantId) {
         Restaurant restaurant = restaurantService.get(restaurantId);
         if (!voteService.checkIfExistByUserId(SecurityUtil.authId())) {
             return new ResponseEntity<>(voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authId()))), HttpStatus.CREATED);
