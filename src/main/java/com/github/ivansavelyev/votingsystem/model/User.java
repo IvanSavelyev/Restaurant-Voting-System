@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
@@ -31,12 +32,14 @@ public class User extends AbstractNamedEntity implements Serializable {
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
+    @NotNull
     @Size(max = 128)
     private String email;
 
     @Column(name = "password", nullable = false)
     @Size(max = 256)
     @NotBlank
+    @NotNull
     private String password;
 
     @Enumerated(EnumType.STRING)
