@@ -18,14 +18,14 @@ import ru.graduation.to.VoteTo;
 import ru.graduation.util.SecurityUtil;
 import ru.graduation.util.TimeUtil;
 import ru.graduation.util.VoteUtil;
-import ru.graduation.web.exeption.MultiplyVoteException;
-import ru.graduation.web.exeption.NotChangeYouMindException;
+import ru.graduation.web.exeption.VoteException;
 import ru.graduation.web.json.JsonUtil;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static ru.graduation.web.controllers.vote.VoteController.VOTE_REST_URL;
@@ -46,32 +46,48 @@ public class VoteController {
 
     private final VoteService voteService;
 
+    //    List<Integer> deletedVoteUserIds;
+    Map<Integer, LocalDateTime> deletedVotesMap;
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Vote> getAllByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN) @RequestParam(value = "localDate", defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
+    public List<Vote> getAllByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN)
+                                   @RequestParam(value = "localDate",
+                                           defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
         return voteService.getAllByDate(localDate);
     }
 
     @PostMapping
     public ResponseEntity<Vote> create(@RequestParam int restaurantId) {
+        LocalDateTime deletedLocalDateTime = deletedVotesMap.get(SecurityUtil.authId());
+        if (deletedLocalDateTime != null) {
+            if (deletedLocalDateTime.toLocalDate().isEqual(LocalDate.now())) {
+                throw new VoteException("You already vote for today");
+            } else {
+                deletedVotesMap.remove(SecurityUtil.authId());
+            }
+        }
         Restaurant restaurant = restaurantService.get(restaurantId);
         if (!voteService.checkIfExistByUserId(SecurityUtil.authId())) {
-            return new ResponseEntity<>(voteService.create(new Vote(restaurant, userService.get(SecurityUtil.authId()))), HttpStatus.CREATED);
+            return new ResponseEntity<>(voteService.create(
+                    new Vote(restaurant, userService.get(SecurityUtil.authId()))), HttpStatus.CREATED);
         } else {
-            throw new MultiplyVoteException("You can't vote more then once");
+            throw new VoteException("You can't vote more then once");
         }
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestParam int restaurantId) {
-        LocalTime nowTime = LocalTime.now();
-        if (TimeUtil.isBetween(nowTime)) {
+        if (!voteService.checkIfExistByUserId(SecurityUtil.authId())) {
+            throw new VoteException("You are not voted yet, use post method for voting");
+        }
+        if (TimeUtil.isBetween(LocalTime.now())) {
             Vote vote = voteService.getByUserId(SecurityUtil.authId());
             vote.setRestaurant(restaurantService.get(restaurantId));
             voteService.update(vote);
         } else {
-            throw new NotChangeYouMindException("Too late to change your mind");
+            throw new VoteException("Too late to change your mind");
         }
     }
 
@@ -89,7 +105,9 @@ public class VoteController {
     public void deleteByUserId(@RequestParam int userId) {
         log.debug("Delete vote with userId: {}", userId);
         voteService.deleteByUserId(userId);
+        deletedVotesMap.putIfAbsent(userId, LocalDateTime.now());
     }
+
 
     @GetMapping("/results")
     @ResponseStatus(HttpStatus.OK)

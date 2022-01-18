@@ -69,7 +69,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newVote)))
                 .andDo(print())
-                .andExpect(status().isLocked());
+                .andExpect(status().isConflict());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
-                .andExpect(TimeUtil.isBetween(LocalTime.now()) ? status().isNoContent() : status().isForbidden());
+                .andExpect(TimeUtil.isBetween(LocalTime.now()) ? status().isNoContent() : status().isConflict());
         VOTE_MATCHER.assertMatch(voteService.getByUserId(user3.id()),
                 TimeUtil.isBetween(LocalTime.now()) ? VoteTestData.getUpdated() : VoteTestData.vote5);
     }

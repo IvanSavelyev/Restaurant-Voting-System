@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 
 import static org.springframework.boot.web.error.ErrorAttributeOptions.Include.MESSAGE;
 
-public class MultiplyVoteException extends AppException {
-    public MultiplyVoteException(String message) {
-        super(HttpStatus.LOCKED, message, ErrorAttributeOptions.of(MESSAGE));
+public class VoteException extends AppException {
+    public VoteException(String message) {
+        super(HttpStatus.CONFLICT, message, ErrorAttributeOptions.of(MESSAGE));
     }
 }
