@@ -18,18 +18,17 @@ import javax.validation.constraints.NotNull;
 @ToString(callSuper = true)
 public class Dish extends AbstractNamedEntity {
 
-    @Column(name = "price", nullable = false, columnDefinition = "Decimal(10,2)")
-    private float price;
+    @Column(name = "price", nullable = false)
+    private int price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
     @JsonBackReference
-    @NotNull
     private Menu menu;
 
-    public Dish(Integer id, String name, float price) {
+    public Dish(Integer id, String name, int price) {
         super(id, name);
         this.price = price;
     }

@@ -2,11 +2,13 @@ package ru.graduation.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.graduation.model.Dish;
 import ru.graduation.repository.DishRepository;
 import ru.graduation.repository.MenuRepository;
+import ru.graduation.to.DishTo;
+import ru.graduation.util.DishUtil;
+import ru.graduation.util.ValidationUtil;
 import ru.graduation.web.exeption.NotFoundException;
 
 import java.util.List;
@@ -22,14 +24,21 @@ public class DishService {
 
     private final MenuRepository menuRepository;
 
-    public Dish create(Dish dish, int menuId) {
-        Assert.notNull(dish, "dish must not be null");
+    public Dish create(DishTo dishTo) {
+        Assert.notNull(dishTo, "dishTo must not be null");
+        Dish dish = DishUtil.createFromTo(dishTo);
+        Integer menuId = dishTo.getMenuId();
+        ValidationUtil.checkNew(DishUtil.createFromTo(dishTo));
         dish.setMenu(menuRepository.getById(menuId));
         return dishRepository.save(dish);
     }
 
-    public void update(Dish dish, int menuId) {
-        Assert.notNull(dish, "dish must not be null");
+    public void update(DishTo dishTo, int id) {
+        Assert.notNull(dishTo, "dishTo must not be null");
+        Dish dish = DishUtil.createFromTo(dishTo);
+        dish.setId(id);
+        Integer menuId = dishTo.getMenuId();
+        ValidationUtil.assureIdConsistent(dish, dish.getId());
         dish.setMenu(menuRepository.getById(menuId));
         dishRepository.save(dish);
     }

@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.lang.NonNull;
 import ru.graduation.HasId;
+import ru.graduation.model.AbstractBaseEntity;
 import ru.graduation.web.exeption.IllegalRequestDataException;
 import ru.graduation.web.exeption.NotFoundException;
 

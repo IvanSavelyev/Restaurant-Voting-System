@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.graduation.model.Dish;
 import ru.graduation.service.DishService;
+import ru.graduation.to.DishTo;
+import ru.graduation.util.DishUtil;
 import ru.graduation.util.ValidationUtil;
 
 import javax.validation.Valid;
@@ -30,12 +32,14 @@ public class AdminDishController {
     private final DishService dishService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dish> get(@PathVariable int id) {
+    @ResponseStatus(HttpStatus.OK)
+    public Dish get(@PathVariable int id) {
         log.debug("(Admin):Get dish with id : {}", id);
-        return new ResponseEntity<>(dishService.get(id), HttpStatus.OK);
+        return dishService.get(id);
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Dish> getByMenuId(@RequestParam int menuId) {
         log.debug("(Admin):Get dishes by menuId : {}", menuId);
         return dishService.getAllByMenuId(menuId);
@@ -50,17 +54,18 @@ public class AdminDishController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Dish dish, @RequestParam int menuId, @PathVariable int id) {
-        log.debug("(Admin):Update dish with id {} for menuId: {}", id, menuId);
-        ValidationUtil.assureIdConsistent(dish, id);
-        dishService.update(dish, menuId);
+    public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
+//        log.debug("(Admin):Update dish with id {} for menuId: {}", id, menuId);
+
+        dishService.update(dishTo, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish, @RequestParam int menuId) {
-        log.debug("(Admin):Creating new dish for menuId {}", menuId);
-        ValidationUtil.checkNew(dish);
-        Dish created = dishService.create(dish, menuId);
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody DishTo dishTo) {
+
+//        log.debug("(Admin):Creating new dish for menuId {}", menuId);
+
+        Dish created = dishService.create(dishTo);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_DISH_REST_URL + "/{menuId}")
                 .buildAndExpand(created.getId()).toUri();

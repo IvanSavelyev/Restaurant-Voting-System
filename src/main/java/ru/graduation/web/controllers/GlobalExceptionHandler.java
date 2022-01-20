@@ -17,7 +17,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.graduation.util.ValidationUtil;
 import ru.graduation.web.exeption.AppException;
-import ru.graduation.web.exeption.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Map;
@@ -40,12 +39,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> entityNotFoundException(WebRequest request, EntityNotFoundException ex) {
         log.error("EntityNotFoundException: {}", ex.getMessage());
-        return createResponseEntity(request, ErrorAttributeOptions.of(MESSAGE), null, HttpStatus.UNPROCESSABLE_ENTITY);
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<?> notFoundException(WebRequest request, AppException ex) {
-        log.error("NotFoundException: {}", ex.getMessage());
         return createResponseEntity(request, ErrorAttributeOptions.of(MESSAGE), null, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 

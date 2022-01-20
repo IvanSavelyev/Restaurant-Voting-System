@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.TimingExtension;
-import ru.graduation.model.Vote;
-import ru.graduation.testdata.VoteTestData;
 import ru.graduation.web.exeption.NotFoundException;
 
 import java.time.LocalDate;

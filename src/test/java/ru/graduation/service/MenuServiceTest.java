@@ -13,7 +13,6 @@ import ru.graduation.web.exeption.NotFoundException;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.graduation.testdata.DishTestData.DISH1_ID;
 import static ru.graduation.testdata.MenuTestData.*;
-import static ru.graduation.testdata.RestaurantTestData.RESTAURANT_ID;
 
 @SpringBootTest
 @Transactional

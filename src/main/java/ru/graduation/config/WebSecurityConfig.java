@@ -30,7 +30,6 @@ import java.util.Optional;
 @EnableWebSecurity
 @Slf4j
 @AllArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();

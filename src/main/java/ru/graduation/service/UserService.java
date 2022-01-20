@@ -1,7 +1,6 @@
 package ru.graduation.service;
 
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -45,7 +44,6 @@ public class UserService implements UserDetailsService {
 
     public User get(int id) {
         return getFromOptional(repository.findById(id), id);
-//        return checkNotFoundWithId(repository.findById(id), id);
     }
 
     public User getByEmail(String email) {
