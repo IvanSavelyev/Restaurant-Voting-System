@@ -19,8 +19,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static ru.graduation.util.UserUtil.prepareToSave;
-import static ru.graduation.util.ValidationUtil.checkNotFound;
-import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
+import static ru.graduation.util.ValidationUtil.*;
 
 
 @Service("UserService")
@@ -45,7 +44,8 @@ public class UserService implements UserDetailsService {
     }
 
     public User get(int id) {
-        return checkNotFoundWithId(repository.findById(id), id);
+        return getFromOptional(repository.findById(id), id);
+//        return checkNotFoundWithId(repository.findById(id), id);
     }
 
     public User getByEmail(String email) {
@@ -53,7 +53,6 @@ public class UserService implements UserDetailsService {
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
-    @Cacheable("users")
     public List<User> getAll() {
         return repository.findAll();
     }

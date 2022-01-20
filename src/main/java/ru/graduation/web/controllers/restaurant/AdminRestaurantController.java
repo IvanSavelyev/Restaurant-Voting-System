@@ -8,10 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.graduation.model.Menu;
 import ru.graduation.model.Restaurant;
 import ru.graduation.util.ValidationUtil;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 import static ru.graduation.web.controllers.restaurant.AdminRestaurantController.ADMIN_RESTAURANT_REST_URL;
@@ -21,21 +24,18 @@ import static ru.graduation.web.controllers.restaurant.AdminRestaurantController
 @AllArgsConstructor
 @Slf4j
 @Tag(name = "Admin Restaurant Controller")
-
 public class AdminRestaurantController extends AbstractRestaurantController {
 
-    public final static String ADMIN_RESTAURANT_REST_URL = "api/admin/rest/restaurants";
+    public static final  String ADMIN_RESTAURANT_REST_URL = "api/admin/rest/restaurants";
 
     @Override
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
     }
 
     @Override
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public List<Restaurant> getAll() {
         return super.getAll();
     }
@@ -52,6 +52,17 @@ public class AdminRestaurantController extends AbstractRestaurantController {
         ValidationUtil.checkNew(restaurant);
         log.info("create {}", restaurant);
         return new ResponseEntity<>(restaurantService.create(restaurant), HttpStatus.CREATED);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
+        log.debug("(Admin):Creating new restaurant");
+        ValidationUtil.checkNew(restaurant);
+        Restaurant created = restaurantService.create(restaurant);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(ADMIN_RESTAURANT_REST_URL + "/{restaurantId}")
+                .buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

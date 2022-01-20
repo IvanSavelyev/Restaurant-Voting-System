@@ -22,16 +22,14 @@ import static ru.graduation.web.controllers.menu.AdminMenuController.ADMIN_MENU_
 @Tag(name = "Admin Menu Controller")
 public class AdminMenuController extends AbstractMenuController {
 
-    public final static String ADMIN_MENU_REST_URL = "api/admin/rest/menus";
+    public static final  String ADMIN_MENU_REST_URL = "api/admin/rest/menus";
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Menu> getAllMenusByRestaurantId(@RequestParam int restaurantId) {
-        return super.getAllMenusByRestaurantId(restaurantId);
+    public Menu getMenuByRestaurantId(@RequestParam int restaurantId) {
+        return super.getMenuByRestaurantId(restaurantId);
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public Menu get(@PathVariable int id) {
         return super.getById(id);
     }
@@ -63,7 +61,6 @@ public class AdminMenuController extends AbstractMenuController {
     }
 
     @GetMapping("/{menuId}/with-dishes")
-    @ResponseStatus(HttpStatus.OK)
     public Menu getWithDishes(@PathVariable int menuId) {
         return super.getWithDishes(menuId);
     }

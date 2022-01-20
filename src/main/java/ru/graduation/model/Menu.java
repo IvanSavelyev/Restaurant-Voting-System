@@ -13,18 +13,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static ru.graduation.util.TimeUtil.DATE_FORMAT_PATTERN;
 
 @Entity
-@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "restaurant_id"}, name = "unique_menu")})
+@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(
+        columnNames = {"menu_date", "restaurant_id"},
+        name = "unique_restaurant_menu_date")})
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class Menu extends AbstractNamedEntity {
+public class Menu extends AbstractBaseEntity {
 
     @Column(name = "menu_date", nullable = false)
     @NotNull
@@ -33,23 +35,24 @@ public class Menu extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @JsonManagedReference
-    private List<Dish> dishes = new ArrayList<>();
+    @ToString.Exclude
+    private Set<Dish> dishes = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
     @JsonIgnore
+    @NotNull
     private Restaurant restaurant;
 
-
-    public Menu(Integer id, String name, LocalDate date) {
-        super(id, name);
+    public Menu(Integer id, LocalDate date) {
+        super(id);
         this.date = date;
     }
 
-    public Menu(Integer id, String name, LocalDate date, List<Dish> dishes) {
-        this(id, name, date);
+    public Menu(Integer id, LocalDate date, Set<Dish> dishes) {
+        this(id, date);
         this.dishes = dishes;
     }
 }

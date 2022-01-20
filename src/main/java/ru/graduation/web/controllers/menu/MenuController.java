@@ -17,22 +17,19 @@ import static ru.graduation.web.controllers.menu.MenuController.MENU_REST_URL;
 @Tag(name = "Menu Controller")
 public class MenuController extends AbstractMenuController {
 
-    public final static String MENU_REST_URL = "api/rest/menus";
+    public static final String MENU_REST_URL = "api/rest/menus";
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Menu> getAllMenusByRestaurantId(@RequestParam int restaurantId) {
-        return super.getAllMenusByRestaurantId(restaurantId);
+    public Menu getAllMenusByRestaurantId(@RequestParam int restaurantId) {
+        return super.getMenuByRestaurantId(restaurantId);
     }
 
     @GetMapping("/{menuId}")
-    @ResponseStatus(HttpStatus.OK)
     public Menu get(@PathVariable int menuId) {
         return super.getById(menuId);
     }
 
     @GetMapping("/{menuId}/with-dishes")
-    @ResponseStatus(HttpStatus.OK)
     public Menu getWithDishes(@PathVariable int menuId) {
         return super.getWithDishes(menuId);
     }

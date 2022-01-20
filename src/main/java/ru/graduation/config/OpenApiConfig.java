@@ -11,18 +11,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@SecurityScheme(
-        name = "basicAuth",
-        type = SecuritySchemeType.HTTP,
-        scheme = "basic"
-)
+//@SecurityScheme(
+//        name = "basicAuth",
+//        type = SecuritySchemeType.HTTP,
+//        scheme = "basic"
+//)
 @OpenAPIDefinition(
         info = @Info(
                 title = "Restaurant voting REST API documentation",
                 description = "Spring Boot приложение, для голосования за рестораны",
                 contact = @Contact(name = "Savel'ev Ivan", email = "ivsound93@gmail.com")
-        ),
-        security = @SecurityRequirement(name = "basicAuth")
+        )
+//        security = @SecurityRequirement(name = "basicAuth")
 )
 public class OpenApiConfig {
 

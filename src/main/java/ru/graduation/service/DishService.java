@@ -12,6 +12,7 @@ import ru.graduation.web.exeption.NotFoundException;
 import java.util.List;
 
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
+import static ru.graduation.util.ValidationUtil.getFromOptional;
 
 @Service("DishService")
 @AllArgsConstructor
@@ -23,30 +24,25 @@ public class DishService {
 
     public Dish create(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        dish.setMenu(menuRepository.findById(menuId).orElseThrow(() -> new NotFoundException("Not found with " + menuId)));
-        return checkNotFoundWithId(dishRepository.save(dish), dish.id());
+        dish.setMenu(menuRepository.getById(menuId));
+        return dishRepository.save(dish);
     }
 
     public void update(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        dish.setMenu(menuRepository.findById(menuId).orElseThrow(() -> new NotFoundException("Not found with " + menuId)));
-        checkNotFoundWithId(dishRepository.save(dish), dish.id());
+        dish.setMenu(menuRepository.getById(menuId));
+        dishRepository.save(dish);
     }
 
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(dishRepository.deleteById(id) != 0, id);
     }
 
-    public void delete(int id, int menuId) throws NotFoundException {
-        checkNotFoundWithId(dishRepository.deleteByIdAndMenuId(id, menuId) != 0, id);
-    }
-
-    @Transactional(readOnly = true)
     public Dish get(int id) {
-        return dishRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found with" + id));
+        return getFromOptional(dishRepository.findById(id), id);
     }
 
     public List<Dish> getAllByMenuId(int menuId) {
-        return checkNotFoundWithId(dishRepository.findAllByMenuId(menuId), menuId);
+        return dishRepository.findAllByMenuId(menuId);
     }
 }

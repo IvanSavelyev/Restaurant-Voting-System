@@ -2,7 +2,6 @@ package ru.graduation.testdata;
 
 import ru.graduation.MatcherFactory;
 import ru.graduation.model.Vote;
-import ru.graduation.to.VoteTo;
 
 import java.util.List;
 
@@ -12,8 +11,6 @@ import static ru.graduation.testdata.UserTestData.user5;
 
 public class VoteTestData {
     public static final MatcherFactory.Matcher<Vote> VOTE_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Vote.class, "restaurant", "user");
-
-    public static final MatcherFactory.Matcher<VoteTo> VOTE_TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(VoteTo.class);
 
     public static final int NOT_FOUND_VOTE_USER_ID = 5000;
     public static final int VOTE_ID = 1;

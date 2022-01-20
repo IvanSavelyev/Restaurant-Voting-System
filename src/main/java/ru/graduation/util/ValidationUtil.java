@@ -3,16 +3,14 @@ package ru.graduation.util;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.core.NestedExceptionUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.validation.BindingResult;
 import ru.graduation.HasId;
 import ru.graduation.web.exeption.IllegalRequestDataException;
 import ru.graduation.web.exeption.NotFoundException;
 
 import javax.validation.*;
+import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @UtilityClass
 public class ValidationUtil {
@@ -76,11 +74,7 @@ public class ValidationUtil {
         return rootCause != null ? rootCause : t;
     }
 
-    public static ResponseEntity<String> getErrorResponse(BindingResult result) {
-        return ResponseEntity.unprocessableEntity().body(
-                result.getFieldErrors().stream()
-                        .map(fe -> String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
-                        .collect(Collectors.joining("<br>"))
-        );
+    public static <T> T getFromOptional(Optional<T> opt, int id) {
+        return opt.orElseThrow(() -> new NotFoundException("Not found with" + id));
     }
 }

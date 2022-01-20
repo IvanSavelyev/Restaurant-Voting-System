@@ -14,6 +14,7 @@ import ru.graduation.web.exeption.NotFoundException;
 import java.util.List;
 
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
+import static ru.graduation.util.ValidationUtil.getFromOptional;
 
 @Service("RestaurantService")
 @Slf4j
@@ -22,9 +23,8 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
-    @Transactional(readOnly = true)
     public Restaurant get(int id) {
-        return restaurantRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found with " + id));
+        return getFromOptional(restaurantRepository.findById(id), id);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)

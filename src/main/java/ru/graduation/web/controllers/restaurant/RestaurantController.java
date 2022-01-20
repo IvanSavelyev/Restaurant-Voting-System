@@ -18,18 +18,16 @@ import static ru.graduation.web.controllers.restaurant.RestaurantController.REST
 
 public class RestaurantController extends AbstractRestaurantController {
 
-    public final static String RESTAURANT_REST_URL = "api/rest/restaurants";
+    public static final  String RESTAURANT_REST_URL = "api/rest/restaurants";
 
     @Override
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
     }
 
     @Override
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public List<Restaurant> getAll() {
         return super.getAll();
     }

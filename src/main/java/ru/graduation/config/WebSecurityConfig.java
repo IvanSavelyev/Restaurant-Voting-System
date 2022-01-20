@@ -61,9 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/account/register").anonymous()
+                .antMatchers("/api/account").anonymous()
                 .antMatchers("/api/account").hasRole(Role.USER.name())
-                .antMatchers("/api/votes").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                 .antMatchers("/api/rest/**").hasRole(Role.USER.name())
                 .antMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
                 .and().httpBasic()
@@ -72,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public static BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

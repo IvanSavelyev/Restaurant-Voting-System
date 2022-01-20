@@ -25,19 +25,17 @@ import static ru.graduation.web.controllers.dish.AdminDishController.ADMIN_DISH_
 @Tag(name = "Dish Controller")
 public class AdminDishController {
 
-    public final static String ADMIN_DISH_REST_URL = "api/admin/rest/dishes";
+    public static final String ADMIN_DISH_REST_URL = "api/admin/rest/dishes";
 
     private final DishService dishService;
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Dish> get(@PathVariable int id) {
         log.debug("(Admin):Get dish with id : {}", id);
         return new ResponseEntity<>(dishService.get(id), HttpStatus.OK);
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public List<Dish> getByMenuId(@RequestParam int menuId) {
         log.debug("(Admin):Get dishes by menuId : {}", menuId);
         return dishService.getAllByMenuId(menuId);
@@ -45,9 +43,9 @@ public class AdminDishController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id, @RequestParam int menuId) {
-        log.debug("(Admin):Delete dish with id: {} in menuId: {}", id, menuId);
-        dishService.delete(id, menuId);
+    public void deleteById(@PathVariable int id) {
+        log.debug("(Admin):Delete dish with id: {}", id);
+        dishService.delete(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -18,10 +18,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("DELETE FROM User u WHERE u.id=?1")
     int delete(int id);
 
-    @Transactional
     User getByEmail(String email);
-
-    User findById(int id);
 
     @RestResource(rel = "by-email", path = "by-email")
     @Query("SELECT u FROM User u WHERE u.email = LOWER(:email)")

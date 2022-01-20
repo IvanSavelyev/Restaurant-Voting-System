@@ -8,18 +8,20 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.model.Restaurant;
 
+import java.util.List;
+
 @Repository
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
-    @Override
     @Transactional
-    @Secured(("ROLE_ADMIN"))
     Restaurant save(Restaurant restaurant);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Restaurant r WHERE r.id=?1")
-    @Secured(("ROLE_ADMIN"))
     int delete(int id);
+
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.menu m JOIN FETCH m.dishes")
+    List<Restaurant> getAllWithMenuAndDishes();
 }

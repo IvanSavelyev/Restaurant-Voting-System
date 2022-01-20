@@ -13,7 +13,7 @@ public abstract class AbstractMenuController {
     @Autowired
     protected MenuService menuService;
 
-    public List<Menu> getAllMenusByRestaurantId(int restaurantId) {
+    public Menu getMenuByRestaurantId(int restaurantId) {
         log.debug("Get menus with from restaurantId : {}", restaurantId);
         return menuService.getByRestaurantId(restaurantId);
     }
