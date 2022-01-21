@@ -27,7 +27,6 @@ public class AdminRestaurantController extends AbstractRestaurantController {
 
     public static final  String ADMIN_RESTAURANT_REST_URL = "api/admin/rest/restaurants";
 
-    @Override
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
@@ -45,7 +44,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     }
 
     @GetMapping("/{id}/full-info")
-    public List<Restaurant> getFullInfoById(@PathVariable int id) {
+    public Restaurant getFullInfoById(@PathVariable int id) {
         return super.getAllWithMenusAndDishesById(id);
     }
 
@@ -65,8 +64,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
-        log.debug("(Admin):Creating new restaurant");
-        ValidationUtil.checkNew(restaurant);
+        log.debug("Creating new restaurant");
         Restaurant created = restaurantService.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_RESTAURANT_REST_URL + "/{restaurantId}")
@@ -77,8 +75,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
-        ValidationUtil.assureIdConsistent(restaurant, id);
         log.info("update {} with id={}", restaurant, id);
-        restaurantService.update(restaurant);
+        restaurantService.update(restaurant, id);
     }
 }

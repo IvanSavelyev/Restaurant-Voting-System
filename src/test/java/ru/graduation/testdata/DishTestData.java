@@ -3,7 +3,10 @@ package ru.graduation.testdata;
 import ru.graduation.MatcherFactory;
 import ru.graduation.model.Dish;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DishTestData {
     public static final MatcherFactory.Matcher<Dish> DISH_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Dish.class, "menu");
@@ -17,8 +20,16 @@ public class DishTestData {
     public static final Dish dish10 = new Dish(DISH1_ID + 9, "Sunday roast", 554);
     public static final Dish dish13 = new Dish(DISH1_ID + 12, "Summer pudding", 111);
     public static final Dish dish16 = new Dish(DISH1_ID + 15, "Bangers and mash", 444);
-    public static final List<Dish> dishes = List.of(dish1, dish4, dish7, dish10, dish13, dish16);
+    public static final List<Dish> dishes = new ArrayList<>();//Set.of(dish1, dish4, dish7, dish10, dish13, dish16);
 
+    static {
+        dishes.add(dish1);
+        dishes.add(dish4);
+        dishes.add(dish7);
+        dishes.add(dish10);
+        dishes.add(dish13);
+        dishes.add(dish16);
+    }
     public static Dish getUpdated() {
         return new Dish(DISH1_ID, "Updated", 999);
     }

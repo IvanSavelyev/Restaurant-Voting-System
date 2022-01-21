@@ -17,13 +17,8 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
     @Transactional
     Vote save(Vote vote);
 
-    Vote findByUserId(int userId);
-
     boolean existsByUserId(int userId);
 
-    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.voteDate=?1")
-    List<Vote> findAllByVoteDate(LocalDate localDate);
-
-    @Transactional
-    int deleteByUserId(int userId);
+    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.user.id=?1 AND v.voteDate=?2")
+    Vote findUserAndDate(int userId, LocalDate localDate);
 }

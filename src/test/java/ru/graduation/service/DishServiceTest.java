@@ -8,6 +8,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.TimingExtension;
 import ru.graduation.model.Dish;
+import ru.graduation.to.DishTo;
+import ru.graduation.util.DishUtil;
 import ru.graduation.web.exeption.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,17 +37,6 @@ public class DishServiceTest {
     }
 
     @Test
-    void deleteByIdAndMenuId() {
-//        dishService.delete(DISH1_ID, MENU1_ID);
-//        assertThrows(NotFoundException.class, () -> dishService.get(DISH1_ID));
-    }
-
-    @Test
-    void deleteNotFoundByIdAndMenuId() {
-//        assertThrows(NotFoundException.class, () -> dishService.delete(NOT_FOUND_DISH, NOT_FOUND_MENU));
-    }
-
-    @Test
     void get() {
         DISH_MATCHER.assertMatch(dishService.get(DISH1_ID), dish1);
     }
@@ -62,18 +53,22 @@ public class DishServiceTest {
 
     @Test
     void update() {
-//        Dish updated = getUpdated();
-//        dishService.update(updated, MENU1_ID);
-//        DISH_MATCHER.assertMatch(dishService.get(DISH1_ID), getUpdated());
+        Dish updated = getUpdated();
+        DishTo updatedDishTo = DishUtil.createTo(updated);
+        updatedDishTo.setMenuId(MENU1_ID);
+        dishService.update(updatedDishTo, updatedDishTo.getId());
+        DISH_MATCHER.assertMatch(dishService.get(DISH1_ID), getUpdated());
     }
 
     @Test
     void create() {
-//        Dish created = dishService.create(getNew(), MENU1_ID);
-//        int newId = created.id();
-//        Dish newDish = getNew();
-//        newDish.setId(newId);
-//        DISH_MATCHER.assertMatch(created, newDish);
-//        DISH_MATCHER.assertMatch(dishService.get(newId), newDish);
+        DishTo createdDishTo = DishUtil.createTo(getNew());
+        createdDishTo.setMenuId(MENU1_ID);
+        Dish created = dishService.create(createdDishTo);
+        int newId = created.id();
+        Dish newDish = getNew();
+        newDish.setId(newId);
+        DISH_MATCHER.assertMatch(created, newDish);
+        DISH_MATCHER.assertMatch(dishService.get(newId), newDish);
     }
 }

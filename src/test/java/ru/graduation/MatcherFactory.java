@@ -1,6 +1,5 @@
 package ru.graduation;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;

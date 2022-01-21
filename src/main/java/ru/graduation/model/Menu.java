@@ -14,8 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static ru.graduation.util.TimeUtil.DATE_FORMAT_PATTERN;
 
@@ -36,7 +35,7 @@ public class Menu extends AbstractBaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @ToString.Exclude
-    private Set<Dish> dishes = new HashSet<>();
+    private List<Dish> dishes = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -51,7 +50,7 @@ public class Menu extends AbstractBaseEntity {
         this.date = date;
     }
 
-    public Menu(Integer id, LocalDate date, Set<Dish> dishes) {
+    public Menu(Integer id, LocalDate date, List<Dish> dishes) {
         this(id, date);
         this.dishes = dishes;
     }

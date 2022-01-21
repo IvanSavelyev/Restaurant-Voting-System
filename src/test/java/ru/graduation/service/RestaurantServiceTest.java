@@ -29,7 +29,7 @@ public class RestaurantServiceTest {
     }
 
     @Test
-    void deleteNotFoundById() {
+    void deleteNotFound() {
         assertThrows(NotFoundException.class, () -> restaurantService.delete(NOT_FOUND_RESTAURANT));
     }
 
@@ -51,7 +51,7 @@ public class RestaurantServiceTest {
     @Test
     void update() {
         Restaurant updated = getUpdated();
-        restaurantService.update(updated);
+        restaurantService.update(updated, RESTAURANT_ID);
         RESTAURANT_MATCHER.assertMatch(restaurantService.get(RESTAURANT_ID), getUpdated());
     }
 
@@ -64,4 +64,15 @@ public class RestaurantServiceTest {
         RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
         RESTAURANT_MATCHER.assertMatch(restaurantService.get(newId), newRestaurant);
     }
+
+    @Test
+    void getAllWithMenusAndDishes() {
+        RESTAURANT_MATCHER_WITH_MENU_AND_DISHES.assertMatch(
+                restaurantService.getAllWithMenusAndDishesById(RESTAURANT_ID), restaurant1);
+    }
+
+    @Test
+    void getAllWithMenusAndDishesById() {
+    }
 }
+

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.graduation.model.Restaurant;
 import ru.graduation.repository.RestaurantRepository;
+import ru.graduation.util.ValidationUtil;
 import ru.graduation.web.exeption.NotFoundException;
 
 import java.util.List;
@@ -33,8 +34,8 @@ public class RestaurantService {
     }
 
     @Cacheable("restaurants")
-    public List<Restaurant> getAllWithMenusAndDishesById(int id) {
-        return restaurantRepository.getAllWithMenuAndDishes(id);
+    public Restaurant getAllWithMenusAndDishesById(int id) {
+        return checkNotFoundWithId(restaurantRepository.getAllWithMenuAndDishes(id), id);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
@@ -50,12 +51,14 @@ public class RestaurantService {
     @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
+        ValidationUtil.checkNew(restaurant);
         return restaurantRepository.save(restaurant);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
-    public void update(Restaurant restaurant) {
+    public void update(Restaurant restaurant, int id) {
         Assert.notNull(restaurant, "restaurant must not be null");
+        ValidationUtil.assureIdConsistent(restaurant, id);
         restaurantRepository.save(restaurant);
     }
 }

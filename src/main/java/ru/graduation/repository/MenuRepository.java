@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.model.Menu;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -27,6 +28,9 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
     @Query("SELECT m FROM Menu m JOIN FETCH m.dishes WHERE m.id=?1")
     Menu getWithDishes(int id);
 
-    @Query("SELECT m FROM Menu m JOIN FETCH m.dishes WHERE m.restaurant.id=?1")
-    Menu getWithDishesByRestaurantId(int restaurantId);
+//    @Query("SELECT m FROM Menu m JOIN FETCH m.dishes WHERE m.restaurant.id=?1")
+//    List<Menu> getWithDishesByRestaurantId(int restaurantId);
+
+    @Query("SELECT m FROM Menu m JOIN FETCH m.dishes WHERE m.date=?1 AND m.restaurant.id=?2")
+    Menu getMenuByDateWithDishesAndRestaurantId(LocalDate localDate, int restaurantId);
 }

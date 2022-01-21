@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.graduation.model.Vote;
 import ru.graduation.service.VoteService;
+import ru.graduation.util.SecurityUtil;
 import ru.graduation.util.TimeUtil;
 
 import java.time.LocalDate;
@@ -30,10 +31,10 @@ public class VoteController {
     private final VoteService voteService;
 
     @GetMapping
-    public List<Vote> getAllByDate(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN)
+    public Vote getByDateAndUserId(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN)
                                    @RequestParam(value = "localDate",
                                            defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
-        return voteService.getAllByDate(localDate);
+        return voteService.getByUserIdAndAndVoteDate(SecurityUtil.authId(), localDate);
     }
 
     @PostMapping
@@ -46,14 +47,4 @@ public class VoteController {
     public void update(@RequestParam int restaurantId) {
         voteService.update(restaurantId);
     }
-
-//    @GetMapping("/results")
-//    public String getResults(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN)
-//                             @RequestParam(value = "localDate",
-//                                     defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
-//        log.debug("get voting results");
-//        List<Vote> votes = voteService.getAllByDate(localDate);
-//        List<VoteTo> voteTos = votes.stream().map(VoteUtil::createTo).toList();
-//        return JsonUtil.writeValue(voteTos.stream().collect(Collectors.groupingBy(VoteTo::getName, Collectors.counting())));
-//    }
 }

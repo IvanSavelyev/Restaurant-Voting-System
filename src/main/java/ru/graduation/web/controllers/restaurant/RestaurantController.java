@@ -20,7 +20,6 @@ public class RestaurantController extends AbstractRestaurantController {
 
     public static final  String RESTAURANT_REST_URL = "api/rest/restaurants";
 
-    @Override
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
@@ -31,4 +30,15 @@ public class RestaurantController extends AbstractRestaurantController {
     public List<Restaurant> getAll() {
         return super.getAll();
     }
+
+    @GetMapping("full-info")
+    public List<Restaurant> getFullInfo() {
+        return super.getAllWithMenusAndDishes();
+    }
+
+    @GetMapping("/{id}/full-info")
+    public Restaurant getFullInfoById(@PathVariable int id) {
+        return super.getAllWithMenusAndDishesById(id);
+    }
+
 }

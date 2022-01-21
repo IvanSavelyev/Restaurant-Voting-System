@@ -8,6 +8,10 @@ import ru.graduation.to.DishTo;
 public class DishUtil {
 
     public static Dish createFromTo(DishTo dishTo) {
-        return new Dish(dishTo.getId(), dishTo.getName(), dishTo.getPrice());//, dish.getCalories());
+        return new Dish(dishTo.getId(), dishTo.getName(), dishTo.getPrice());
+    }
+
+    public static DishTo createTo(Dish dish) {
+        return new DishTo(dish.getId(), dish.getName(), dish.getPrice());
     }
 }

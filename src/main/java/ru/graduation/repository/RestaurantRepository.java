@@ -26,5 +26,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     List<Restaurant> getAllWithMenuAndDishes();
 
     @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH  r.menu m JOIN FETCH m.dishes WHERE r.id=?1")
-    List<Restaurant> getAllWithMenuAndDishes(int id);
+    Restaurant getAllWithMenuAndDishes(int id);
 }

@@ -25,12 +25,12 @@ public abstract class AbstractRestaurantController {
     }
 
     public List<Restaurant> getAllWithMenusAndDishes() {
-        log.debug("Get all restaurants");
+        log.debug("Get all restaurants with menu and dishes");
         return restaurantService.getAllWithMenusAndDishes();
     }
 
-    public List<Restaurant> getAllWithMenusAndDishesById(int id) {
-        log.debug("Get all restaurants");
+    public Restaurant getAllWithMenusAndDishesById(int id) {
+        log.debug("Get restaurants with menu and dishes with id: {}", id);
         return restaurantService.getAllWithMenusAndDishesById(id);
     }
 }
