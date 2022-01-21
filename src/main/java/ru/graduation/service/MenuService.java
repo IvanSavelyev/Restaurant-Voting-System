@@ -46,4 +46,9 @@ public class MenuService {
     public Menu getWithDishes(int id) {
         return checkNotFoundWithId(menuRepository.getWithDishes(id), id);
     }
+
+    public Menu getWithDishesByRestaurantId(int restaurantId) {
+        return checkNotFoundWithId(menuRepository.getWithDishes(restaurantId), restaurantId);
+    }
+
 }

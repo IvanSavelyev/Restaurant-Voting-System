@@ -27,4 +27,9 @@ public abstract class AbstractMenuController {
         log.debug("Get menu id: {} with dishes", id);
         return menuService.getWithDishes(id);
     }
+
+    public Menu getWithDishesByRestaurantId(int restaurantId) {
+//        log.debug("Get menu id: {} with dishes", id);
+        return menuService.getWithDishesByRestaurantId(restaurantId);
+    }
 }

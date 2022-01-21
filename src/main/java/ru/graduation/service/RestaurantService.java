@@ -16,7 +16,7 @@ import java.util.List;
 import static ru.graduation.util.ValidationUtil.checkNotFoundWithId;
 import static ru.graduation.util.ValidationUtil.getFromOptional;
 
-@Service("RestaurantService")
+@Service("restaurantService")
 @Slf4j
 @AllArgsConstructor
 public class RestaurantService {
@@ -27,13 +27,22 @@ public class RestaurantService {
         return getFromOptional(restaurantRepository.findById(id), id);
     }
 
+    @Cacheable("restaurants")
+    public List<Restaurant> getAllWithMenusAndDishes() {
+        return restaurantRepository.getAllWithMenuAndDishes();
+    }
+
+    @Cacheable("restaurants")
+    public List<Restaurant> getAllWithMenusAndDishesById(int id) {
+        return restaurantRepository.getAllWithMenuAndDishes(id);
+    }
+
     @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(restaurantRepository.delete(id) != 0, id);
     }
 
     @Cacheable("restaurants")
-    @Transactional(readOnly = true)
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll();
     }

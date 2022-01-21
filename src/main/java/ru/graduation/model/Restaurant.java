@@ -1,16 +1,13 @@
 package ru.graduation.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -29,6 +26,5 @@ public class Restaurant extends AbstractNamedEntity {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @ToString.Exclude
-    @JsonIgnore
     private Menu menu;
 }

@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.graduation.model.Menu;
 import ru.graduation.model.Restaurant;
 import ru.graduation.util.ValidationUtil;
 
@@ -38,6 +37,16 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     @GetMapping
     public List<Restaurant> getAll() {
         return super.getAll();
+    }
+
+    @GetMapping("full-info")
+    public List<Restaurant> getFullInfo() {
+        return super.getAllWithMenusAndDishes();
+    }
+
+    @GetMapping("/{id}/full-info")
+    public List<Restaurant> getFullInfoById(@PathVariable int id) {
+        return super.getAllWithMenusAndDishesById(id);
     }
 
     @DeleteMapping("/{id}")

@@ -2,6 +2,7 @@ package ru.graduation.web.controllers.restaurant;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.graduation.model.Restaurant;
 import ru.graduation.service.RestaurantService;
 
@@ -21,5 +22,15 @@ public abstract class AbstractRestaurantController {
     public List<Restaurant> getAll() {
         log.debug("Get all restaurants");
         return restaurantService.getAll();
+    }
+
+    public List<Restaurant> getAllWithMenusAndDishes() {
+        log.debug("Get all restaurants");
+        return restaurantService.getAllWithMenusAndDishes();
+    }
+
+    public List<Restaurant> getAllWithMenusAndDishesById(int id) {
+        log.debug("Get all restaurants");
+        return restaurantService.getAllWithMenusAndDishesById(id);
     }
 }

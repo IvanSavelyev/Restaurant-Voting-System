@@ -64,4 +64,9 @@ public class AdminMenuController extends AbstractMenuController {
     public Menu getWithDishes(@PathVariable int menuId) {
         return super.getWithDishes(menuId);
     }
+
+    @GetMapping("/with-dishes")
+    public Menu getWithDishesByRestaurantId(@RequestParam int restaurantId) {
+        return super.getWithDishesByRestaurantId(restaurantId);
+    }
 }

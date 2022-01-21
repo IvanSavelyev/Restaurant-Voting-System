@@ -1,12 +1,12 @@
 package ru.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(
@@ -25,7 +25,7 @@ public class Dish extends AbstractNamedEntity {
     @JoinColumn(name = "menu_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
-    @JsonBackReference
+    @JsonIgnore
     private Menu menu;
 
     public Dish(Integer id, String name, int price) {

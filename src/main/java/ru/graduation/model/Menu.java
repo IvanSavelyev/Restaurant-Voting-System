@@ -1,5 +1,6 @@
 package ru.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -34,7 +35,6 @@ public class Menu extends AbstractBaseEntity {
     private LocalDate date;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
-    @JsonManagedReference
     @ToString.Exclude
     private Set<Dish> dishes = new HashSet<>();
 
