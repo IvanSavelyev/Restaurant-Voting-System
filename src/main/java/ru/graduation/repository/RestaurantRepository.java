@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.model.Restaurant;
 
-import java.util.List;
-
 @Repository
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
@@ -21,9 +19,9 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Query("DELETE FROM Restaurant r WHERE r.id=?1")
     int delete(int id);
 
-    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH  r.menu m JOIN FETCH m.dishes")
-    List<Restaurant> getAllWithMenuAndDishes();
+//    @Query("SELECT r FROM Restaurant r LEFT JOIN FETCH r.menu m LEFT OUTER JOIN FETCH m.dishes")
+//    List<Restaurant> getAllWithMenuAndDishes();
 
-    @Query("SELECT DISTINCT r FROM Restaurant r INNER  JOIN FETCH r.menu m LEFT  JOIN FETCH m.dishes WHERE r.id=?1")
-    Restaurant getAllWithMenuAndDishes(int id);
+//    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.menu m JOIN FETCH m.dishes WHERE r.id=?1")
+//    Restaurant getAllWithMenuAndDishes(int id);
 }

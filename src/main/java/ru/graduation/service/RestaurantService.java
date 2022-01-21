@@ -27,15 +27,15 @@ public class RestaurantService {
         return getFromOptional(restaurantRepository.findById(id), id);
     }
 
-    @Cacheable("restaurants")
-    public List<Restaurant> getAllWithMenusAndDishes() {
-        return restaurantRepository.getAllWithMenuAndDishes();
-    }
-
 //    @Cacheable("restaurants")
-    public Restaurant getAllWithMenusAndDishesById(int id) {
-        return checkNotFoundWithId(restaurantRepository.getAllWithMenuAndDishes(id), id);
-    }
+//    public List<Restaurant> getAllWithMenusAndDishes() {
+//        return restaurantRepository.getAllWithMenuAndDishes();
+//    }
+
+////    @Cacheable("restaurants")
+//    public Restaurant getAllWithMenusAndDishesById(int id) {
+//        return checkNotFoundWithId(restaurantRepository.getAllWithMenuAndDishes(id), id);
+//    }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id) throws NotFoundException {

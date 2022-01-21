@@ -2,9 +2,11 @@ package ru.graduation.web.controllers.restaurant;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.graduation.model.Restaurant;
 
 import java.util.List;
@@ -31,14 +33,14 @@ public class RestaurantController extends AbstractRestaurantController {
         return super.getAll();
     }
 
-    @GetMapping("full-info")
-    public List<Restaurant> getFullInfo() {
-        return super.getAllWithMenusAndDishes();
-    }
+//    @GetMapping("full-info")
+//    public List<Restaurant> getFullInfo() {
+//        return super.getAllWithMenusAndDishes();
+//    }
 
-    @GetMapping("/{id}/full-info")
-    public Restaurant getFullInfoById(@PathVariable int id) {
-        return super.getAllWithMenusAndDishesById(id);
-    }
+//    @GetMapping("/{id}/full-info")
+//    public Restaurant getFullInfoById(@PathVariable int id) {
+//        return super.getAllWithMenusAndDishesById(id);
+//    }
 
 }

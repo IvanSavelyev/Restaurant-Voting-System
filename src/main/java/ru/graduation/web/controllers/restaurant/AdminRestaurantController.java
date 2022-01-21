@@ -38,15 +38,15 @@ public class AdminRestaurantController extends AbstractRestaurantController {
         return super.getAll();
     }
 
-    @GetMapping("full-info")
-    public List<Restaurant> getFullInfo() {
-        return super.getAllWithMenusAndDishes();
-    }
+//    @GetMapping("full-info")
+//    public List<Restaurant> getFullInfo() {
+//        return super.getAllWithMenusAndDishes();
+//    }
 
-    @GetMapping("/{id}/full-info")
-    public Restaurant getFullInfoById(@PathVariable int id) {
-        return super.getAllWithMenusAndDishesById(id);
-    }
+//    @GetMapping("/{id}/full-info")
+//    public Restaurant getFullInfoById(@PathVariable int id) {
+//        return super.getAllWithMenusAndDishesById(id);
+//    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

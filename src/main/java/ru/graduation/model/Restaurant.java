@@ -5,8 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import java.util.List;
 
 
 @Entity
@@ -23,7 +29,8 @@ public class Restaurant extends AbstractNamedEntity {
         super(id, name);
     }
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant")
     @ToString.Exclude
-    private Menu menu;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Menu> menu;
 }

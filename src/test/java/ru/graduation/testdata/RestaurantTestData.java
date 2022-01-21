@@ -28,7 +28,7 @@ public class RestaurantTestData {
                         throw new UnsupportedOperationException();
                     });
     static {
-        restaurant1.setMenu(menu1);
+        restaurant1.setMenu(List.of(menu1));
     }
 
     public static Restaurant getUpdated() {
