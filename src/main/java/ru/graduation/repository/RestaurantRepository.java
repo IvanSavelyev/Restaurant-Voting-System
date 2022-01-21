@@ -3,7 +3,6 @@ package ru.graduation.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduation.model.Restaurant;
@@ -25,6 +24,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH  r.menu m JOIN FETCH m.dishes")
     List<Restaurant> getAllWithMenuAndDishes();
 
-    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH  r.menu m JOIN FETCH m.dishes WHERE r.id=?1")
+    @Query("SELECT DISTINCT r FROM Restaurant r INNER  JOIN FETCH r.menu m LEFT  JOIN FETCH m.dishes WHERE r.id=?1")
     Restaurant getAllWithMenuAndDishes(int id);
 }

@@ -2,10 +2,12 @@ package ru.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(
@@ -30,5 +32,18 @@ public class Dish extends AbstractNamedEntity {
     public Dish(Integer id, String name, int price) {
         super(id, name);
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Dish dish = (Dish) o;
+        return id != null && Objects.equals(id, dish.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

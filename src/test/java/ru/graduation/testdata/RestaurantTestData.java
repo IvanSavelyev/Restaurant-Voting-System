@@ -1,7 +1,6 @@
 package ru.graduation.testdata;
 
 import ru.graduation.MatcherFactory;
-import ru.graduation.model.Menu;
 import ru.graduation.model.Restaurant;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class RestaurantTestData {
     public static MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER_WITH_MENU_AND_DISHES =
             MatcherFactory.usingAssertions(Restaurant.class,
 //     No need use ignoringAllOverriddenEquals, see https://assertj.github.io/doc/#breaking-changes
-                    (a, e) -> assertThat(a).usingRecursiveComparison().ignoringFields("menu.restaurant", "dishes.menu").isEqualTo(e),
+                    (a, e) -> assertThat(a).usingRecursiveComparison().ignoringFields("menu.restaurant", "menu.dishes").isEqualTo(e),
                     (a, e) -> {
                         throw new UnsupportedOperationException();
                     });

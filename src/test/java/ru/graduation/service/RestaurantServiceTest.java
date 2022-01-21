@@ -67,8 +67,8 @@ public class RestaurantServiceTest {
 
     @Test
     void getAllWithMenusAndDishes() {
-        RESTAURANT_MATCHER_WITH_MENU_AND_DISHES.assertMatch(
-                restaurantService.getAllWithMenusAndDishesById(RESTAURANT_ID), restaurant1);
+        Restaurant restaurant = restaurantService.getAllWithMenusAndDishesById(RESTAURANT_ID);
+        RESTAURANT_MATCHER_WITH_MENU_AND_DISHES.assertMatch(restaurant, restaurant1);
     }
 
     @Test

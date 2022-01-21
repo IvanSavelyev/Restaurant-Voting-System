@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.graduation.model.Restaurant;
 import ru.graduation.repository.RestaurantRepository;
@@ -33,7 +32,7 @@ public class RestaurantService {
         return restaurantRepository.getAllWithMenuAndDishes();
     }
 
-    @Cacheable("restaurants")
+//    @Cacheable("restaurants")
     public Restaurant getAllWithMenusAndDishesById(int id) {
         return checkNotFoundWithId(restaurantRepository.getAllWithMenuAndDishes(id), id);
     }
