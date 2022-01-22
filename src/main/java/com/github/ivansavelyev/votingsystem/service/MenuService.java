@@ -30,10 +30,6 @@ public class MenuService {
         return getFromOptional(menuRepository.findById(id), id);
     }
 
-    public List<Menu> getByRestaurantId(int restaurantId) {
-        return menuRepository.findByRestaurantId(restaurantId);
-    }
-
     public Menu getByDateAndRestaurant(LocalDate localDate, int restaurantId) {
         return menuRepository.getMenuByDateAndRestaurantId(localDate, restaurantId);
     }

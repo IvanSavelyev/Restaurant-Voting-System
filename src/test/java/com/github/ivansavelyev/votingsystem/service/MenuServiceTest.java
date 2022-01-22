@@ -45,8 +45,8 @@ public class MenuServiceTest {
     }
 
     @Test
-    void getByRestaurantId() {
-        MENU_MATCHER.assertMatch(menuService.getByRestaurantId(RESTAURANT_ID), menu1);
+    void getCheckWithDish() {
+        MENU_WITH_DISHES_MATCHER.assertMatch(menuService.get(MENU1_ID), menu1);
     }
 
     @Test

@@ -33,11 +33,6 @@ public class AdminMenuController extends AbstractMenuController {
     }
 
     @GetMapping
-    public List<Menu> getByRestaurantId(@RequestParam int restaurantId) {
-        return super.getByRestaurantId(restaurantId);
-    }
-
-    @GetMapping("/with-dishes")
     public Menu getWithDishesByRestaurantIdAndDate(
             @RequestParam int restaurantId,
             @DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN)

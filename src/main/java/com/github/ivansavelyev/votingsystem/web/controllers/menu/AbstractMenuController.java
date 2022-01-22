@@ -14,11 +14,6 @@ public abstract class AbstractMenuController {
     @Autowired
     protected MenuService menuService;
 
-    public List<Menu> getByRestaurantId(int restaurantId) {
-        log.debug("Get menu from restaurantId : {}", restaurantId);
-        return menuService.getByRestaurantId(restaurantId);
-    }
-
     public Menu get(int id) {
         log.debug("Get menu with id : {}", id);
         return menuService.get(id);

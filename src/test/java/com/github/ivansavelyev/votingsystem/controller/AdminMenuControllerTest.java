@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDate;
+
 import static com.github.ivansavelyev.votingsystem.testdata.MenuTestData.*;
 import static com.github.ivansavelyev.votingsystem.testdata.RestaurantTestData.RESTAURANT_ID;
 import static com.github.ivansavelyev.votingsystem.testdata.UserTestData.admin;
@@ -61,30 +63,24 @@ public class AdminMenuControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getWithDishesByRestaurantIdAndDate() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL).param("restaurantId", "1").param("localDate", "")
+    void getByRestaurantIdAndDate() throws Exception {
+        ResultActions action = perform(MockMvcRequestBuilders.get(REST_URL).param("restaurantId", "1").param("localDate", "")
                 .with(TestUtil.userHttpBasic(admin)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MENU_MATCHER.contentJson(menu1));
+
+        Menu menuWithDish = MENU_MATCHER.readFromJson(action);
+        MENU_WITH_DISHES_MATCHER.assertMatch(menuWithDish, menu1);
     }
+
 
     @Test
     void getNotFound() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + NOT_FOUND_MENU)
                 .with(TestUtil.userHttpBasic(admin)))
                 .andExpect(status().isUnprocessableEntity());
-    }
-
-    @Test
-    void getByRestaurantId() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL).param("restaurantId", "1")
-                .with(TestUtil.userHttpBasic(admin)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MENU_MATCHER.contentJson(menu1));
     }
 
     @Test
