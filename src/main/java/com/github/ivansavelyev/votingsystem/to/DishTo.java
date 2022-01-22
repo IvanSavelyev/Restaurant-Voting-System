@@ -20,6 +20,7 @@ public class DishTo extends BaseTo {
     protected String name;
 
     @NotNull
+    @Positive
     protected Integer price;
 
     @NotNull

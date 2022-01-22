@@ -32,21 +32,21 @@ public class AdminDishController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Dish get(@PathVariable int id) {
-        log.debug("(Admin):Get dish with id : {}", id);
+        log.debug("Get dish with id : {}", id);
         return dishService.get(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Set<Dish> getByMenuId(@RequestParam int menuId) {
-        log.debug("(Admin):Get dishes by menuId : {}", menuId);
+        log.debug("Get dishes by menuId : {}", menuId);
         return dishService.getAllByMenuId(menuId);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        log.debug("(Admin):Delete dish with id: {}", id);
+        log.debug("Delete dish with id: {}", id);
         dishService.delete(id);
     }
 
