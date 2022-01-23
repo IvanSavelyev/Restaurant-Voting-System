@@ -5,7 +5,7 @@ import com.github.ivansavelyev.votingsystem.service.VoteService;
 import com.github.ivansavelyev.votingsystem.util.SecurityUtil;
 import com.github.ivansavelyev.votingsystem.util.TimeUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ import static com.github.ivansavelyev.votingsystem.web.controllers.vote.VoteCont
 
 @RestController
 @RequestMapping(value = VOTE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Vote Controller")
 public class VoteController {

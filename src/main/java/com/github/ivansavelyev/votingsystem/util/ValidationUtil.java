@@ -75,6 +75,6 @@ public class ValidationUtil {
     }
 
     public static <T> T getFromOptional(Optional<T> opt, int id) {
-        return opt.orElseThrow(() -> new NotFoundException("Not found with" + id));
+        return opt.orElseThrow(() -> new NotFoundException("Not found with " + id));
     }
 }

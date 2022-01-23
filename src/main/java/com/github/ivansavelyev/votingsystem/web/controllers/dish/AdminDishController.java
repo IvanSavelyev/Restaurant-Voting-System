@@ -4,7 +4,7 @@ import com.github.ivansavelyev.votingsystem.model.Dish;
 import com.github.ivansavelyev.votingsystem.service.DishService;
 import com.github.ivansavelyev.votingsystem.to.DishTo;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ import static com.github.ivansavelyev.votingsystem.web.controllers.dish.AdminDis
 
 @RestController
 @RequestMapping(value = ADMIN_DISH_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Dish Controller")
 public class AdminDishController {

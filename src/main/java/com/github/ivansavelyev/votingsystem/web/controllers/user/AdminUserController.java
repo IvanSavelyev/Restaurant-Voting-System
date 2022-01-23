@@ -4,8 +4,8 @@ import com.github.ivansavelyev.votingsystem.model.User;
 import com.github.ivansavelyev.votingsystem.service.UserService;
 import com.github.ivansavelyev.votingsystem.util.UserUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +23,12 @@ import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.checkNew;
 @RequestMapping(value = AdminUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @Tag(name = "Admin User Controller")
+@RequiredArgsConstructor
 public class AdminUserController {
 
     public static final String REST_URL = "/api/admin/users";
 
-    @Autowired
-    protected UserService userService;
+    private final UserService userService;
 
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {

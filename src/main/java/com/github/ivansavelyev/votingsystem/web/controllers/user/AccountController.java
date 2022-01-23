@@ -6,7 +6,7 @@ import com.github.ivansavelyev.votingsystem.model.User;
 import com.github.ivansavelyev.votingsystem.service.UserService;
 import com.github.ivansavelyev.votingsystem.util.ValidationUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
@@ -26,7 +26,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping(AccountController.URL)
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Account Controller")
 public class AccountController {

@@ -3,7 +3,6 @@ package com.github.ivansavelyev.votingsystem.web.controllers.restaurant;
 
 import com.github.ivansavelyev.votingsystem.model.Restaurant;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +18,6 @@ import static com.github.ivansavelyev.votingsystem.web.controllers.restaurant.Ad
 
 @RestController
 @RequestMapping(value = ADMIN_RESTAURANT_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-@AllArgsConstructor
 @Slf4j
 @Tag(name = "Admin Restaurant Controller")
 public class AdminRestaurantController extends AbstractRestaurantController {
