@@ -30,6 +30,7 @@ public class VoteController {
     private final VoteService voteService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public Vote getByDateAndUser(@DateTimeFormat(pattern = TimeUtil.DATE_FORMAT_PATTERN)
                                  @RequestParam(value = "localDate",
                                          defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
