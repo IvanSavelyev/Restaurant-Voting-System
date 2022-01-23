@@ -12,6 +12,7 @@ import java.time.LocalTime;
 
 import static com.github.ivansavelyev.votingsystem.util.TimeUtil.DEAD_LINE_TIME;
 import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.checkNotFoundWithId;
+import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.getFromOptional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class VoteService {
     public void update(int restaurantId, int userId) {
         if (voteRepository.existsByUserId(userId)) {
             if (LocalTime.now().isBefore(DEAD_LINE_TIME)) {
-                Vote vote = voteRepository.getById(userId);
+                Vote vote = getFromOptional(voteRepository.findById(userId), userId);
                 vote.setUser(userService.get(userId));
                 vote.setRestaurant(restaurantService.get(restaurantId));
                 voteRepository.save(vote);
