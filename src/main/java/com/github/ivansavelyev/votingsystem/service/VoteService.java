@@ -1,6 +1,8 @@
 package com.github.ivansavelyev.votingsystem.service;
 
 import com.github.ivansavelyev.votingsystem.model.Vote;
+import com.github.ivansavelyev.votingsystem.repository.RestaurantRepository;
+import com.github.ivansavelyev.votingsystem.repository.UserRepository;
 import com.github.ivansavelyev.votingsystem.repository.VoteRepository;
 import com.github.ivansavelyev.votingsystem.web.exeption.VoteException;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +14,6 @@ import java.time.LocalTime;
 
 import static com.github.ivansavelyev.votingsystem.util.TimeUtil.DEAD_LINE_TIME;
 import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.checkNotFoundWithId;
-import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.getFromOptional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +21,9 @@ public class VoteService {
 
     private final VoteRepository voteRepository;
 
-    private final RestaurantService restaurantService;
+    private final RestaurantRepository restaurantRepository;
 
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     public Vote getByUserIdAndAndVoteDate(int userId, LocalDate localDate) {
         return checkNotFoundWithId(voteRepository.findUserAndDate(userId, localDate), userId);
@@ -31,7 +32,7 @@ public class VoteService {
     @Transactional
     public Vote create(int restaurantId, int userId) {
         if (!voteRepository.existsByUserId(userId)) {
-            return voteRepository.save(new Vote(restaurantService.get(restaurantId), userService.get(userId)));
+            return voteRepository.save(new Vote(restaurantRepository.getById(restaurantId), userRepository.getById(userId)));
         } else {
             throw new VoteException("You can't vote more then once in day");
         }
@@ -41,9 +42,9 @@ public class VoteService {
     public void update(int restaurantId, int userId) {
         if (voteRepository.existsByUserId(userId)) {
             if (LocalTime.now().isBefore(DEAD_LINE_TIME)) {
-                Vote vote = getFromOptional(voteRepository.findById(userId), userId);
-                vote.setUser(userService.get(userId));
-                vote.setRestaurant(restaurantService.get(restaurantId));
+                Vote vote = voteRepository.findUserAndDate(userId, LocalDate.now());
+                vote.setUser(userRepository.getById(userId));
+                vote.setRestaurant(restaurantRepository.getById(restaurantId));
                 voteRepository.save(vote);
             } else {
                 throw new VoteException("Too late to change your mind");
