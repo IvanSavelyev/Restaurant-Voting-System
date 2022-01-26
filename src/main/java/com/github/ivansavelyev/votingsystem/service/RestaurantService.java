@@ -21,12 +21,12 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
-    @Cacheable("restaurants")
+//    @Cacheable(value = "restaurants", key = "{#id, #name}")
     public Restaurant get(int id) {
         return getFromOptional(restaurantRepository.findById(id), id);
     }
 
-    @Cacheable(value = "restaurants")
+    //    @Cacheable(value = "restaurants", key = "{#name}")
     public List<Restaurant> getAllWithMenusAndDishes() {
         return restaurantRepository.getAllWithMenuAndDishes();
     }

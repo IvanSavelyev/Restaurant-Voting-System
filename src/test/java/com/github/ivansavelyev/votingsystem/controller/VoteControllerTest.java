@@ -1,21 +1,19 @@
 package com.github.ivansavelyev.votingsystem.controller;
 
 import com.github.ivansavelyev.votingsystem.TestUtil;
-import com.github.ivansavelyev.votingsystem.model.Vote;
 import com.github.ivansavelyev.votingsystem.service.VoteService;
 import com.github.ivansavelyev.votingsystem.testdata.VoteTestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static com.github.ivansavelyev.votingsystem.testdata.UserTestData.*;
+import static com.github.ivansavelyev.votingsystem.testdata.UserTestData.user;
+import static com.github.ivansavelyev.votingsystem.testdata.UserTestData.user3;
 import static com.github.ivansavelyev.votingsystem.testdata.VoteTestData.VOTE_MATCHER;
-import static com.github.ivansavelyev.votingsystem.testdata.VoteTestData.vote1;
 import static com.github.ivansavelyev.votingsystem.util.TimeUtil.DEAD_LINE_TIME;
 import static com.github.ivansavelyev.votingsystem.web.controllers.vote.VoteController.VOTE_REST_URL;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -29,24 +27,24 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Autowired
     private VoteService voteService;
 
-    @Test
-    public void getByDateAndUser() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL).param("localDate", "")
-                .with(TestUtil.userHttpBasic(user)))
-                .andExpect(VOTE_MATCHER.contentJson(vote1));
-    }
+//    @Test
+//    public void getByDateAndUser() throws Exception {
+//        perform(MockMvcRequestBuilders.get(REST_URL).param("localDate", "")
+//                .with(TestUtil.userHttpBasic(user)))
+//                .andExpect(VOTE_MATCHER.contentJson(vote1));
+//    }
 
-    @Test
-    void create() throws Exception {
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL).param("restaurantId", "1")
-                .with(TestUtil.userHttpBasic(user5))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isCreated());
-
-        Vote created = VOTE_MATCHER.readFromJson(action);
-        VOTE_MATCHER.assertMatch(voteService.getByUserIdAndAndVoteDate(user5.id(), LocalDate.now()), created);
-    }
+//    @Test
+//    void create() throws Exception {
+//        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL).param("restaurantId", "1")
+//                .with(TestUtil.userHttpBasic(user5))
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andDo(print())
+//                .andExpect(status().isCreated());
+//
+//        Vote created = VOTE_MATCHER.readFromJson(action);
+//        VOTE_MATCHER.assertMatch(voteService.getByUserIdAndAndVoteDate(user5.id(), LocalDate.now()), created);
+//    }
 
     @Test
     void createMultiply() throws Exception {
