@@ -5,14 +5,12 @@ import com.github.ivansavelyev.votingsystem.repository.MenuRepository;
 import com.github.ivansavelyev.votingsystem.repository.RestaurantRepository;
 import com.github.ivansavelyev.votingsystem.to.MenuTo;
 import com.github.ivansavelyev.votingsystem.util.MenuUtil;
-import com.github.ivansavelyev.votingsystem.util.ValidationUtil;
 import com.github.ivansavelyev.votingsystem.web.exeption.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.getFromOptional;
@@ -36,7 +34,6 @@ public class MenuService {
 
     public Menu create(MenuTo menuTo) {
         Menu menu = checkAndGet(menuTo);
-        ValidationUtil.checkNew(menu);
         Integer restaurantId = menuTo.getRestaurantId();
         menu.setRestaurant(restaurantRepository.getById(restaurantId));
         return menuRepository.save(menu);
@@ -44,7 +41,6 @@ public class MenuService {
 
     public void update(MenuTo menuTo, int id) {
         Menu menu = checkAndGet(menuTo);
-        ValidationUtil.assureIdConsistent(menu, id);
         Integer restaurantId = menuTo.getRestaurantId();
         menu.setRestaurant(restaurantRepository.getById(restaurantId));
         menuRepository.save(menu);

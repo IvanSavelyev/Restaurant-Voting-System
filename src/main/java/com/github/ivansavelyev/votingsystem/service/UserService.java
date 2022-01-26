@@ -7,7 +7,6 @@ import com.github.ivansavelyev.votingsystem.to.UserTo;
 import com.github.ivansavelyev.votingsystem.util.UserUtil;
 import com.github.ivansavelyev.votingsystem.web.exeption.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,13 +28,11 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
 
-    @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
         return prepareAndSave(user);
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id) != 0, id);
     }
@@ -53,13 +50,11 @@ public class UserService implements UserDetailsService {
         return repository.findAll();
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         prepareAndSave(user);
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Transactional
     public void update(UserTo userTo) {
         User user = get(userTo.id());

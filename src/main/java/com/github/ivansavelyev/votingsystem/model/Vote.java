@@ -30,7 +30,6 @@ public class Vote extends AbstractBaseEntity {
     @NotNull
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)

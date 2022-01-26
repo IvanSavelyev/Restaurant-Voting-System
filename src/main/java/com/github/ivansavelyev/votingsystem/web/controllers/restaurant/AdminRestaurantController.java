@@ -2,6 +2,7 @@ package com.github.ivansavelyev.votingsystem.web.controllers.restaurant;
 
 
 import com.github.ivansavelyev.votingsystem.model.Restaurant;
+import com.github.ivansavelyev.votingsystem.util.ValidationUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.assureIdConsistent;
 import static com.github.ivansavelyev.votingsystem.web.controllers.restaurant.AdminRestaurantController.ADMIN_RESTAURANT_REST_URL;
 
 @RestController
@@ -35,12 +37,12 @@ public class AdminRestaurantController extends AbstractRestaurantController {
         return super.getAll();
     }
 
-    @GetMapping("full-info")
+    @GetMapping("with-menu")
     public List<Restaurant> getFullInfo() {
         return super.getAllWithMenusAndDishes();
     }
 
-    @GetMapping("/{id}/full-info")
+    @GetMapping("/{id}/with-menu")
     public Restaurant getFullInfoById(@PathVariable int id) {
         return super.getAllWithMenusAndDishesById(id);
     }
@@ -55,9 +57,10 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
         log.debug("Creating new restaurant");
+        ValidationUtil.checkNew(restaurant);
         Restaurant created = restaurantService.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(ADMIN_RESTAURANT_REST_URL + "/{restaurantId}")
+                .path(ADMIN_RESTAURANT_REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
@@ -66,6 +69,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
         log.info("update {} with id={}", restaurant, id);
+        assureIdConsistent(restaurant, id);
         restaurantService.update(restaurant, id);
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static com.github.ivansavelyev.votingsystem.web.controllers.vote.VoteController.VOTE_REST_URL;
 
@@ -35,6 +36,12 @@ public class VoteController {
                                  @RequestParam(value = "localDate",
                                          defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate localDate) {
         return voteService.getByUserIdAndAndVoteDate(SecurityUtil.authId(), localDate);
+    }
+
+    @GetMapping("/history")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Vote> getByUser() {
+        return voteService.getByUserId(SecurityUtil.authId());
     }
 
     @PostMapping

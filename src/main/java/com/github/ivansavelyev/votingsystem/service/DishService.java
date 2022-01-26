@@ -5,7 +5,6 @@ import com.github.ivansavelyev.votingsystem.repository.DishRepository;
 import com.github.ivansavelyev.votingsystem.repository.MenuRepository;
 import com.github.ivansavelyev.votingsystem.to.DishTo;
 import com.github.ivansavelyev.votingsystem.util.DishUtil;
-import com.github.ivansavelyev.votingsystem.util.ValidationUtil;
 import com.github.ivansavelyev.votingsystem.web.exeption.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,6 @@ public class DishService {
 
     public Dish create(DishTo dishTo) {
         Dish dish = checkAndGet(dishTo);
-        ValidationUtil.checkNew(dish);
         Integer menuId = dishTo.getMenuId();
         dish.setMenu(menuRepository.getById(menuId));
         return dishRepository.save(dish);
@@ -43,7 +41,6 @@ public class DishService {
 
     public void update(DishTo dishTo, int id) {
         Dish dish = checkAndGet(dishTo);
-        ValidationUtil.assureIdConsistent(dish, id);
         Integer menuId = dishTo.getMenuId();
         dish.setMenu(menuRepository.getById(menuId));
         dishRepository.save(dish);

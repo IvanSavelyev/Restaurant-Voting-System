@@ -3,6 +3,7 @@ package com.github.ivansavelyev.votingsystem.web.controllers.dish;
 import com.github.ivansavelyev.votingsystem.model.Dish;
 import com.github.ivansavelyev.votingsystem.service.DishService;
 import com.github.ivansavelyev.votingsystem.to.DishTo;
+import com.github.ivansavelyev.votingsystem.util.ValidationUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,12 +55,14 @@ public class AdminDishController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
         log.debug("Update dish from dishTo {} with dish id: {}", dishTo, id);
+        ValidationUtil.assureIdConsistent(dishTo, id);
         dishService.update(dishTo, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody DishTo dishTo) {
         log.debug("Creating new dish from dishTo:  {}", dishTo);
+        ValidationUtil.checkNew(dishTo);
         Dish created = dishService.create(dishTo);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_DISH_REST_URL + "/{menuId}")

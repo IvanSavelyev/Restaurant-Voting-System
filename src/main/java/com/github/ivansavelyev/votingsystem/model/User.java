@@ -29,7 +29,7 @@ public class User extends AbstractNamedEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     @Email
     @NotBlank
     @NotNull

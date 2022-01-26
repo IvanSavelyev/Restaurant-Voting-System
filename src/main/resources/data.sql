@@ -57,4 +57,10 @@ VALUES (CURRENT_DATE, 1, 1),
        (CURRENT_DATE, 2, 3),
        (CURRENT_DATE, 2, 4),
        (CURRENT_DATE, 1, 5),
-       (CURRENT_DATE, 1, 6);
+       (CURRENT_DATE, 1, 6),
+       (CURRENT_DATE + 1, 1, 1),
+       (CURRENT_DATE + 1, 1, 2),
+       (CURRENT_DATE + 1, 2, 3),
+       (CURRENT_DATE + 1, 2, 4),
+       (CURRENT_DATE + 1, 1, 5),
+       (CURRENT_DATE + 1, 1, 6);

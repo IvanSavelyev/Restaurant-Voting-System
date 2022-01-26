@@ -3,6 +3,7 @@ package com.github.ivansavelyev.votingsystem.web.controllers.menu;
 import com.github.ivansavelyev.votingsystem.model.Menu;
 import com.github.ivansavelyev.votingsystem.to.MenuTo;
 import com.github.ivansavelyev.votingsystem.util.TimeUtil;
+import com.github.ivansavelyev.votingsystem.util.ValidationUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,8 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.List;
 
+import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.assureIdConsistent;
 import static com.github.ivansavelyev.votingsystem.web.controllers.menu.AdminMenuController.ADMIN_MENU_REST_URL;
 
 @RestController
@@ -51,6 +52,7 @@ public class AdminMenuController extends AbstractMenuController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Menu> createWithLocation(@Valid @RequestBody MenuTo menuTo) {
         log.debug("Creating new menu from menuTo {}", menuTo);
+        ValidationUtil.checkNew(menuTo);
         Menu created = menuService.create(menuTo);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(ADMIN_MENU_REST_URL + "/{id}")
@@ -62,6 +64,7 @@ public class AdminMenuController extends AbstractMenuController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody MenuTo menuTo, @PathVariable int id) {
         log.info("Update menu with id {} from menuTo {}", id, menuTo);
+        assureIdConsistent(menuTo, id);
         menuService.update(menuTo, id);
     }
 }

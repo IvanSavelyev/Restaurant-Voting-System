@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import static com.github.ivansavelyev.votingsystem.util.TimeUtil.DEAD_LINE_TIME;
 import static com.github.ivansavelyev.votingsystem.util.ValidationUtil.checkNotFoundWithId;
@@ -27,6 +28,10 @@ public class VoteService {
 
     public Vote getByUserIdAndAndVoteDate(int userId, LocalDate localDate) {
         return checkNotFoundWithId(voteRepository.findUserAndDate(userId, localDate), userId);
+    }
+
+    public List<Vote> getByUserId(int userId) {
+        return voteRepository.findByUserIdWithRestaurant(userId);
     }
 
     @Transactional

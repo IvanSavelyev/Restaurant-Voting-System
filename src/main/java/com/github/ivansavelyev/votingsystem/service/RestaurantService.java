@@ -2,7 +2,6 @@ package com.github.ivansavelyev.votingsystem.service;
 
 import com.github.ivansavelyev.votingsystem.model.Restaurant;
 import com.github.ivansavelyev.votingsystem.repository.RestaurantRepository;
-import com.github.ivansavelyev.votingsystem.util.ValidationUtil;
 import com.github.ivansavelyev.votingsystem.web.exeption.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,11 +21,12 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
+    @Cacheable("restaurants")
     public Restaurant get(int id) {
         return getFromOptional(restaurantRepository.findById(id), id);
     }
 
-    @Cacheable("restaurants")
+    @Cacheable(value = "restaurants")
     public List<Restaurant> getAllWithMenusAndDishes() {
         return restaurantRepository.getAllWithMenuAndDishes();
     }
@@ -49,14 +49,12 @@ public class RestaurantService {
     @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        ValidationUtil.checkNew(restaurant);
         return restaurantRepository.save(restaurant);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     public void update(Restaurant restaurant, int id) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        ValidationUtil.assureIdConsistent(restaurant, id);
         restaurantRepository.save(restaurant);
     }
 }

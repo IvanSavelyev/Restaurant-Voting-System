@@ -32,12 +32,12 @@ public class RestaurantController extends AbstractRestaurantController {
         return super.getAll();
     }
 
-    @GetMapping("full-info")
+    @GetMapping("with-menu")
     public List<Restaurant> getFullInfo() {
         return super.getAllWithMenusAndDishes();
     }
 
-    @GetMapping("/{id}/full-info")
+    @GetMapping("/{id}/with-menu")
     public Restaurant getFullInfoById(@PathVariable int id) {
         return super.getAllWithMenusAndDishesById(id);
     }
